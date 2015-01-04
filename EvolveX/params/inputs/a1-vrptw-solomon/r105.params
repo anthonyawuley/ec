@@ -1,0 +1,175 @@
+# Copyright 2014 - Anthony Awuley
+# Brock University
+# Computer Science Department
+
+# GENERAL parameters
+number-of-experiments                 = 30
+generations                           = 400
+population-size                       = 500
+stop-when-solved                      = true
+crossover-probability                 = 0.9
+mutation-probability                  = 0.1
+selection-pressure                    = 0.9
+
+  
+# The chromosomes are fixed length structures and doesnt change to mutation and crossover. 
+# The initialiser will random create integer strings in this case of length specified
+initial-chromosome-size                = 100
+  
+# FITNESS function - Fitness function requires the full package name
+#fitness-function                       = fitnessevaluation.singleObjective.WeightedSum
+#fitness-function                       = fitnessevaluation.simplefitness.FitnessExperimental
+fitness-function                        = fitnessevaluation.vrptw.WS
+#fitness-function                       = fitnessevaluation.vrptw.SOR
+#fitness-function                        = fitnessevaluation.vrptw.PR
+
+# How many times the genotype is allowed to wrap
+max-repairs                           = 1
+
+# SELECTION
+selection-operation                   = operator.operations.selection.TournamentSelection
+tournament-size                       = 3
+ 
+# REPRODUCTION operators
+# Probability of crossover. State if the point of crossover is fixed on both chromosomes (The size will always be the same) or not
+mutation_operation                    = Operator.Operations.IntFlipMutation
+max_depth                             = 10
+grow-probability                      = 0.5
+elite-size                            = 5
+fixed-point-crossover                 = true
+tail_percentage                       = 0.5
+ 
+ 
+# EC
+main-class                           = main.Run
+
+
+# INITIALISATION - Specifies which module to use as an initialiser initial population. 
+initialiser                          = operator.initialiser.Initialise
+gene-representation                  = individuals.representation.VRPTW
+
+# REPLACEMENT
+replacement-operation                = operator.operations.replacement.Generational
+
+# CROSSOVER MODULE
+#crossover-operation                  = operator.crossover.CycleCrossover
+crossover-operation                  = operator.crossover.UniformOrderCrossover
+
+# MUTATION MODULE
+mutation-operation                   = operator.mutation.Inversion
+ 
+
+# Specification of output statistics files
+number-of-individuals                = 2
+#stats-operation                      = util.statistics.mop.ParethoStatistics
+#stats-operation                      = util.statistics.mop.SumOfRankStatistics
+stats-operation                      = util.statistics.BasicStatistics
+stat-out                             = r105
+ 
+ 
+#VRPTW CONFIGS
+nodes                                = 101
+vehicle-capacity                     = 200
+
+#CUST NO.   XCOORD.   YCOORD.    DEMAND   READY TIME   DUE DATE   SERVICE TIME
+node.1      35.00      35.00       0.00       0.00     230.00       0.00
+node.2      41.00      49.00      10.00     151.00     181.00      10.00
+node.3      35.00      17.00       7.00      40.00      70.00      10.00
+node.4      55.00      45.00      13.00     106.00     136.00      10.00
+node.5      55.00      20.00      19.00     139.00     169.00      10.00
+node.6      15.00      30.00      26.00      24.00      54.00      10.00
+node.7      25.00      30.00       3.00      89.00     119.00      10.00
+node.8      20.00      50.00       5.00      71.00     101.00      10.00
+node.9      10.00      43.00       9.00      85.00     115.00      10.00
+node.10      55.00      60.00      16.00      87.00     117.00      10.00
+node.11      30.00      60.00      16.00     114.00     144.00      10.00
+node.12      20.00      65.00      12.00      57.00      87.00      10.00
+node.13      50.00      35.00      19.00      53.00      83.00      10.00
+node.14      30.00      25.00      23.00     149.00     179.00      10.00
+node.15      15.00      10.00      20.00      32.00      62.00      10.00
+node.16      30.00       5.00       8.00      51.00      81.00      10.00
+node.17      10.00      20.00      19.00      65.00      95.00      10.00
+node.18       5.00      30.00       2.00     147.00     177.00      10.00
+node.19      20.00      40.00      12.00      77.00     107.00      10.00
+node.20      15.00      60.00      17.00      66.00      96.00      10.00
+node.21      45.00      65.00       9.00     116.00     146.00      10.00
+node.22      45.00      20.00      11.00      52.00      82.00      10.00
+node.23      45.00      10.00      18.00      87.00     117.00      10.00
+node.24      55.00       5.00      29.00      58.00      88.00      10.00
+node.25      65.00      35.00       3.00     143.00     173.00      10.00
+node.26      65.00      20.00       6.00     156.00     186.00      10.00
+node.27      45.00      30.00      17.00     122.00     152.00      10.00
+node.28      35.00      40.00      16.00      27.00      57.00      10.00
+node.29      41.00      37.00      16.00      29.00      59.00      10.00
+node.30      64.00      42.00       9.00      53.00      83.00      10.00
+node.31      40.00      60.00      21.00      61.00      91.00      10.00
+node.32      31.00      52.00      27.00      40.00      70.00      10.00
+node.33      35.00      69.00      23.00     131.00     161.00      10.00
+node.34      53.00      52.00      11.00      27.00      57.00      10.00
+node.35      65.00      55.00      14.00     107.00     137.00      10.00
+node.36      63.00      65.00       8.00     133.00     163.00      10.00
+node.37       2.00      60.00       5.00      41.00      71.00      10.00
+node.38      20.00      20.00       8.00     124.00     154.00      10.00
+node.39       5.00       5.00      16.00      73.00     103.00      10.00
+node.40      60.00      12.00      31.00      34.00      64.00      10.00
+node.41      40.00      25.00       9.00      75.00     105.00      10.00
+node.42      42.00       7.00       5.00      87.00     117.00      10.00
+node.43      24.00      12.00       5.00      25.00      55.00      10.00
+node.44      23.00       3.00       7.00     122.00     152.00      10.00
+node.45      11.00      14.00      18.00      59.00      89.00      10.00
+node.46       6.00      38.00      16.00      29.00      59.00      10.00
+node.47       2.00      48.00       1.00     107.00     137.00      10.00
+node.48       8.00      56.00      27.00      41.00      71.00      10.00
+node.49      13.00      52.00      36.00     155.00     185.00      10.00
+node.50       6.00      68.00      30.00      98.00     128.00      10.00
+node.51      47.00      47.00      13.00     114.00     144.00      10.00
+node.52      49.00      58.00      10.00      78.00     108.00      10.00
+node.53      27.00      43.00       9.00      42.00      72.00      10.00
+node.54      37.00      31.00      14.00      85.00     115.00      10.00
+node.55      57.00      29.00      18.00     130.00     160.00      10.00
+node.56      63.00      23.00       2.00     126.00     156.00      10.00
+node.57      53.00      12.00       6.00     120.00     150.00      10.00
+node.58      32.00      12.00       7.00      91.00     121.00      10.00
+node.59      36.00      26.00      18.00     180.00     210.00      10.00
+node.60      21.00      24.00      28.00      17.00      47.00      10.00
+node.61      17.00      34.00       3.00     152.00     182.00      10.00
+node.62      12.00      24.00      13.00      66.00      96.00      10.00
+node.63      24.00      58.00      19.00      48.00      78.00      10.00
+node.64      27.00      69.00      10.00      34.00      64.00      10.00
+node.65      15.00      77.00       9.00      63.00      93.00      10.00
+node.66      62.00      77.00      20.00      49.00      79.00      10.00
+node.67      49.00      73.00      25.00     117.00     147.00      10.00
+node.68      67.00       5.00      25.00      73.00     103.00      10.00
+node.69      56.00      39.00      36.00     132.00     162.00      10.00
+node.70      37.00      47.00       6.00      40.00      70.00      10.00
+node.71      37.00      56.00       5.00     168.00     198.00      10.00
+node.72      57.00      68.00      15.00      67.00      97.00      10.00
+node.73      47.00      16.00      25.00      25.00      55.00      10.00
+node.74      44.00      17.00       9.00      68.00      98.00      10.00
+node.75      46.00      13.00       8.00     139.00     169.00      10.00
+node.76      49.00      11.00      18.00      59.00      89.00      10.00
+node.77      49.00      42.00      13.00      63.00      93.00      10.00
+node.78      53.00      43.00      14.00     169.00     199.00      10.00
+node.79      61.00      52.00       3.00      86.00     116.00      10.00
+node.80      57.00      48.00      23.00      82.00     112.00      10.00
+node.81      56.00      37.00       6.00     168.00     198.00      10.00
+node.82      55.00      54.00      26.00      84.00     114.00      10.00
+node.83      15.00      47.00      16.00      45.00      75.00      10.00
+node.84      14.00      37.00      11.00      34.00      64.00      10.00
+node.85      11.00      31.00       7.00      91.00     121.00      10.00
+node.86      16.00      22.00      41.00      81.00     111.00      10.00
+node.87       4.00      18.00      35.00      84.00     114.00      10.00
+node.88      28.00      18.00      26.00      83.00     113.00      10.00
+node.89      26.00      52.00       9.00      64.00      94.00      10.00
+node.90      26.00      35.00      15.00     166.00     196.00      10.00
+node.91      31.00      67.00       3.00      85.00     115.00      10.00
+node.92      15.00      19.00       1.00     150.00     180.00      10.00
+node.93      22.00      22.00       2.00      18.00      48.00      10.00
+node.94      18.00      24.00      22.00     169.00     199.00      10.00
+node.95      26.00      27.00      27.00      90.00     120.00      10.00
+node.96      25.00      24.00      20.00      29.00      59.00      10.00
+node.97      22.00      27.00      11.00     125.00     155.00      10.00
+node.98      25.00      21.00      12.00     123.00     153.00      10.00
+node.99      19.00      21.00      10.00      48.00      78.00      10.00
+node.100      20.00      26.00       9.00      73.00     103.00      10.00
+node.101      18.00      18.00      17.00     165.00     195.00      10.00

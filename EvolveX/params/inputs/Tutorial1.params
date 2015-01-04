@@ -1,0 +1,55 @@
+# Copyright 2014 - Anthony Awuley
+# Brock University
+# Computer Science Department
+
+# GENERAL parameters
+number-of-experiments                 = 2
+generations                           = 50
+population-size                       = 10
+stop-when-solved                      = true
+crossover-probability                 = 0.9
+mutation-probability                  = 0.1
+
+
+# The chromosomes are fixed length structures and doesnt change to mutation and crossover. 
+# The initialiser will random create integer strings in this case of length specified
+initial-chromosome-size               = 100
+
+# FITNESS function - Fitness function requires the full package name
+fitness-function                      = fitnessEvaluation.simpleFitness.FitnessExperimental
+
+# How many times the genotype is allowed to wrap
+max-repairs                           = 1
+
+# SELECTION
+selection-operation                   = operator.operations.selection.TournamentSelection
+tournament-size                       = 3
+
+# REPRODUCTION operators
+# Probability of crossover. State if the point of crossover is fixed on both chromosomes (The size will always be the same) or not
+mutation_operation                    = Operator.Operations.IntFlipMutation
+max_depth                             = 10
+grow-probability                      = 0.5
+elite-size                            = 10
+fixed-point-crossover                 = true
+tail_percentage                       = 0.5
+
+ 
+# EC
+# The values in this file are the defualt values unless they are overriden by command-line arguments
+main-class                           = main.Run
+
+
+# INITIALISATION - Specifies which module to use as an initialiser initial population. 
+initialiser                          = operator.initialiser.Initialise
+
+
+# REPLACEMENT
+replacement-operation                = operator.operations.replacement.Generational
+#crossover-operation                  = operator.crossover.CycleCrossover
+mutation-operation                   = operator.mutation.Inversion
+
+
+# Specification of output statistics files
+number-of-individuals                = 1
+stat-out                             = output

@@ -1,0 +1,309 @@
+package island.connect;
+
+//File Name GreetingClient.java
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.InetAddress;
+import java.net.Socket;
+
+import util.Point;
+ 
+public class Client 
+{
+ 
+    private static Socket socket;
+    private String host;
+    private int port;
+    
+    
+ 
+    public Client(String h, int p)
+    {
+    	this.host = h;
+    	this.port = p;
+    }
+    
+    public void startClient()
+    {
+        try
+        {
+            
+            InetAddress address = InetAddress.getByName(this.host);
+            socket = new Socket(address, this.port);
+ 
+            
+            //Send the message to the server
+            OutputStream os = socket.getOutputStream();
+            OutputStreamWriter osw = new OutputStreamWriter(os);
+            BufferedWriter bw = new BufferedWriter(osw);
+ 
+            String number = "2";
+ 
+            String sendMessage = number + "\n";
+            bw.write(sendMessage);
+            bw.flush();
+            System.out.println("Message sent to the server : "+sendMessage);
+            
+            //Get the return message from the server
+            InputStream is = socket.getInputStream();
+            InputStreamReader isr = new InputStreamReader(is);
+            BufferedReader br = new BufferedReader(isr);
+            String message = br.readLine();
+            System.out.println("Message received from the server : " +message);
+        }
+        catch (Exception exception) 
+        {
+            exception.printStackTrace();
+        }
+        finally
+        {
+            //Closing the socket
+            try
+            {
+                socket.close();
+            }
+            catch(Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+    }
+
+	/**
+	 * @return the host
+	 */
+	public String getHost() {
+		return host;
+	}
+
+	/**
+	 * @param host the host to set
+	 */
+	public void setHost(String host) {
+		this.host = host;
+	}
+
+	/**
+	 * @return the port
+	 */
+	public int getPort() {
+		return port;
+	}
+
+	/**
+	 * @param port the port to set
+	 */
+	public void setPort(int port) {
+		this.port = port;
+	}
+}
+
+
+
+
+
+
+
+
+
+package island.connect;
+
+//File Name GreetingServer.java
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.InetAddress;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+import util.Point;
+ 
+public class Server extends Thread
+{
+ 
+    private static Socket socket;
+    private ServerSocket serverSocket;
+    
+    private String host;
+    private int backlog;
+    private int port;
+    
+ 
+    /**
+     * 
+     * @param host  InetAddress parameter specifies the local IP address to bind to The 
+     *              InetAddress is used for servers that may have multiple IP addresses, allowing the 
+     *              server to specify which of its IP addresses to accept client requests on
+     * @param backlog backlog parameter specifies how many incoming clients to store in a wait queue
+     * @param port
+     * @throws IOException
+     */
+    public Server(String h,int b, int p)
+    { 
+       this.host = h;
+       this.backlog = b;
+       this.port = p;
+    }
+    
+    
+    public Server()
+    {
+    	
+    }
+
+    
+    public void run() 
+    {
+        try
+        {
+ 
+            //int port = 25000;
+            //ServerSocket serverSocket = new ServerSocket(port);
+            System.out.println("Server Started and listening to the port "+ this.port);
+ 
+            //Server is running always. This is done using this while(true) loop
+            while(true) 
+            {
+                //Reading the message from the client
+            	
+                socket = serverSocket.accept();
+                InputStream is = socket.getInputStream();
+                InputStreamReader isr = new InputStreamReader(is);
+                
+                BufferedReader br = new BufferedReader(isr);
+                
+                String number = br.readLine();
+                 
+                System.out.println("Message received from client is "+pi.getY());
+ 
+                //Multiplying the number by 2 and forming the return message
+                String returnMessage;
+                try
+                {
+                    int numberInIntFormat = Integer.parseInt(number);
+                    int returnValue = numberInIntFormat*2;
+                    returnMessage = String.valueOf(returnValue) + "\n";
+                }
+                catch(NumberFormatException e)
+                {
+                    //Input was not a number. Sending proper message back to client.
+                    returnMessage = "Please send a proper number\n";
+                }
+ 
+                //Sending the response back to the client.
+                OutputStream os = socket.getOutputStream();
+                OutputStreamWriter osw = new OutputStreamWriter(os);
+                BufferedWriter bw = new BufferedWriter(osw);
+                bw.write(returnMessage);
+                System.out.println("Message sent to the client is "+returnMessage);
+                bw.flush();
+            }
+        }
+        catch (Exception e) 
+        {
+            e.printStackTrace();
+        }
+        finally
+        {
+            try
+            {
+                socket.close();
+            }
+            catch(Exception e){}
+        }
+    }
+    
+    
+    public void startServer()
+    {
+       //int port = Integer.parseInt(p);
+    	
+       try 
+       {
+           InetAddress address = InetAddress.getByName(this.host);
+           serverSocket = new ServerSocket(this.port,this.backlog,address);
+           //serverSocket = new ServerSocket(port);
+           serverSocket.setSoTimeout(10000); //set in param file
+         }catch(IOException e)
+         {
+           e.printStackTrace();
+         }
+    	   
+    	
+        Thread t = this;
+        t.start();
+      
+    }
+
+
+
+	/**
+	 * @return the host
+	 */
+	public String getHost() 
+	{
+		return host;
+	}
+
+
+
+	/**
+	 * @param host the host to set
+	 */
+	public void setHost(String host) 
+	{
+		this.host = host;
+	}
+
+
+
+	/**
+	 * @return the backlog
+	 */
+	public int getBacklog() 
+	{
+		return backlog;
+	}
+
+
+
+	/**
+	 * @param backlog the backlog to set
+	 */
+	public void setBacklog(int backlog) 
+	{
+		this.backlog = backlog;
+	}
+
+
+
+	/**
+	 * @return the port
+	 */
+	public int getPort() 
+	{
+		return port;
+	}
+
+
+
+	/**
+	 * @param port the port to set
+	 */
+	public void setPort(int port) {
+		this.port = port;
+	}
+    
+    
+}
