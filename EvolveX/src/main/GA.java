@@ -60,7 +60,13 @@ public class GA  extends Start{
 		}
 	}
 	
-	
+	/**
+	 * Begin execution of GA 
+	 * @param args
+	 * @throws IOException
+	 * @throws InterruptedException
+	 * @throws ExecutionException
+	 */
 	 public static void main(String[] args) throws IOException, InterruptedException, ExecutionException 
 	 {
 	       new GA(args);
