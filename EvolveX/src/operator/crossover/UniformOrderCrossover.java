@@ -141,10 +141,7 @@ public class UniformOrderCrossover extends CrossoverModule {
         {
            case 1: //add one offspring
         	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()))
-        	   {
         		   children.add(id1);
-        	   }
-        	   
                break;
            default: //add two offsprings
         	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()) && !chromosomeHasDuplicateGenes(c2.getChromosome()))
@@ -250,10 +247,7 @@ public class UniformOrderCrossover extends CrossoverModule {
         {
            case 1: //add one offspring
         	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()))
-        	   {
         		   children.add(id1);
-        	   }
-        	   
                break;
            default: //add two offsprings
         	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()) && !chromosomeHasDuplicateGenes(c2.getChromosome()))

@@ -121,10 +121,7 @@ public class CycleCrossover extends CrossoverModule {
         {
            case 1: //add one offspring
         	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()))
-        	   {
         		   children.add(id1);
-        	   }
-        	   
                break;
            default: //add two offsprings
         	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()) && !chromosomeHasDuplicateGenes(c2.getChromosome()))
@@ -136,7 +133,6 @@ public class CycleCrossover extends CrossoverModule {
         }
         
         this.setChildrenAdded(children.size()); //set number of children added
-      //System.out.println("This is my crossover mask: "+ crossoverMask + " " + comsk.length +" 0,1: "+ twoParents[0] +"-"+ twoParents[1]);
         setOffsprings(children);
       return children;
       
@@ -169,13 +165,7 @@ public class CycleCrossover extends CrossoverModule {
       this.indexes.clear(); //very important
       //randomly generate initial point
       mask = this.getCycleMask(c1,c2,RandomGenerator.getMultiThreadedRandNumber(0,c1.getChromosome().size()-1)); //return index position of 1's in mask
-      //mask = this.getCycleMask(c1,c2,0); //return index position of 1's in mask
-      /*
-      System.out.println("Printing my new mask");
-      for(int i=0;i<mask.size();i++)
-      {
-         System.out.print(mask.get(i)+" ");
-      }*/
+ 
      
       /*
        * complete replacement of other bit positions without mask flag of "1"
@@ -217,9 +207,7 @@ public class CycleCrossover extends CrossoverModule {
         {
            case 1: //add one offspring
         	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()))
-        	   {
         		   children.add(id1);
-        	   }
         	   
                break;
            default: //add two offsprings
@@ -232,7 +220,6 @@ public class CycleCrossover extends CrossoverModule {
         }
         
         this.setChildrenAdded(children.size()); //set number of children added
-      //System.out.println("This is my crossover mask: "+ crossoverMask + " " + comsk.length +" 0,1: "+ twoParents[0] +"-"+ twoParents[1]);
         setOffsprings(children);
       return children;
       
