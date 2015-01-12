@@ -73,9 +73,7 @@ public class TournamentSelection implements SelectionOperation {
              select = RandomGenerator.getRandomNumberBetween(0,populationSize-1); //replace value with pop size
              count++;
              if(count>loopCap)
-             {
             	 break;
-             }
           }
           while(GenerateMask.isExistIndex(this.tournamentSelect, select+""));
           this.tournamentSelect.add(select);
@@ -143,9 +141,7 @@ public class TournamentSelection implements SelectionOperation {
         	             select = RandomGenerator.getRandomNumberBetween(0,currentLayerPopSize-1); //replace value with pop size
         	             count++;
         	             if(count>loopCap)
-        	             {
         	            	break;
-        	             }
         	          }
         	          while(GenerateMask.isExistIndex(this.tournamentSelect, select+""));
         	          this.tournamentSelect.add(select);
@@ -160,9 +156,7 @@ public class TournamentSelection implements SelectionOperation {
         	             select = RandomGenerator.getRandomNumberBetween(currentLayerPopSize,(lowerLayerPopSize+currentLayerPopSize)-1); //replace value with pop size
         	             count++;
         	             if(count>loopCap)
-        	             {
         	            	break;
-        	             }
         	          }
         	          while(GenerateMask.isExistIndex(this.tournamentSelect, select+""));
         	          this.tournamentSelect.add(select);

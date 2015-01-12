@@ -104,18 +104,15 @@ public class Inversion extends MutationModule {
     	  id1.setChromosome(c1.getChromosome());
     	  id1.setFitness(new BasicFitness()); //set fitness object
     	  
-    	  if(replacementType.equals("SteadyState"))
-          {   //asssign parent with lowest evluation value
+    	  if(replacementType.equals("SteadyState")) //asssign parent with lowest evluation value
             id1.setBirthEvaluations(ages.get(0));
-          }
           else if(replacementType.equals("Generational"))
-          {
           	id1.setAge(ages.get(0)); //add age
-          }
     	  
           child.add(id1);
       }
       setOffsprings(child);
+      
       return child;
     }
   

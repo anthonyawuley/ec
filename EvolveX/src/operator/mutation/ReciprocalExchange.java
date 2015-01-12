@@ -43,16 +43,7 @@ public class ReciprocalExchange extends MutationModule {
       
       c1.getChromosome().set(twoPointsOnChromosome[0],p.get(parentId).getChromosome().get(twoPointsOnChromosome[1]));
       c1.getChromosome().set(twoPointsOnChromosome[1],p.get(parentId).getChromosome().get(twoPointsOnChromosome[0]));
-      /*
-      System.out.println();
-       for(int j=0; j<p.get(parentId).getChromosome().size(); j++)
-        {
-            System.out.print(c1.getChromosome().get(j)+" ");
-            //System.out.println("its a gradual process!" + crossoverMask + ":"+mask.size() );
-            //System.out.print(p.get(2).getChromosome().get(2)+" ");
-           
-        }System.out.print("  Mutation: P1."+twoPointsOnChromosome[0] + " P2."+twoPointsOnChromosome[1]);
-       */
+  
        //set individual properties for chldren and add to new population
       id1.setChromosome(c1.getChromosome());
       id1.setFitness(new BasicFitness()); //set fitness object
@@ -87,14 +78,10 @@ public class ReciprocalExchange extends MutationModule {
       id1.setChromosome(c1.getChromosome());
       id1.setFitness(new BasicFitness()); //set fitness object
       
-      if(replacementType.equals("SteadyState"))
-      {   //asssign parent with lowest evluation value
+      if(replacementType.equals("SteadyState"))//asssign parent with lowest evluation value
         id1.setBirthEvaluations(ages.get(0));
-      }
       else if(replacementType.equals("Generational"))
-      {
       	id1.setAge(ages.get(0)); //add age
-      }
       
       child.add(id1);
       setOffsprings(child);

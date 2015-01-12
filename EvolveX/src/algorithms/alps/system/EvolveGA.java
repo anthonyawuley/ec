@@ -26,119 +26,97 @@ import fitnessevaluation.FitnessExtension;
  * @author anthony
  */
 public class EvolveGA extends Instance{
-    
+
 	private long seed;
-    private int generationsEvolved;
-    private int chromosomeLength;
-    private int generations;
-    private int populationSize;
-    private double crossoverRate;
-    private double mutationRate;
-    private int tournamentSize;
-    private boolean stopFlag;
-    private Properties prop;
-    private int number_of_experiments;
-    private int elitismSize;
-    private double selectionPressure;
-    private int ageGap, ageLayers;
-    private InitializeParams init;
-    private Population currentPopulation;
+	private int generationsEvolved;
+	private int chromosomeLength;
+	private int generations;
+	private int populationSize;
+	private double crossoverRate;
+	private double mutationRate;
+	private int tournamentSize;
+	private boolean stopFlag;
+	private Properties prop;
+	private int number_of_experiments;
+	private int elitismSize;
+	private double selectionPressure;
+	private int ageGap, ageLayers;
+	private InitializeParams init;
+	private Population currentPopulation;
 	private double layerSelectionPressure;
 	private double evaluations;
 	private double alpsSSSelectionPressure;
 	private String replacementOperator;
-    
-    //private IslandModel im = null;
-    
-    public EvolveGA()
-    {
-    }
-    
-   /**
-    * 
-    * @param crossoverRate
-    * @param mutationRate
-    * @throws OutOfRangeException 
-    */
-    
-    public EvolveGA(Properties properties) throws InitializationException
-    {
-    	/*
-         * SET SYSTEM PARAMETERS
-         */
-    	this.number_of_experiments = Integer.parseInt(properties.getProperty(Constants.NUMBER_OF_EXPERIMENTS));
-        this.populationSize        = Integer.parseInt(properties.getProperty(Constants.POPULATION_SIZE));
-        this.chromosomeLength      = Integer.parseInt(properties.getProperty(Constants.INITIAL_CHROMOSOME_SIZE));
-        this.crossoverRate         = Double.parseDouble(properties.getProperty(Constants.CROSSOVER_PROBABILITY));
-        this.mutationRate          = Double.parseDouble(properties.getProperty(Constants.MUTATION_PROBABILITY));
-        this.generations           = Integer.parseInt(properties.getProperty(Constants.GENERATIONS));
-        this.tournamentSize        = Integer.parseInt(properties.getProperty(Constants.TOURNAMENT_SIZE));
-        this.stopFlag              = Boolean.parseBoolean(properties.getProperty(Constants.STOP_WHEN_SOLVED));
-        this.elitismSize           = Integer.parseInt(properties.getProperty(Constants.ELITE_SIZE));
-        this.selectionPressure     = Double.parseDouble(properties.getProperty(Constants.TOURNAMENT_SELECTION_PRESSURE));
-        this.replacementOperator   = properties.getProperty(Constants.REPLACEMENT_OPERATION);
-        
-        
-        
-        this.layerSelectionPressure= Double.parseDouble(properties.getProperty(Constants.ALPS_SELECTION_PRESSURE));
-        
-        this.ageGap                = Integer.parseInt(properties.getProperty(Constants.ALPS_AGE_GAP));
-        this.ageLayers             = Integer.parseInt(properties.getProperty(Constants.ALPS_NUMBER_OF_LAYERS));
-        this.seed                  = Long.parseLong(properties.getProperty(Constants.SEED));
-        this.evaluations           = Long.parseLong(properties.getProperty(Constants.EVALUATIONS));
-        this.alpsSSSelectionPressure          = Double.parseDouble(properties.getProperty(Constants.ALPS_SS_SELECTION_PRESSURE));
-        
-        this.prop = properties;
-        init = new InitializeParams();
-        init.setNumberOfExperiments(number_of_experiments);
-        init.setReplacementOperator(replacementOperator);
-        init.setPopulationSize(populationSize);
-        init.setChromosomeLength(chromosomeLength);
-        init.setCrossoverRate(crossoverRate);
-        init.setMutationRate(mutationRate);
-        init.setGenerations(generations);
-        init.setTournamentSize(tournamentSize);
-        init.setStopFlag(stopFlag);
-        init.setElitismSize(elitismSize);
-        init.setSelectionPressure(selectionPressure);
-        init.setMaxAgeLayers(ageLayers);
-        init.setAgeGap(ageGap);
-        init.setSeed(seed);
-        init.setLayerSelectionPressure(layerSelectionPressure);
-        init.setSSSelectionPressure(this.alpsSSSelectionPressure);
-        init.setEvaluations(evaluations);
-       
-        /*
-        if (this.crossoverRate < 0 || this.crossoverRate > 1) 
-        {
-            throw new InitializationException(this.crossoverRate, 0, 1);
-        }
-        if (this.mutationRate < 0 || this.mutationRate > 1) 
-        {
-            throw new InitializationException(this.mutationRate, 0, 1);
-        }
-        if (this.tournamentSize == 0 || this.tournamentSize > 5) 
-        {
-            throw new InitializationException(this.mutationRate, 1, 5);
-        }
-        if (this.selectionPressure  < 0 || this.selectionPressure  > 1) 
-        {
-            throw new InitializationException(this.selectionPressure, 0, 1);
-        }
-        */
-        //start();
-      
-    }
-   
-    public InitializeParams getParameters()
-    {
-    	return this.init;
-    }
-    
-    
-    /*
-     * begin evolutionary process, by initiation number of experiments (runs)
-     
+
+	//private IslandModel im = null;
+
+	public EvolveGA()
+	{
+	}
+
+	/**
+	 * 
+	 * @param crossoverRate
+	 * @param mutationRate
+	 * @throws OutOfRangeException 
+	 */
+
+	public EvolveGA(Properties properties) throws InitializationException
+	{
+		/*
+		 * SET SYSTEM PARAMETERS
+		 */
+		this.number_of_experiments = Integer.parseInt(properties.getProperty(Constants.NUMBER_OF_EXPERIMENTS));
+		this.populationSize        = Integer.parseInt(properties.getProperty(Constants.POPULATION_SIZE));
+		this.chromosomeLength      = Integer.parseInt(properties.getProperty(Constants.INITIAL_CHROMOSOME_SIZE));
+		this.crossoverRate         = Double.parseDouble(properties.getProperty(Constants.CROSSOVER_PROBABILITY));
+		this.mutationRate          = Double.parseDouble(properties.getProperty(Constants.MUTATION_PROBABILITY));
+		this.generations           = Integer.parseInt(properties.getProperty(Constants.GENERATIONS));
+		this.tournamentSize        = Integer.parseInt(properties.getProperty(Constants.TOURNAMENT_SIZE));
+		this.stopFlag              = Boolean.parseBoolean(properties.getProperty(Constants.STOP_WHEN_SOLVED));
+		this.elitismSize           = Integer.parseInt(properties.getProperty(Constants.ELITE_SIZE));
+		this.selectionPressure     = Double.parseDouble(properties.getProperty(Constants.TOURNAMENT_SELECTION_PRESSURE));
+		this.replacementOperator   = properties.getProperty(Constants.REPLACEMENT_OPERATION);
+		this.layerSelectionPressure= Double.parseDouble(properties.getProperty(Constants.ALPS_SELECTION_PRESSURE));
+
+		this.ageGap                = Integer.parseInt(properties.getProperty(Constants.ALPS_AGE_GAP));
+		this.ageLayers             = Integer.parseInt(properties.getProperty(Constants.ALPS_NUMBER_OF_LAYERS));
+		this.seed                  = Long.parseLong(properties.getProperty(Constants.SEED));
+		this.evaluations           = Long.parseLong(properties.getProperty(Constants.EVALUATIONS));
+		this.alpsSSSelectionPressure          = Double.parseDouble(properties.getProperty(Constants.ALPS_SS_SELECTION_PRESSURE));
+
+		this.prop = properties;
+		init = new InitializeParams();
+		init.setNumberOfExperiments(number_of_experiments);
+		init.setReplacementOperator(replacementOperator);
+		init.setPopulationSize(populationSize);
+		init.setChromosomeLength(chromosomeLength);
+		init.setCrossoverRate(crossoverRate);
+		init.setMutationRate(mutationRate);
+		init.setGenerations(generations);
+		init.setTournamentSize(tournamentSize);
+		init.setStopFlag(stopFlag);
+		init.setElitismSize(elitismSize);
+		init.setSelectionPressure(selectionPressure);
+		init.setMaxAgeLayers(ageLayers);
+		init.setAgeGap(ageGap);
+		init.setSeed(seed);
+		init.setLayerSelectionPressure(layerSelectionPressure);
+		init.setSSSelectionPressure(this.alpsSSSelectionPressure);
+		init.setEvaluations(evaluations);
+
+
+	}
+
+	public InitializeParams getParameters()
+	{
+		return this.init;
+	}
+
+
+	/*
+	 * begin evolutionary process, by initiation number of experiments (runs)
+
     public void start()
     {
     	for(int i=0;i<this.number_of_experiments;i++)
@@ -147,28 +125,28 @@ public class EvolveGA extends Instance{
            generateInitialPopulation(i);
         }
     }
-    */
-    
-    /**
-     * Returns the number of generations evolved so far in the last run.
-     *
-     * @return number of generations evolved
-     */
-    public int getGenerationsEvolved() 
-    {
-        return generationsEvolved;
-    }
-    
-    /**
-     * 
-     * @return
-     */
-    public Population generateRandomPopulation(Layer layer)
-    {
-    	InitialisationModule init = initialiserModule(this.prop);
-    	layer.layerEvaluationCount =0; //reinitialize counter when evolution starts
-    	
-    	return init.generateInitialPopulation(
+	 */
+
+	/**
+	 * Returns the number of generations evolved so far in the last run.
+	 *
+	 * @return number of generations evolved
+	 */
+	public int getGenerationsEvolved() 
+	{
+		return generationsEvolved;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public Population generateRandomPopulation(Layer layer)
+	{
+		InitialisationModule init = initialiserModule(this.prop);
+		layer.layerEvaluationCount =0; //reinitialize counter when evolution starts
+
+		return init.generateInitialPopulation(
 				geneRepresentation(this.prop),
 				this.prop,
 				this.populationSize,
@@ -176,35 +154,35 @@ public class EvolveGA extends Instance{
 				//layer.layerEvaluationCount 
 				Engine.completeEvaluationCount
 				); //set evaluations as this.populationSize * getGenerationsEvolved()
-    }
-    
-    /**
-     * 
-     * @param properties
-     * @param run
-     * @throws InitializationException 
-     */
-    public  void start(ALPSLayers alpsLayers) 
-    {
-    	
-    	//set parameters for layer
-    	alpsLayers.layers.get(alpsLayers.index).setParameters(this.getParameters());
-    	
-    	//System.out.println("generations... getting parameters"+ this.getParameters().getAgeGap());
-    	if(alpsLayers.layers.get(alpsLayers.index).getIsBottomLayer() && alpsLayers.layers.get(alpsLayers.index).initializerFlag) //bottom layer - new individuals will be generated
-    	{
-    		alpsLayers.layers.get(0).getEvolution().
-    		setCurrentPopulation(generateRandomPopulation(alpsLayers.layers.get(alpsLayers.index)));
-    		this.evolve(
-    				alpsLayers.layers.get(0).getEvolution().getCurrentPopulation(),
-        			new StoppingCondition(this.stopFlag),
-        			alpsLayers);   
-    	/*  
-    	 *this.evolve(
+	}
+
+	/**
+	 * 
+	 * @param properties
+	 * @param run
+	 * @throws InitializationException 
+	 */
+	public  void start(ALPSLayers alpsLayers) 
+	{
+
+		//set parameters for layer
+		alpsLayers.layers.get(alpsLayers.index).setParameters(this.getParameters());
+
+		//System.out.println("generations... getting parameters"+ this.getParameters().getAgeGap());
+		if(alpsLayers.layers.get(alpsLayers.index).getIsBottomLayer() && alpsLayers.layers.get(alpsLayers.index).initializerFlag) //bottom layer - new individuals will be generated
+		{
+			alpsLayers.layers.get(0).getEvolution().
+			setCurrentPopulation(generateRandomPopulation(alpsLayers.layers.get(alpsLayers.index)));
+			this.evolve(
+					alpsLayers.layers.get(0).getEvolution().getCurrentPopulation(),
+					new StoppingCondition(this.stopFlag),
+					alpsLayers);   
+			/*  
+			 *this.evolve(
     				alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation(),
         			new StoppingCondition(this.stopFlag),
         			alpsLayers);  
-    	 * this.evolve(
+			 * this.evolve(
         			init.generateInitialPopulation(
         					getGeneRepresentation(this.prop),
         					this.prop,
@@ -212,149 +190,140 @@ public class EvolveGA extends Instance{
         					this.chromosomeLength),
         			new StoppingCondition(this.stopFlag),
         			layers.get(index));  
-    	 */
-    	}
-    	else
-    	{
-    		//get population of current layer
-    		//Population layerPop = alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation();
-    		
-    		/* 
-    		 * add previous and current population
-    		 * if its layer 1, do not bother adding layer#0 because its empty
-    		 * if this is uncommented, layer one will have incorrect individuals (age)
-    		 
-    		
+			 */
+		}
+		else
+		{
+			//get population of current layer
+			//Population layerPop = alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation();
+
+			/* 
+			 * add previous and current population
+			 * if its layer 1, do not bother adding layer#0 because its empty
+			 * if this is uncommented, layer one will have incorrect individuals (age)
+
+
     		layerPop.addAll(alpsLayers.layers.get(alpsLayers.index-1).getEvolution().getCurrentPopulation().getAll());
     		System.out.println("my size "+ layerPop.size());
     		this.evolve(layerPop,
         			    new StoppingCondition(this.stopFlag),
         			    alpsLayers);
-    		*/
-    		
-    		this.evolve(
-    				alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation(),
-        			new StoppingCondition(this.stopFlag),
-        			alpsLayers);  
-    		
-    	}
-    }
-    
-   
-    /**
-     * 
-     * @return currentPopulation
-     */
-    public Population getCurrentPopulation()
-    {
-    	return this.currentPopulation;
-    }
-    
-    /**
-     * 
-     * @param pop
-     */
-    public void setCurrentPopulation(Population pop)
-    {   
-    	this.currentPopulation = pop;
-    }
-   
-    
-    /**
-     * 
-     * @param initial
-     * @param condition
-     * @param run keep count of run number
-     * @return - this returns last two generations. could be configured to return entire population of all generations
-     */
-    public ArrayList<Population> evolve(
-    		final Population initial, 
-    		final StoppingCondition condition, 
-    		final ALPSLayers alpsLayers) 
-    {
-        
-        Population current;             // = initial;
-        ArrayList<Population> generationalPopulation = new ArrayList<>();
-        this.generationsEvolved = 0;
-        
-        PopulationFitness fitnessFunction = fitnessEvaluator(this.prop);
-        ((FitnessExtension) fitnessFunction).setProperties(this.prop); //set properties file for report generation
-        
-        //set initial population - Pop 0
-        generationalPopulation.add(this.generationsEvolved,initial); 
-        
-        //while (!condition.generationCount(alpsLayers.layers.get(alpsLayers.index).layerEvaluationCount, alpsLayers.layers.get(alpsLayers.index).getGenerations()) &&
-        //		alpsLayers.layers.get(alpsLayers.index).initializerFlag ) //false is returned when generations are not equal 
-        //{
-        	/* 
-             * System.out.println("Layer #"+ alpsLayers.layers.get(alpsLayers.index).getId()+
-             *		             " Generation #"+ this.generationsEvolved);
-             */
-             this.generationsEvolved++;
-             alpsLayers.layers.get(alpsLayers.index).layerEvaluationCount++;
-             alpsLayers.layers.get(alpsLayers.index).layerCompleteGenerationCount++;
-        	 //Engine.completeGenerationalCount++ ;
-        	 //Engine.completeEvaluationCount += alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize();
-        	
-             //increment number of generations evolved so far in a layer
-             alpsLayers.layers.get(alpsLayers.index).getParameters().setGenerationsEvolved(
-            		alpsLayers.layers.get(alpsLayers.index).getParameters().getGenerationsEvolved()+1);
-             //replacement strategy 
-             ReplacementStrategy replacment = replacementOperation(this.prop);
-             current = replacment.nextGenerationALPS(
-            		                  fitnessFunction,  
-            		                  crossoverOperation(this.prop),
-            		                  mutationOperation(this.prop),
-            		                  selectionOperator(this.prop),
-            		                  statisticsOperation(this.prop),
-            		                  replacementStrategyALPS(this.prop),
-            		                  this.prop,
-                                      generationalPopulation,
-                                      //Engine.completeEvaluationCount,
-                                      (int) alpsLayers.layers.get(alpsLayers.index).layerEvaluationCount,
-                                      alpsLayers,
-                                      this.crossoverRate, 
-                                      this.mutationRate,
-                                      this.elitismSize,
-                                      this.tournamentSize,
-                                      this.selectionPressure); 
-             
-            /**
-             * set an alternate stopping flag based on aged individuals in a population
-             * prevent reinitialization when total number of observable generations have not been completed
-             * in the bottom layer
-             * 
-             * Set system into reinitialization mode if bottom layer has fewer than 1 individual
-             * 
-             */
-            if(alpsLayers.layers.get(alpsLayers.index).getIsBottomLayer() || current.size()<1 )
-            {
-            	alpsLayers.layers.get(alpsLayers.index).initializerFlag = false;
-            }
-            if(current.size()==0 )
-            {
-            	alpsLayers.layers.get(alpsLayers.index).initializerFlag = true;
-            }
-            
-            /*
-             * Onset previous 2 generations to free memory
-             * keep only previous and current
-             */
-            if(this.generationsEvolved > 1)
-            {
-               generationalPopulation.set(this.generationsEvolved-2, new Population());
-            }
-            //System.out.println("#SIZE"+current.size());
-            generationalPopulation.add(this.generationsEvolved,current);
-            alpsLayers.layers.get(alpsLayers.index).setGenerationalCount(this.generationsEvolved); //set generation count for this layer
-            /*
-             * keep record of current population
-             * layer.setPopulation(current);//set population for layer
-             */
-            this.setCurrentPopulation(current);
-             //this.currentPopulation = current; /*generationalPopulation.get(this.generationsEvolved);*/
-        //}
-        return generationalPopulation;
-    }
+			 */
+
+			this.evolve(
+					alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation(),
+					new StoppingCondition(this.stopFlag),
+					alpsLayers);  
+
+		}
+	}
+
+
+	/**
+	 * 
+	 * @return currentPopulation
+	 */
+	public Population getCurrentPopulation()
+	{
+		return this.currentPopulation;
+	}
+
+	/**
+	 * 
+	 * @param pop
+	 */
+	public void setCurrentPopulation(Population pop)
+	{   
+		this.currentPopulation = pop;
+	}
+
+
+	/**
+	 * 
+	 * @param initial
+	 * @param condition
+	 * @param run keep count of run number
+	 * @return - this returns last two generations. could be configured to return entire population of all generations
+	 */
+	public ArrayList<Population> evolve(
+			final Population initial, 
+			final StoppingCondition condition, 
+			final ALPSLayers alpsLayers) 
+			{
+
+		Population current;             // = initial;
+		ArrayList<Population> generationalPopulation = new ArrayList<>();
+		this.generationsEvolved = 0;
+
+		PopulationFitness fitnessFunction = fitnessEvaluator(this.prop);
+		((FitnessExtension) fitnessFunction).setProperties(this.prop); //set properties file for report generation
+
+		//set initial population - Pop 0
+		generationalPopulation.add(this.generationsEvolved,initial); 
+
+		/* 
+		 * System.out.println("Layer #"+ alpsLayers.layers.get(alpsLayers.index).getId()+
+		 *		             " Generation #"+ this.generationsEvolved);
+		 */
+		this.generationsEvolved++;
+		alpsLayers.layers.get(alpsLayers.index).layerEvaluationCount++;
+		alpsLayers.layers.get(alpsLayers.index).layerCompleteGenerationCount++;
+		//Engine.completeGenerationalCount++ ;
+		//Engine.completeEvaluationCount += alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize();
+
+		//increment number of generations evolved so far in a layer
+		alpsLayers.layers.get(alpsLayers.index).getParameters().setGenerationsEvolved(
+				alpsLayers.layers.get(alpsLayers.index).getParameters().getGenerationsEvolved()+1);
+		//replacement strategy 
+		ReplacementStrategy replacment = replacementOperation(this.prop);
+		current = replacment.nextGenerationALPS(
+				fitnessFunction,  
+				crossoverOperation(this.prop),
+				mutationOperation(this.prop),
+				selectionOperator(this.prop),
+				statisticsOperation(this.prop),
+				replacementStrategyALPS(this.prop),
+				this.prop,
+				generationalPopulation,
+				//Engine.completeEvaluationCount,
+				(int) alpsLayers.layers.get(alpsLayers.index).layerEvaluationCount,
+				alpsLayers,
+				this.crossoverRate, 
+				this.mutationRate,
+				this.elitismSize,
+				this.tournamentSize,
+				this.selectionPressure); 
+
+		/*
+		 * set an alternate stopping flag based on aged individuals in a population
+		 * prevent reinitialization when total number of observable generations have not been completed
+		 * in the bottom layer
+		 * 
+		 * Set system into reinitialization mode if bottom layer has fewer than 1 individual
+		 * 
+		 */
+		if(alpsLayers.layers.get(alpsLayers.index).getIsBottomLayer() || current.size()<1 )
+			alpsLayers.layers.get(alpsLayers.index).initializerFlag = false;
+		if(current.size()==0 )
+			alpsLayers.layers.get(alpsLayers.index).initializerFlag = true;
+
+		/*
+		 * Onset previous 2 generations to free memory
+		 * keep only previous and current
+		 */
+		if(this.generationsEvolved > 1)
+			generationalPopulation.set(this.generationsEvolved-2, new Population());
+
+		//System.out.println("#SIZE"+current.size());
+		generationalPopulation.add(this.generationsEvolved,current);
+		alpsLayers.layers.get(alpsLayers.index).setGenerationalCount(this.generationsEvolved); //set generation count for this layer
+		/*
+		 * keep record of current population
+		 * layer.setPopulation(current);//set population for layer
+		 */
+		this.setCurrentPopulation(current);
+
+		return generationalPopulation;
+     }
 
 }

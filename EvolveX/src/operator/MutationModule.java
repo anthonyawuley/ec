@@ -85,19 +85,7 @@ public abstract class MutationModule extends Operator {
     {
        return this.mutationType;
     }
-    
-    /**
-     * 
-     * @return mutated offspring
-     */
-    //public abstract Population getOffsprings();
-    
-    /**
-     * 
-     * @param individuals
-     */
-    //public abstract void setOffsprings(ArrayList<Individual> individuals);
-    
+
      /**
      * Get operation that operator performs
      * @return operation

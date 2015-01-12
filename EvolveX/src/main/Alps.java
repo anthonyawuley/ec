@@ -7,6 +7,11 @@ import util.Constants;
 import exceptions.InitializationException;
 import algorithms.alps.system.Engine;
 
+/**
+ * This class starts the main ALPS evolutionary strategy for GA.
+ * @author anthony
+ *
+ */
 public class Alps extends Start{
 
 	
@@ -22,6 +27,7 @@ public class Alps extends Start{
 	
    
  /** 
+  * @author anthony
   * Creates a new instance of Run 
   * @throws IOException 
   * @throws ExecutionException 
@@ -56,8 +62,15 @@ public class Alps extends Start{
    }
   
    
-   
-   public static void main(String[] args) throws IOException, InterruptedException, ExecutionException 
+   /**
+    * @author anthony
+    * @param args
+    * @throws IOException
+    * @throws InterruptedException
+    * @throws ExecutionException
+    */
+   public static void main(String[] args) 
+		   throws IOException, InterruptedException, ExecutionException 
    {
        new Alps(args);
    }

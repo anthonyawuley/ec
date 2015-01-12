@@ -119,27 +119,12 @@ public abstract class CrossoverModule extends Operator {
     public int returnAvailableIndex(Chromosome child, int value)
     {
         for(int i=0; i<child.getChromosome().size(); i++)
-        { 
             if(child.getChromosome().get(i).equals(value))
-            {
                 return i;
-            }
-        }
+        
         return -1;
     }
    
-    /**
-     * 
-     * @return mutated offspring
-     */
-    //public abstract Population getOffsprings();
-    
-    /**
-     * 
-     * @param individuals
-     */
-    //public abstract void setOffsprings(ArrayList<Individual> individuals);
- 
     /**
      * Get operation that operator performs
      * @return operation

@@ -37,8 +37,8 @@ public class ALPSReplacementStrategy {
 			//layers.get(to-1).getEvolution().setCurrentPopulation(interLayerMigrations(
 			//		layers,layers.get(to-1).getEvolution().getCurrentPopulation(),i));
 			
-			/**
-			 * remember to remove this code block when performance deteriorates
+			/*
+			 * remember to remove this code  when performance deteriorates
 			 * this attempts to move all individuals to the next immediate upper layer 
 			 * even if they are younger
 			 */
@@ -55,7 +55,13 @@ public class ALPSReplacementStrategy {
 	}
 	
 	
-	
+	/**
+	 * 
+	 * @param layers
+	 * @param move
+	 * @param to
+	 * @return
+	 */
 	public Population interLayerMigrations(ArrayList<Layer> layers,Population move,int to)
 	{
 		Population higherPop = null;
@@ -162,7 +168,6 @@ public class ALPSReplacementStrategy {
 					alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().remove(ind);
 					//recurssive call to repeat process till all successive replaceable individual are attemted to be moved
 					//individualLayerMovements(alpsLayers,this.victimLayer,individualReplaced); 
-					//System.out.println("I am exiting from here "+this.getClass().toString()); System.exit(0);
 				}
 			 } 
 		  }

@@ -17,12 +17,13 @@ import operator.MutationModule;
 import util.statistics.StatisticsCollector;
 
 /**
- *
+ *  This interface must be implemented by any replacement strategy. since the GA system fully supports ALPS, its
+ *  It is expected that any such class must implement a method that supports replacement for ALPS as well as
+ *  regular GA
  * @author anthony
  */
 public interface ReplacementStrategy {
    
-	
 	
 	public abstract String toString();
 	
