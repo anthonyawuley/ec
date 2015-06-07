@@ -15,11 +15,10 @@ import util.Constants;
 @SuppressWarnings("serial")
 public class Plot extends javax.swing.JFrame{
 
-	private static Chromosome chrom;
-	private static Properties prop;
+	private static Chromosome chromosome;
+	private  Properties properties;
 	protected static String propertiesFilePath;
     protected Parameters initialiser;
-    protected static Properties properties;
 	
 	public Plot()
 	{
@@ -47,9 +46,10 @@ public class Plot extends javax.swing.JFrame{
 	
 	public Plot(Chromosome c,Properties p) 
 	{
-		setChromosome(c);
-		setProperties(p);
-		
+		//setChromosome(c);
+		//setProperties(p);
+		chromosome =c;
+		properties =p;
 		new Plot().setVisible(true);
 		//TODO code application logic here
         //new Run(args);
@@ -61,7 +61,7 @@ public class Plot extends javax.swing.JFrame{
 		Graphics2D g2 = (Graphics2D) g;
 		
 		//convertToChromosome();
-		drawRoute(getChromosome(),getProperties(),g2);
+		drawRoute(chromosome,properties,g2);
 		 
 	}
 	
@@ -113,49 +113,55 @@ public class Plot extends javax.swing.JFrame{
   	   
   	   int vCapacity = Integer.parseInt(p.getProperty(Constants.VEHICLE_CAPACITY));
         
-  	    for(int i=0; i<c.getChromosome().size();i++)
+  	    for(int i=0; i<c.getGenes().size();i++)
         {
   	    	
-  	    	cord0    = p.getProperty(Constants.CO_ORDINATES+".1").split("\\s{1,}"); //get starting point
+  	    	
   	    	Point p0 = new Point();
   	    	Point p1 = new Point();
   	    	Point p2 = new Point();
   	    	
-  	    	
+  	    	cord0    = p.getProperty(Constants.CO_ORDINATES+".1").split("\\s{1,}"); //get starting point
   	    	p0.setLocation((h-Double.parseDouble(cord0[0])), (v-Double.parseDouble(cord0[1])));
+  	    	
+  	    	//p0.setLocation((h-c.findGene(1).getAlleles()[0]), (v-c.findGene(1).getAlleles()[1]));
   	    	//p0.setLocation(300,300);
   	    	
           	/*
           	 * when genes are exhausted, loop back j to one
           	 * so cycle completes e.g. 2-4-5--1-3-2, 4-2-5-3-1-4 ... etc
           	 */
-          	j = (i==c.getChromosome().size()-1)?0:i+1;
+          	j = (i==c.getGenes().size()-1)?0:i+1;
           	
           	
-  	    	params        = p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(i)).split("\\s{1,}");
-  	    	double demand = Double.parseDouble(params[2]);
+  	    	//params        = p.getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(i).getId()).split("\\s{1,}");
+  	    	//double demand = Double.parseDouble(params[2]);
+  	    	double demand = c.getGenes().get(i).getAlleles()[2];
   	    	/*
   	    	 * keep adding demand until vehicle capacity is full
   	    	 * it its full, start loading an empty truck
   	    	 */
   	    	if( (sum+demand) <= vCapacity)
-  	    	{
-  	    		cord1    = p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(i)).split("\\s{1,}");
-              	p1.setLocation((h-Double.parseDouble(cord1[0])) * incx + addx,(v-Double.parseDouble(cord1[1]))*incy + addy);
-  	    		cord2    = p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(j)).split("\\s{1,}");
-      	    	p2.setLocation((h-Double.parseDouble(cord2[0])) * incx + addx,(v-Double.parseDouble(cord2[1]))*incy + addy);
+  	    	{   //TODO
+  	    		//cord1    = p.getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(i).getId()).split("\\s{1,}");
+              	p1.setLocation((h-c.getGenes().get(i).getAlleles()[0]) * incx + addx,(v-c.getGenes().get(i).getAlleles()[1])*incy + addy);
+  	    		//cord2    = p.getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(j).getId()).split("\\s{1,}");
+      	    	p2.setLocation((h-c.getGenes().get(j).getAlleles()[0]) * incx + addx,(v-c.getGenes().get(j).getAlleles()[1])*incy + addy);
       	    	
   	    		sum+=demand;
   	    		Line2D lin1 = new Line2D.Float(p1,p2);
   	    		g2.draw(lin1);
   	    	}
   	    	else
-  	    	{ 
-  	    		cord1    = p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(j)).split("\\s{1,}"); //new beginning point
-              	p1.setLocation((h-Double.parseDouble(cord1[0]))*incx + addx,(v-Double.parseDouble(cord1[1]))*incy + addy);
-  	    		cord2    = (j==0)?p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(0)).split("\\s{1,}"):
-  	    			              p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(j-1)).split("\\s{1,}"); //last point before new route
+  	    	{   //TODO
+  	    		//cord1    = p.getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(j).getId()).split("\\s{1,}"); //new beginning point
+              	p1.setLocation((h-c.getGenes().get(j).getAlleles()[0])*incx + addx,(v-c.getGenes().get(j).getAlleles()[1])*incy + addy);
+  	    		//cord2    = (j==0)?p.getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(0).getId()).split("\\s{1,}"):
+  	    		//	              p.getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(j-1).getId()).split("\\s{1,}"); //last point before new route
   	    		
+  	    		cord2    = (j==0)?c.getGenes().get(0).getStringAlleles():
+  	    			c.getGenes().get(j-1).getStringAlleles(); //last point before new route
+	
       	    	p2.setLocation((h-Double.parseDouble(cord2[0]))*incx +addx,(v-Double.parseDouble(cord2[1]))*incy + addy);
   	    		sum = demand;
   	    		Line2D lin1 = new Line2D.Float(p0,p2);
@@ -169,36 +175,6 @@ public class Plot extends javax.swing.JFrame{
      }
 	
 
-	/**
-	 * @return the chrom
-	 */
-	public static Chromosome getChromosome() {
-		return chrom;
-	}
-
-
-	/**
-	 * @param chrom the chrom to set
-	 */
-	public static void setChromosome(Chromosome c) {
-		chrom = c;
-	}
-
-
-	/**
-	 * @return the prop
-	 */
-	public static Properties getProperties() {
-		return prop;
-	}
-
-
-	/**
-	 * @param prop the prop to set
-	 */
-	public static void setProperties(Properties p) {
-		prop = p;
-	}
 	
 
 }

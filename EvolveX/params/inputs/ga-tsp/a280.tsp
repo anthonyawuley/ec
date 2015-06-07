@@ -3,13 +3,13 @@
 # Computer Science Department
 
 # GENERAL parameters
-number-of-experiments                 = 15
-generations                           = 200
-population-size                       = 2000
+number-of-experiments                 = 1
+generations                           = 600
+population-size                       = 1000
 stop-when-solved                      = true
-crossover-probability                 = 0.9
-mutation-probability                  = 0.1
-selection-pressure                    = 0.9
+crossover-probability                 = 1.0
+mutation-probability                  = 0.0
+tournament-selection-pressure         = 0.9
 
 # How many times the genotype is allowed to wrap
 max-repairs                           = 1
@@ -21,7 +21,7 @@ tournament-size                       = 3
 # REPRODUCTION operators
 # Probability of crossover. State if the point of crossover is fixed on both chromosomes (The size will always be the same) or not
 mutation_operation                    = Operator.Operations.IntFlipMutation
-elite-size                            = 5
+elite-size                            = 2
  
  
 # The chromosomes are fixed length structures and doesnt change to mutation and crossover. 
@@ -59,7 +59,7 @@ number-of-individuals                = 2
 #stats-operation                      = util.statistics.mop.ParethoStatistics
 #stats-operation                      = util.statistics.mop.SumOfRankStatistics
 #stats-operation                      = util.statistics.BasicStatistics
-stats-operation                      = util.statistics.sob.TSPStatistics
+stats-operation                      = util.statistics.singleobjective.TSPStatistics
 
 nodes                                = 280
 stat-out                             = a280

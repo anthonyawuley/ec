@@ -158,7 +158,7 @@ public class Evolve extends Instance{
        	  * set initialiser module
        	  */
        	  InitialisationModule init = initialiserModule(this.prop);
-       	
+       	/*
        	  this.evolve(
        			init.generateInitialPopulation(
        					geneRepresentation(this.prop),
@@ -166,6 +166,14 @@ public class Evolve extends Instance{
        					this.chromosomeLength), 
        			new StoppingCondition(this.stopFlag),
        			i);
+       	 */
+       	  
+       	 this.evolve(
+        			init.generateInitialPopulation(
+        					this.prop,this.populationSize,
+        					this.chromosomeLength), 
+        			new StoppingCondition(this.stopFlag),
+        			i);
        	 
        	 //previous generateInitialPopulation(i);
         }
@@ -237,7 +245,7 @@ public class Evolve extends Instance{
         //set initial population
         //Pop 0
         generationalPopulation.add(this.generationsEvolved,initial); 
-        
+        //System.out.println(initial.getAll().size()); System.exit(0);
         while (!condition.generationCount(this.generationsEvolved, this.generations)) //false is returned when generations are not equal 
         {
             /**

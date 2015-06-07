@@ -5,6 +5,7 @@
 package operator.crossover;
 
 import individuals.Chromosome;
+import individuals.Gene;
 import individuals.Individual;
 import individuals.fitnesspackage.BasicFitness;
 import individuals.populations.Population;
@@ -67,7 +68,7 @@ public class UniformOrderCrossover extends CrossoverModule {
       ArrayList<Individual> children = new ArrayList<>();
       ArrayList<ArrayList<Integer>> mask = new ArrayList<>();
       
-      crossoverMask = GenerateMask.getMask(p.get(0).getChromosome().size());
+      crossoverMask = GenerateMask.getMask(p.get(0).getChromosome().getGenes().size());
       mask = this.getIndex(crossoverMask,"1"); //return index position of 1's in mask
       
       /*
@@ -76,30 +77,30 @@ public class UniformOrderCrossover extends CrossoverModule {
        * individuals that have -1 after operation are invalid
        */
       
-       for(int j=0; j<c1.getChromosome().size();j++) //take size of any of the chromosomes
+       for(int j=0; j<c1.getGenes().size();j++) //take size of any of the chromosomes
        {  
           if(!GenerateMask.isExistIndex(mask.get(0),j+""))
           {
-             c1.getChromosome().set(j,-1); 
-             c2.getChromosome().set(j,-1);
+             c1.getGenes().set(j,new Gene(-1)); 
+             c2.getGenes().set(j,new Gene(-1));
           }
        }
         
        for(int i=0;i<mask.get(1).size();i++){ //loop for index positions to be replaced by alternativive parent
-          for(int j=0; j<c1.getChromosome().size();j++) //take size of any of the chromosomes
+          for(int j=0; j<c1.getGenes().size();j++) //take size of any of the chromosomes
           {  
-            if((this.returnAvailableIndex(c1,p.get(tournamentIndividuals.get(1)).getChromosome().get(j)) == -1) /*&& (c1.getChromosome().get(mask.get(1).get(i))==-1)*/ )
+            if((this.returnAvailableIndex(c1,p.get(tournamentIndividuals.get(1)).getChromosome().getGenes().get(j)) == -1) /*&& (c1.getChromosome().get(mask.get(1).get(i))==-1)*/ )
             {  
-               c1.getChromosome().set(mask.get(1).get(i), p.get(tournamentIndividuals.get(1)).getChromosome().get(j)); //swap remaining chromosomes
+               c1.getGenes().set(mask.get(1).get(i), p.get(tournamentIndividuals.get(1)).getChromosome().getGenes().get(j)); //swap remaining chromosomes
                //c2.getChromosome().set(j, p.get(parentsId[0]).getChromosome().get(j));
                break; //to avoid exhaustive but not-required search
             }
           }
-          for(int j=0; j<c2.getChromosome().size();j++) //take size of any of the chromosomes
+          for(int j=0; j<c2.getGenes().size();j++) //take size of any of the chromosomes
           {  
-            if((this.returnAvailableIndex(c2,p.get(tournamentIndividuals.get(0)).getChromosome().get(j)) == -1) /*&& (c2.getChromosome().get(mask.get(1).get(i))==-1)*/ )
+            if((this.returnAvailableIndex(c2,p.get(tournamentIndividuals.get(0)).getChromosome().getGenes().get(j)) == -1) /*&& (c2.getChromosome().get(mask.get(1).get(i))==-1)*/ )
             {  
-               c2.getChromosome().set(mask.get(1).get(i), p.get(tournamentIndividuals.get(0)).getChromosome().get(j)); //swap remaining chromosomes
+               c2.getGenes().set(mask.get(1).get(i), p.get(tournamentIndividuals.get(0)).getChromosome().getGenes().get(j)); //swap remaining chromosomes
                //System.out.println("\nRR "+c2.getChromosome().get(mask.get(1).get(i)));
                break;
             }
@@ -131,20 +132,20 @@ public class UniformOrderCrossover extends CrossoverModule {
    
         //set individual properties for chldren and add to new population
      
-        id1.setChromosome(c1.getChromosome());
+        id1.setChromosome(c1);
         id1.setFitness(new BasicFitness()); //set fitness object
         
-        id2.setChromosome(c2.getChromosome());
+        id2.setChromosome(c2);
         id2.setFitness(new BasicFitness()); //set fitness object
         //add children if they have not duplicates 
         switch(numberOfChildrenToAdd)
         {
            case 1: //add one offspring
-        	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()))
+        	   if(!chromosomeHasDuplicateGenes(c1.getGenes()))
         		   children.add(id1);
                break;
            default: //add two offsprings
-        	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()) && !chromosomeHasDuplicateGenes(c2.getChromosome()))
+        	   if(!chromosomeHasDuplicateGenes(c1.getGenes()) && !chromosomeHasDuplicateGenes(c2.getGenes()))
         	   {
                  children.add(id1);
                  children.add(id2);
@@ -179,7 +180,7 @@ public class UniformOrderCrossover extends CrossoverModule {
       ArrayList<Individual> children     = new ArrayList<>();
       ArrayList<ArrayList<Integer>> mask = new ArrayList<>();
       
-      crossoverMask = GenerateMask.getMask(p.get(0).getChromosome().size());
+      crossoverMask = GenerateMask.getMask(p.get(0).getChromosome().getGenes().size());
       mask = this.getIndex(crossoverMask,"1"); //return index position of 1's in mask
       
       /*
@@ -188,39 +189,39 @@ public class UniformOrderCrossover extends CrossoverModule {
        * individuals that have -1 after operation are invalid
        */
       
-       for(int j=0; j<c1.getChromosome().size();j++) //take size of any of the chromosomes
+       for(int j=0; j<c1.getGenes().size();j++) //take size of any of the chromosomes
        {  
           if(!GenerateMask.isExistIndex(mask.get(0),j+""))
           {
-             c1.getChromosome().set(j,-1); 
-             c2.getChromosome().set(j,-1);
+             c1.getGenes().set(j,new Gene(-1)); 
+             c2.getGenes().set(j,new Gene(-1));
           }
        }
         
        for(int i=0;i<mask.get(1).size();i++){ //loop for index positions to be replaced by alternativive parent
-          for(int j=0; j<c1.getChromosome().size();j++) //take size of any of the chromosomes
+          for(int j=0; j<c1.getGenes().size();j++) //take size of any of the chromosomes
           {  
-            if((this.returnAvailableIndex(c1,p.get(tournamentIndividuals.get(1)).getChromosome().get(j)) == -1) /*&& (c1.getChromosome().get(mask.get(1).get(i))==-1)*/ )
+            if((this.returnAvailableIndex(c1,p.get(tournamentIndividuals.get(1)).getChromosome().getGenes().get(j)) == -1) /*&& (c1.getChromosome().get(mask.get(1).get(i))==-1)*/ )
             {  
-               c1.getChromosome().set(mask.get(1).get(i), p.get(tournamentIndividuals.get(1)).getChromosome().get(j)); //swap remaining chromosomes
+               c1.getGenes().set(mask.get(1).get(i), p.get(tournamentIndividuals.get(1)).getChromosome().getGenes().get(j)); //swap remaining chromosomes
                //c2.getChromosome().set(j, p.get(parentsId[0]).getChromosome().get(j));
                break; //to avoid exhaustive but not-required search
             }
           }
-          for(int j=0; j<c2.getChromosome().size();j++) //take size of any of the chromosomes
+          for(int j=0; j<c2.getGenes().size();j++) //take size of any of the chromosomes
           {  
-            if((this.returnAvailableIndex(c2,p.get(tournamentIndividuals.get(0)).getChromosome().get(j)) == -1) /*&& (c2.getChromosome().get(mask.get(1).get(i))==-1)*/ )
+            if((this.returnAvailableIndex(c2,p.get(tournamentIndividuals.get(0)).getChromosome().getGenes().get(j)) == -1) /*&& (c2.getChromosome().get(mask.get(1).get(i))==-1)*/ )
             {  
-               c2.getChromosome().set(mask.get(1).get(i), p.get(tournamentIndividuals.get(0)).getChromosome().get(j)); //swap remaining chromosomes
+               c2.getGenes().set(mask.get(1).get(i), p.get(tournamentIndividuals.get(0)).getChromosome().getGenes().get(j)); //swap remaining chromosomes
                //System.out.println("\nRR "+c2.getChromosome().get(mask.get(1).get(i)));
                break;
             }
           }
        }
         
-        id1.setChromosome(c1.getChromosome());
+        id1.setChromosome(c1);
         id1.setFitness(new BasicFitness()); //set fitness object
-        id2.setChromosome(c2.getChromosome());
+        id2.setChromosome(c2);
         id2.setFitness(new BasicFitness()); //set fitness object
         
         if(replacementType.equals("SteadyState"))
@@ -246,11 +247,11 @@ public class UniformOrderCrossover extends CrossoverModule {
         switch(numberOfChildrenToAdd)
         {
            case 1: //add one offspring
-        	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()))
+        	   if(!chromosomeHasDuplicateGenes(c1.getGenes()))
         		   children.add(id1);
                break;
            default: //add two offsprings
-        	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()) && !chromosomeHasDuplicateGenes(c2.getChromosome()))
+        	   if(!chromosomeHasDuplicateGenes(c1.getGenes()) && !chromosomeHasDuplicateGenes(c2.getGenes()))
         	   {
                  children.add(id1);
                  children.add(id2);

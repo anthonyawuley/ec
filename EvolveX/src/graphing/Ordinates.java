@@ -84,10 +84,10 @@ public class Ordinates{
 			switch(type)
 			{
 			   case "vrp":
-				   writeToFileVRPTW(pop.get(bestIndividuals.get(i)),p,run,generation,seperator);
+				   writeToFileVRPTW(pop.get(bestIndividuals.get(i)).getChromosome(),p,run,generation,seperator);
 				break;
 			   default:
-				   writeToFileTSP(pop.get(bestIndividuals.get(i)),p,run,generation,seperator);
+				   writeToFileTSP(pop.get(bestIndividuals.get(i)).getChromosome(),p,run,generation,seperator);
 				break;
 			}
 			
@@ -128,7 +128,7 @@ public class Ordinates{
 			String[] cord0,cordz,corda,cordi0,cordi1= new String[6];
 	    	String[] params = new String[6];
 	    	ArrayList<Double>  vrptw = new ArrayList<>();
-	    	ArrayList<Integer> chrom = (ArrayList<Integer>) c.getChromosome().clone();
+	    	ArrayList<Integer> chrom = (ArrayList<Integer>) c.convertToInt().clone();
 	    	int lastLocation = 0;
 	    	double totalDistance = 0;
 	     	int vCount = 1;
@@ -272,30 +272,30 @@ public class Ordinates{
 	   	    Point p0 = new Point(Double.parseDouble(cord0[0]),Double.parseDouble(cord0[1]));
 	   	    
 	   	    bw.write((int) Double.parseDouble(cord0[0])+seperator+(int) Double.parseDouble(cord0[1])+"\n");
-	   	    
-	   	    cord1    = p.getProperty(Constants.CO_ORDINATES+"."+(c.getChromosome().get(0))).split("\\s{1,}"); //get depo cordinates
+	   	    //TODO
+	   	    cord1    = p.getProperty(Constants.CO_ORDINATES+"."+(c.getGenes().get(0).getId())).split("\\s{1,}"); //get depo cordinates
 		    Point p1 = new Point(Double.parseDouble(cord0[0]),Double.parseDouble(cord0[1]));
 		    
 	 	    double distanceTime = -p0.calculateEuclidianDistance(p1); //initialise distance to p0-p1
 	 	    double totalDistance = p0.calculateEuclidianDistance(p1); //set total 
 	 	    
-	 	    for(int i=0; i<c.getChromosome().size();i++)
+	 	    for(int i=0; i<c.getGenes().size();i++)
 	        {
 	        	/*
 	        	 * when genes are exhausted, loop back j to one
 	        	 * so cycle completes e.g. 2-4-5--1-3-2, 4-2-5-3-1-4 ... etc
 	        	 */
-	        	j = (i==c.getChromosome().size()-1)?0:i+1;
+	        	j = (i==c.getGenes().size()-1)?0:i+1;
 	        	//note use of i+1 & j+1 to reference cordinates, because of cordinate numbering in param file
-		    	params        = p.getProperty(Constants.CO_ORDINATES+"."+(c.getChromosome().get(i)+1)).split("\\s{1,}");
+		    	params        = p.getProperty(Constants.CO_ORDINATES+"."+(c.getGenes().get(i).getId()+1)).split("\\s{1,}");
 		    	double demand = Double.parseDouble(params[2]);
 	 	    	/*
 	 	    	 * keep adding demand until vehicle capacity is full
 	 	    	 * it its full, start loading an empty truck
 	 	    	 */
-		    	cordi0     = p.getProperty(Constants.CO_ORDINATES+"."+(c.getChromosome().get(i)+1)).split("\\s{1,}");
+		    	cordi0     = p.getProperty(Constants.CO_ORDINATES+"."+(c.getGenes().get(i).getId()+1)).split("\\s{1,}");
 	            Point pi0 = new Point(Double.parseDouble(cordi0[0]),Double.parseDouble(cordi0[1]));
-		    	cordi1      = p.getProperty(Constants.CO_ORDINATES+"."+(c.getChromosome().get(j)+1)).split("\\s{1,}");
+		    	cordi1      = p.getProperty(Constants.CO_ORDINATES+"."+(c.getGenes().get(j).getId()+1)).split("\\s{1,}");
 	            Point pi1 = new Point(Double.parseDouble(cordi1[0]),Double.parseDouble(cordi1[1]));
 	    	    
 	            //distanceTime += Double.parseDouble(cordi0[3]) + Double.parseDouble(cordi0[5]); //ready time + service time
@@ -368,7 +368,7 @@ public class Ordinates{
 	  	    cord0    = p.getProperty(Constants.CO_ORDINATES+".1").split("\\s{1,}"); //get starting point
 	  	    bw.write((int) Double.parseDouble(cord0[0])+seperator+(int) Double.parseDouble(cord0[1])+"\n");
 	  	    
-	  	    for(int i=0; i<c.getChromosome().size();i++)
+	  	    for(int i=0; i<c.getGenes().size();i++)
 	        {
 	          	/*
 	          	 * when genes are exhausted, loop back j to one
@@ -376,9 +376,9 @@ public class Ordinates{
 	          	 */
 	          	//j = (i==c.getChromosome().size()-1)?0:i+1;
 	          	
-	  	    	params        = p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(i)).split("\\s{1,}");
+	  	    	params        = p.getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(i)).split("\\s{1,}");
 	  	    	double demand = Double.parseDouble(params[2]);
-	  	    	cord1    = p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(i)).split("\\s{1,}");
+	  	    	cord1    = p.getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(i)).split("\\s{1,}");
   	    		
 	  	    	/*
 	  	    	 * keep adding demand until vehicle capacity is full
@@ -428,15 +428,13 @@ public class Ordinates{
 			                    Constants.DEFAULT_STATS_EXTENSION+".csv");
 			// if file doesnt exists, then create it
 			if (!file.exists()) 
-			{
 				file.createNewFile();
-			}
+			
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 			
 	  	    for(Point point: cordinates)
-	        {
 	          bw.write((int)point.getX() +seperator+ (int)point.getY()+"\n");
-	        }
+	        
 	  	  bw.close();
 		} 
 		catch (IOException e) 
@@ -459,9 +457,8 @@ public class Ordinates{
 			                    Constants.DEFAULT_STATS_EXTENSION+".csv");
  
 			// if file doesnt exists, then create it
-			if (!file.exists()) {
+			if (!file.exists())
 				file.createNewFile();
-			}
  
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 			
@@ -472,7 +469,6 @@ public class Ordinates{
 	      	String[] cord0 = new String[6];
 	      	String[] corda = new String[6];
 	     
-	  	   
 	  	    cord0    = p.getProperty("1").split("\\s{1,}"); //get starting point
 	  	    
 	  	    for(int i=0; i<route.size();i++)
@@ -526,30 +522,33 @@ public class Ordinates{
 			                    Constants.DEFAULT_STATS_EXTENSION+".csv");
 			// if file doesnt exists, then create it
 			if (!file.exists()) 
-			{
 				file.createNewFile();
-			}
+			
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 			
 			/*
 	      	 * node.1.x         = 40.00
 	         * node.1.y         = 50.00
 	      	 */
-	      	String[] cord0 = new String[6];
-	      	String[] cord1 = new String[6];
+	      	//String[] cord0 = new String[6];
+	      	//String[] cord1 = new String[6];
 	        /*
 	         * when genes are exhausted, loop back j to one
 	         * so cycle completes e.g. 2-4-5--1-3-2, 4-2-5-3-1-4 ... etc
 	         */
-	  	    for(int i=0; i<c.getChromosome().size();i++)
+	  	    for(int i=0; i<c.getGenes().size();i++)
 	        {
 	  	       //cord1    = p.getProperty("node."+c.getChromosome().get(i)).split("\\s{1,}");
-	  	       cord1    = p.getProperty(""+c.getChromosome().get(i)).split("\\s{1,}");
-	  	       bw.write((int) Double.parseDouble(cord1[0])+seperator+(int) Double.parseDouble(cord1[1])+"\n");
+	  	       //cord1    = p.getProperty(""+c.getGenes().get(i)).split("\\s{1,}");
+	  	       //bw.write((int) Double.parseDouble(cord1[0])+seperator+(int) Double.parseDouble(cord1[1])+"\n");
+	  	       bw.write((int) c.getGenes().get(i).getAlleles()[0]+seperator+
+	  	    		    (int) c.getGenes().get(i).getAlleles()[1]+"\n");
 	         }
-	  	    cord0    = p.getProperty(""+c.getChromosome().get(0)).split("\\s{1,}"); 
+	  	    //cord0    = p.getProperty(""+c.getGenes().get(0)).split("\\s{1,}"); 
 	  	    //cord0    = p.getProperty("node."+c.getChromosome().get(0)).split("\\s{1,}");
-	  	    bw.write((int) Double.parseDouble(cord0[0])+seperator+(int) Double.parseDouble(cord0[1])+"\n"); //always end with beginning cordinate
+	  	    //bw.write((int) Double.parseDouble(cord0[0])+seperator+(int) Double.parseDouble(cord0[1])+"\n"); //always end with beginning cordinate
+	  	    bw.write((int) c.getGenes().get(0).getAlleles()[0]+seperator+
+	  	    		(int) c.getGenes().get(0).getAlleles()[1]+"\n"); //always end with beginning cordinate
 			bw.close();
 			//System.out.println("Done");
 		} 

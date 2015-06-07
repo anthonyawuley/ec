@@ -2,8 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package fitnessevaluation.singleobjective;
+package fitnessevaluation;
 
+
+import individuals.Individual;
 import individuals.populations.Population;
 
 import java.util.ArrayList;
@@ -13,20 +15,22 @@ import java.util.Properties;
 import algorithms.alps.layers.Layer;
 import util.Constants;
 import util.statistics.BasicStatistics;
-import fitnessevaluation.FitnessExtension;
 
 /**
  *
  * @author anthony
  */
-public abstract class WeightedSum extends FitnessExtension{
-    
-
+public class FitnessExperimental extends FitnessExtension{
+   
     private ArrayList<Integer> bestFitnessIndividualsOfGeneration;
     @SuppressWarnings("unused")
 	private ArrayList<Integer> bestFitnessIndividualsForStatistics;
     private double averageFitnessPerGeneration, bestFitnessOfGeneration;
-
+    
+	@SuppressWarnings("unused")
+	private long startTime;
+	@SuppressWarnings("unused")
+    private long endTime;
     //private ArrayList<Double> sortedFitness;
     
     /**
@@ -34,60 +38,41 @@ public abstract class WeightedSum extends FitnessExtension{
      * @param pop 
      */
     @SuppressWarnings("unchecked")
-	public void calculateSimpleFitness(Population pop, final int run, final int generation,
-			BasicStatistics stats,Properties p)
+	public void calculateSimpleFitness(
+			Population pop, final int run, final int generation,BasicStatistics stats,Properties p)
     {
+       //double averageFitness = 0;
+       this.startTime = System.currentTimeMillis();
+       this.endTime   = System.currentTimeMillis();
        
-       //this.generationFitness = calcGenerationalFitness(pop,p);
-       calcGenerationalFitness(pop,p);
-       
+       calcGenerationalFitness(pop,p); //set this.generationFitness
        ArrayList<Double> sortedFitness = (ArrayList<Double>) this.getGenerationFitness().clone();
        Collections.sort(sortedFitness);
-      /*   
-       //select top individuals based on user set param
-       this.bestFitnessIndividualsOfGeneration = 
-    		   minimumFitness(this.generationFitness,
-    		                  sortedFitness,
-    		                  Integer.parseInt(this.getProperties().getProperty(Constants.ELITE_SIZE)));
-      System.out.println(sortedFitness);
-       //select top individuals based on user set param
-       this.bestFitnessIndividualsForStatistics = minimumFitness(
-    		   this.generationFitness,
-    		   sortedFitness,
-    		   Integer.parseInt(this.getProperties().getProperty(Constants.NUMBER_INDIVIDUALS_PRINT)));
-       */
-          
+       
        /*
         * select top individuals based on user set param
-        * sort 2 times the number of elit individuals (this is to prevent overhead involved in sorting all individuls in the population)
-        * stat individuals could be obtained from this
+        * sort the 25% of the population greater than 10 (in future reduce number to sort)
         */
        this.bestFitnessIndividualsOfGeneration = 
     		   minimumFitness(this.getGenerationFitness(),
     		                  sortedFitness,
-    		                  Integer.parseInt(p.getProperty(Constants.ELITE_SIZE))*2);
+    		                  (int) ((int) pop.size()<10?pop.size():(Math.ceil(Integer.parseInt(p.getProperty(Constants.POPULATION_SIZE)))/4)));
+       
        
        //select top individuals based on user set param
        /*
-       this.bestFitnessIndividualsForStatistics = minimumFitness(
-    		   this.generationFitness,
-    		   sortedFitness,
-    		   Integer.parseInt(p.getProperty(Constants.NUMBER_INDIVIDUALS_PRINT)));
-        */
-       //System.out.println(sortedFitness);
+       this.bestFitnessIndividualsForStatistics =
+    		   minimumFitness(this.generationFitness,
+    				   sortedFitness,
+    				   Integer.parseInt(this.getProperties().
+    						   getProperty(Constants.NUMBER_INDIVIDUALS_PRINT)));
+       */
        
        //this.bestFitnessIndividualsOfGeneration = minimumFitness(this.generationFitness,sortedFitness.get(0));
        this.averageFitnessPerGeneration = this.getTotalFitness()/pop.size();
        this.bestFitnessOfGeneration     = sortedFitness.get(0);
-             
-       /* erro when elite-size = 0
-        * pop.setBestIndividual(pop.get(this.bestFitnessIndividualsOfGeneration.get(0)));
-        * System.out.println("i am the best"+pop.get(this.bestFitnessIndividualsForStatistics.get(0)).getChromosome());
-        */   
-        //pop.setBestIndividual(pop.get(this.bestFitnessIndividualsForStatistics.get(0)));
        
        //this could be deprecated
-      
        pop.setBestIndividual(pop.get(this.bestFitnessIndividualsOfGeneration.get(0))); 
        //this contains records of all best individuals
        pop.setBestIndividuals(pop.get(this.bestFitnessIndividualsOfGeneration));
@@ -107,38 +92,46 @@ public abstract class WeightedSum extends FitnessExtension{
     		   run,
     		   generation,
     		   this);
-       
     }
  
     
     /**
-     * Overloaded method: notice introduction of layer 
+     * OVERLAODED
      */
     @SuppressWarnings("unchecked")
-	public void calculateSimpleFitness(Population pop, final Layer layer, 
-			final int generation,BasicStatistics stats,Properties p,Boolean statsFlag)
+	public void calculateSimpleFitness(
+			Population pop, 
+			final Layer layer, 
+			final int generation,
+			BasicStatistics stats,
+			Properties p,
+			Boolean statsFlag)
     {
-       //this.generationFitness = calcGenerationalFitness(pop,p);
-       calcGenerationalFitness(pop,p);
+       //double averageFitness = 0;
+       this.startTime = System.currentTimeMillis();
+       this.endTime   = System.currentTimeMillis();
+       
+       calcGenerationalFitness(pop,p); //set this.generationFitness
        
        ArrayList<Double> sortedFitness = (ArrayList<Double>) this.getGenerationFitness().clone();
+       
        Collections.sort(sortedFitness);
-
+       
        /*
         * select top individuals based on user set param
-        * sort the 25% of the population greater than 10 (in future reduce number to sort)
+        * sort 25% of the population  (this is to prevent overhead involved in sorting all individuls in the population)
         */
        this.bestFitnessIndividualsOfGeneration = 
     		   minimumFitness(this.getGenerationFitness(),
     		                  sortedFitness,
-    		                  (int) ((int) pop.size()<10?pop.size():(Math.ceil(Integer.parseInt(p.getProperty(Constants.POPULATION_SIZE)))/4)));
-       
+    		                  (int) (Math.ceil(Integer.parseInt(p.getProperty(Constants.POPULATION_SIZE)))/4));
+      
        
        //this.bestFitnessIndividualsOfGeneration = minimumFitness(this.generationFitness,sortedFitness.get(0));
        this.averageFitnessPerGeneration = this.getTotalFitness()/pop.size();
        this.bestFitnessOfGeneration     = sortedFitness.get(0);
-    
-      
+       
+       //this could be deprecated
        pop.setBestIndividual(pop.get(this.bestFitnessIndividualsOfGeneration.get(0))); 
        //this contains records of all best individuals
        pop.setBestIndividuals(pop.get(this.bestFitnessIndividualsOfGeneration));
@@ -146,8 +139,10 @@ public abstract class WeightedSum extends FitnessExtension{
        this.setBestFitness(this.bestFitnessOfGeneration);
        this.setAverageFitness(this.averageFitnessPerGeneration);
        this.setStandardDeviationFitness(getStandardDeviationOfFitness(this.getGenerationFitness()));
-     
-       //print statistics
+       
+       //System.out.println("#POPULATION SIZE##"+ sortedFitness.get(0));
+       
+       //print statistics if flag is enabled
        if(statsFlag)
        {
        stats.printStatsReport(
@@ -159,8 +154,8 @@ public abstract class WeightedSum extends FitnessExtension{
     		   generation,
     		   this);
        }
-       
     }
+    
     
     
     /**
@@ -172,8 +167,63 @@ public abstract class WeightedSum extends FitnessExtension{
        return this.bestFitnessIndividualsOfGeneration;
     }
     
+    /**
+     * 
+     * @return
+     */
+    public ArrayList<Double> calcGenerationalFitness(Population pop,Properties p)
+	{
+		  double sum = 0;
+		  this.getGenerationFitness().clear(); //added to control population increment
+	       
+	       for( int i=0; i< pop.size(); i++)
+	       {
+	          //this.setIndividual(pop.get(i));
+	    	  sumChromosome(pop.get(i)); //set fitness of  individual
+	          //this.setDouble(sumChromosome(this.getIndividual()));
+	          this.getGenerationFitness().add(i, pop.get(i).getFitness().getDouble());
+	          //this.generationFitness.add(i, this.getDouble());
+	          sum += pop.get(i).getFitness().getDouble();
+	          //System.out.println("Individual#"+i+" "+this.getDouble());
+	       }
+	       this.setTotalFitness(sum); //total fitness
+	      return this.getGenerationFitness();
+	}
     
+    
+    /**
+     * 
+     * @param pop
+     * @return 
+     * @deprecated
+     */
+    public double setAverageFitness(Population pop)
+    {
+       double averageFitness = 0;
+       for( int i=0; i< pop.size(); i++)
+       {
+    	  sumChromosome(pop.get(i)); //calculates individuals fitness
+          //averageFitness += sumChromosome(this.getIndividual());
+    	 averageFitness += pop.get(i).getFitness().getDouble();
+       }
+       return averageFitness/pop.size();
+    }
+    
+    
+    /**
+     * mock fitness - sum chromosomes
+     * @param c
+     * @return 
+     */
+    public void sumChromosome(Individual ind)
+    {
+        int sum = 0;
+        for(int i=0; i<ind.getChromosome().getGenes().size();i++)
+          sum += ind.getChromosome().getGenes().get(i).getId();
+        
+       ind.getFitness().setDouble(sum); //set fitness value of individual
+    }
 
-
-	
+    
+  
 }

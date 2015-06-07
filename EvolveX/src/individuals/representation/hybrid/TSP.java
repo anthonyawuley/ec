@@ -23,12 +23,12 @@ import util.random.RandomGenerator;
  * note chromosome is started from index 2
  * this was because index one is used as depot
  */
-public class TSP  extends Representation implements Gene{
+public class TSP  extends Representation {
     
 	   //private ArrayList<Integer> defaultChromeContainer = new ArrayList<>();
 	
 
-	   @Override
+	  /*
 	   public void generateChromosome(Chromosome ch,Properties prop) 
 	   {
 		  //limit repeated call to function, since its unecessary
@@ -42,9 +42,7 @@ public class TSP  extends Representation implements Gene{
 	      ch.setChromosome(this.chromosome);
 	    }
 	
-	   /**
-	    * NOTE: the start of chromosome from index 2
-	    */
+	   //NOTE: the start of chromosome from index 2
 	   public void setInitChrome(int chromeSize)
 	   {
 		   this.chromosome.clear();
@@ -54,7 +52,7 @@ public class TSP  extends Representation implements Gene{
 	    	  this.chromosome.add(i); 
 	       }
 	   }
-	
+	   */
 	   /**
 	    * 
 	    * @param min
@@ -66,19 +64,19 @@ public class TSP  extends Representation implements Gene{
 		    return RandomGenerator.getMultiThreadedRandNumber(min,max);
 		}
 
-		@Override
+		
 		public void sort() {
 			// TODO Auto-generated method stub
 			
 		}
 
-		@Override
+		
 		public void addAll(ArrayList<Gene> immigrants) {
 			// TODO Auto-generated method stub
 			
 		}
 
-		@Override
+		
 		public void clear() {
 			// TODO Auto-generated method stub
 			

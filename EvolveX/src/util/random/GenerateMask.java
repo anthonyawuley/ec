@@ -4,6 +4,8 @@
  */
 package util.random;
 
+import individuals.Gene;
+
 import java.util.ArrayList;
 
 import util.Constants;
@@ -73,15 +75,15 @@ public class GenerateMask extends RandomGenerator{
     
     /**
      * 
-     * @param c1
-     * @param value
+     * @param arrayList
+     * @param gene
      * @return 
      */
-    public static int returnIndex(ArrayList<Integer> c1, String value)
+    public static int returnIndex(ArrayList<Gene> arrayList, Gene gene)
     {
-       for (int i = 0; i < c1.size(); i++)
+       for (int i = 0; i < arrayList.size(); i++)
        {
-           if (value.equals(c1.get(i)+""))
+           if (gene.equals(arrayList.get(i)))
            {  
                return i;
            }

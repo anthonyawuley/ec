@@ -14,7 +14,7 @@ import individuals.fitnesspackage.Fitness;
  * @author anthony
  */
 
-public class Individual extends Chromosome implements IndividualInterface, Serializable  {
+public class Individual implements IndividualInterface, Serializable  {
 
     /**
 	 * 
@@ -30,7 +30,7 @@ public class Individual extends Chromosome implements IndividualInterface, Seria
     private ArrayList<Double> mopFitness;
     private double numberOfEvaluations;
     public  boolean parentFlag = false; //when individual is used as a parent
-    private Chromosome c;
+    private Chromosome chromosome;
     //private int genControl=0;
     
     /**
@@ -104,9 +104,9 @@ public class Individual extends Chromosome implements IndividualInterface, Seria
     }
 
     @Override
-    public void setFitness(Fitness f) 
+    public void setFitness(Fitness fitness) 
     {
-        this.f = f;
+        this.f = fitness;
     }
     
     @Override
@@ -120,7 +120,6 @@ public class Individual extends Chromosome implements IndividualInterface, Seria
     {
         return this.age;
     }
-    
     
     
     @Override
@@ -141,13 +140,11 @@ public class Individual extends Chromosome implements IndividualInterface, Seria
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    /*
-    @Override
+    
     public Chromosome getChromosome() 
     {
-        return this.c;
+        return this.chromosome;
     }
-    */
 
 
     @Override
@@ -165,7 +162,7 @@ public class Individual extends Chromosome implements IndividualInterface, Seria
     @Override
     public void setChromosome(Chromosome c) 
     {
-        this.c = c;
+        this.chromosome = c;
     }
 
     @Override

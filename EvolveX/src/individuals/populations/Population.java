@@ -30,7 +30,7 @@ public class Population implements PopulationInterface, Cloneable, Serializable 
     private int popSize;
     ArrayList<Individual> individuals;
     private PopulationFitness f;
-    private Individual individual;
+    private Individual bestIndividual;
     
     
     /**
@@ -101,9 +101,7 @@ public class Population implements PopulationInterface, Cloneable, Serializable 
     public void calculateAge(int currentEvaluationCount,int popSize)
     {
     	for(Individual e: this.population)
-    	{
     		e.setAge(1 + (currentEvaluationCount-e.getBirthEvaluations())/popSize);
-    	}
     }
     
     /**
@@ -120,14 +118,12 @@ public class Population implements PopulationInterface, Cloneable, Serializable 
     	int totalPop = 0;
     	
     	for(int i=0;i<alpsLayers.layers.size();i++)
-    	{
     		totalPop += alpsLayers.layers.get(i).getEvolution().getCurrentPopulation().size();
-    	}
+    	
     	//System.out.println("total sizeiiiiii"+ totalPop);
     	for(Individual e: this.population)
-    	{
     		e.setAge(1 + (currentEvaluationCount-e.getBirthEvaluations())/totalPop);
-    	}
+    	
     }
     
     /**
@@ -151,7 +147,7 @@ public class Population implements PopulationInterface, Cloneable, Serializable 
     @Override
     public Individual getBestIndividual() 
     {
-        return this.individual;
+        return this.bestIndividual;
     }
     /**
      * 
@@ -159,7 +155,7 @@ public class Population implements PopulationInterface, Cloneable, Serializable 
     @Override
     public void setBestIndividual(Individual i) 
     {
-        this.individual = i;
+        this.bestIndividual = i;
     }
     /**
      * 
@@ -179,9 +175,7 @@ public class Population implements PopulationInterface, Cloneable, Serializable 
     {
         Iterator<Individual> indIt = immigrants.iterator();
         while (indIt.hasNext()) 
-        { 
             this.add(indIt.next());
-        }
     }
     /**
      * 
@@ -191,9 +185,7 @@ public class Population implements PopulationInterface, Cloneable, Serializable 
     {
         Iterator<Individual> indIt = immigrants.iterator();
         while (indIt.hasNext()) 
-        { 
             pop.add(indIt.next());
-        }
     }
     /**
      * 
@@ -263,9 +255,8 @@ public class Population implements PopulationInterface, Cloneable, Serializable 
     public ArrayList<Individual> get(ArrayList<Integer> ids) 
     {
     	for(int id:ids)
-    	{
     		bestIndividuals.add(this.population.get(id));
-    	}
+    	
         return this.bestIndividuals;
     }
     /**

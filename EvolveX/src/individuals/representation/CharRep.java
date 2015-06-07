@@ -17,8 +17,9 @@ import util.random.RandomGenerator;
 /**
  *
  * @author anthony
+ * @deprecated
  */
-public class CharRep extends Representation implements Gene{
+public class CharRep extends Representation {
     
    /**
     * 
@@ -31,19 +32,17 @@ public class CharRep extends Representation implements Gene{
 	    return RandomGenerator.getMultiThreadedRandNumber(min,max);
 	}
 
-	@Override
 	public void sort() {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void addAll(ArrayList<Gene> immigrants) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
+	
 	public void clear() {
 		// TODO Auto-generated method stub
 		
@@ -58,7 +57,7 @@ public class CharRep extends Representation implements Gene{
     	return (Gene) super.clone();
     }
 
-	@Override
+	
 	public void generateChromosome(Chromosome ch,Properties prop) {
 		// TODO Auto-generated method stub
 		//return 0;

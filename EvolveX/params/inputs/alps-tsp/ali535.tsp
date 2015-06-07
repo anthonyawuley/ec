@@ -50,9 +50,9 @@ initial-chromosome-size                = 535
 # FITNESS function - Fitness function requires the full package name
 #fitness-function                       = fitnessevaluation.singleObjective.WeightedSum
 #fitness-function                       = fitnessevaluation.simplefitness.FitnessExperimental
-#fitness-function                        = fitnessevaluation.vrptw.WS
+#fitness-function                       = fitnessevaluation.vrptw.WS
 #fitness-function                       = fitnessevaluation.vrptw.SOR
-#fitness-function                        = fitnessevaluation.vrptw.PR
+#fitness-function                       = fitnessevaluation.vrptw.PR
 fitness-function                        = fitnessevaluation.eval.TSP
  
 # EC
@@ -66,7 +66,7 @@ gene-representation                  = individuals.representation.VRPTW
 replacement-operation                = operator.operations.replacement.Generational
 
 # CROSSOVER MODULE
-#crossover-operation                  = operator.crossover.CycleCrossover
+#crossover-operation                 = operator.crossover.CycleCrossover
 crossover-operation                  = operator.crossover.UniformOrderCrossover
 
 # MUTATION MODULE
@@ -75,9 +75,9 @@ mutation-operation                   = operator.mutation.Inversion
 
 # Specification of output statistics files
 number-of-individuals                = 2
-#stats-operation                      = util.statistics.mop.ParethoStatistics
-#stats-operation                      = util.statistics.mop.SumOfRankStatistics
-#stats-operation                      = util.statistics.BasicStatistics
+#stats-operation                     = util.statistics.mop.ParethoStatistics
+#stats-operation                     = util.statistics.mop.SumOfRankStatistics
+#stats-operation                     = util.statistics.BasicStatistics
 stats-operation                      = util.statistics.sob.TSPStatistics
 
 nodes                                = 535

@@ -1,13 +1,15 @@
 package fitnessevaluation.eval;
 
-import fitnessevaluation.singleobjective.WeightedSum;
+import fitnessevaluation.WeightedSum;
 import individuals.Chromosome;
 import individuals.Individual;
 import individuals.populations.Population;
+
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Properties;
+
 import util.Constants;
 import util.Point;
 import util.random.RandomGenerator;
@@ -56,7 +58,7 @@ public class WS extends WeightedSum{
  	   for( int i=0; i< pop.size(); i++)
 	   {
  		  //sorData.add(this.sumDistanceVRP(pop.get(i),p)+","+this.sumCars(pop.get(i),p)+"");
- 		  sorData.add(Integer.parseInt(this.sumCars(pop.get(i),p)+""+this.sumDistanceVRP(pop.get(i),p)));
+ 		  sorData.add(Integer.parseInt(this.sumCars(pop.get(i).getChromosome(),p)+""+this.sumDistanceVRP(pop.get(i).getChromosome(),p)));
 	   }
  	   
 	  return sorData;
@@ -90,15 +92,15 @@ public class WS extends WeightedSum{
     	int j = 0;
         int sum = 0;
         //System.out.println("*********************************************");
-        for(int i=0; i<c.getChromosome().size();i++)
+        for(int i=0; i<c.getGenes().size();i++)
         {
-        	
-        	cord1  = this.getProperties().getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(i)).split("\\s{1,}");
+        	//TODO
+        	cord1  = this.getProperties().getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(i).getId()).split("\\s{1,}");
         	Point p1 = new Point(Double.parseDouble(cord1[0]),Double.parseDouble(cord1[1]));
         	//when genes are exhausted, loop back j to one
         	//so cycle completes e.g. 2-4-5--1-3-2, 4-2-5-3-1-4 ... etc
-        	j = (i==c.getChromosome().size()-1)?0:i+1;
-        	cord2  = this.getProperties().getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(j)).split("\\s{1,}");
+        	j = (i==c.getGenes().size()-1)?0:i+1;
+        	cord2  = this.getProperties().getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(j).getId()).split("\\s{1,}");
         	Point p2 = new Point(Double.parseDouble(cord2[0]),Double.parseDouble(cord2[1]));
         	
         	//System.out.println(c.getChromosome() + "\n#sum "+p1.cartesianDistance(p2));
@@ -112,12 +114,12 @@ public class WS extends WeightedSum{
     
    /**
     * 
-    * @param c chromosome
+    * @param individual chromosome
     * @param p propertties file
     * @return
     */
     @SuppressWarnings({ "unchecked", "unused" })
-	public ArrayList<Double> timeWindowEvaluations(Chromosome c,Properties p)
+	public ArrayList<Double> timeWindowEvaluations(Individual individual,Properties p)
     {
 
     	long startTime = getCurrentTime();
@@ -129,7 +131,9 @@ public class WS extends WeightedSum{
     	String[] cord0,cordz,corda,cordi0,cordi1= new String[6];
     	String[] params = new String[6];
     	ArrayList<Double>  vrptw = new ArrayList<>();
-    	ArrayList<Integer> chrom = (ArrayList<Integer>) c.getChromosome().clone();
+    	ArrayList<Integer> chrom = (ArrayList<Integer>) individual.getChromosome().convertToInt().clone();
+    	
+    	
     	//int lastLocation = 0;
     	double totalDistance = 0;
      	int vCount = 1;
@@ -335,33 +339,35 @@ public class WS extends WeightedSum{
  	    
  	    cord0    = p.getProperty(Constants.CO_ORDINATES+".1").split("\\s{1,}"); //get depo cordinates
    	    Point p0 = new Point(Double.parseDouble(cord0[0]),Double.parseDouble(cord0[1]));
-   	  
-   	    cord1    = p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(0)).split("\\s{1,}"); //get depo cordinates
+   	    //TODO
+   	    cord1    = p.getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(0).getId()).split("\\s{1,}"); //get depo cordinates
 	    Point p1 = new Point(Double.parseDouble(cord0[0]),Double.parseDouble(cord0[1]));
 	    
  	    distanceTime = -p0.calculateEuclidianDistance(p1); //initialise distance to p0-p1
  	    totalDistance = p0.calculateEuclidianDistance(p1); //set total 
  	    
- 	    for(int i=0; i<c.getChromosome().size();i++)
+ 	    for(int i=0; i<c.getGenes().size();i++)
         {
  	    	
         	/*
         	 * when genes are exhausted, loop back j to one
         	 * so cycle completes e.g. 2-4-5--1-3-2, 4-2-5-3-1-4 ... etc
         	 */
-        	j = (i==c.getChromosome().size()-1)?0:i+1;
+        	j = (i==c.getGenes().size()-1)?0:i+1;
         	//note use of i+1 & j+1 to reference cordinates, because of cordinate numbering in param file
-	    	params        = p.getProperty(Constants.CO_ORDINATES+"."+(c.getChromosome().get(i)+1)).split("\\s{1,}");
+        	//TODO modify c.getChromosome().get(i).getId() to read directly from Gene
+	    	params        = p.getProperty(Constants.CO_ORDINATES+"."+(c.getGenes().get(i).getId()+1)).split("\\s{1,}");
 	    	double demand = Double.parseDouble(params[2]);
  	    	/*
  	    	 * keep adding demand until vehicle capacity is full
  	    	 * it its full, start loading an empty truck
+ 	    	 * TODO 
  	    	 */
-	    
-	    	cordi0     = p.getProperty(Constants.CO_ORDINATES+"."+(c.getChromosome().get(i)+1)).split("\\s{1,}");
+	    	cordi0     = p.getProperty(Constants.CO_ORDINATES+"."+(c.getGenes().get(i).getId()+1)).split("\\s{1,}");
             Point pi0 = new Point(Double.parseDouble(cordi0[0]),Double.parseDouble(cordi0[1]));
             //System.out.println("hahahaha" + i+ " : "+ (c.getChromosome().get(j)+1));
-	    	cordi1      = p.getProperty(Constants.CO_ORDINATES+"."+(c.getChromosome().get(j)+1)).split("\\s{1,}");
+            //TODO c.getChromosome().get(j).getId()
+	    	cordi1      = p.getProperty(Constants.CO_ORDINATES+"."+(c.getGenes().get(j).getId()+1)).split("\\s{1,}");
             Point pi1 = new Point(Double.parseDouble(cordi1[0]),Double.parseDouble(cordi1[1]));
     	    
             //distanceTime += Double.parseDouble(cordi0[3]) + Double.parseDouble(cordi0[5]); //ready time + service time
@@ -393,10 +399,11 @@ public class WS extends WeightedSum{
        
        /**
         * 
-        * @param c
+        * @param p 
+     * @param individual.getChromosome()
         * @return
         */
-       public double sumDistanceVRP(Chromosome c, Properties p)
+       public double sumDistanceVRP(Chromosome ch, Properties p)
        {
         	/*
         	 * node.1.x         = 40.00
@@ -420,7 +427,7 @@ public class WS extends WeightedSum{
        	 */
     	   
     	    int vCapacity = Integer.parseInt(p.getProperty(Constants.VEHICLE_CAPACITY));
-    	    for(int i=0; i<c.getChromosome().size();i++)
+    	    for(int i=0; i<ch.getGenes().size();i++)
             {
     	    	
     	    	cord0    = p.getProperty(Constants.CO_ORDINATES+".1").split("\\s{1,}"); //get starting point
@@ -429,8 +436,9 @@ public class WS extends WeightedSum{
             	 * when genes are exhausted, loop back j to one
             	 * so cycle completes e.g. 2-4-5--1-3-2, 4-2-5-3-1-4 ... etc
             	 */
-            	j = (i==c.getChromosome().size()-1)?0:i+1;
-    	    	params        = p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(i)).split("\\s{1,}");
+            	j = (i==ch.getGenes().size()-1)?0:i+1;
+            	//TODO
+    	    	params        = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(i).getId()).split("\\s{1,}");
     	    	double demand = Double.parseDouble(params[2]);
     	    	/*
     	    	 * keep adding demand until vehicle capacity is full
@@ -438,9 +446,9 @@ public class WS extends WeightedSum{
     	    	 */
     	    	if( (sum+demand) <= vCapacity)
     	    	{
-    	    		cord1    = p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(i)).split("\\s{1,}");
+    	    		cord1    = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(i).getId()).split("\\s{1,}");
                 	Point p1 = new Point(Double.parseDouble(cord1[0]),Double.parseDouble(cord1[1]));
-    	    		cord2    = p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(j)).split("\\s{1,}");
+    	    		cord2    = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(j).getId()).split("\\s{1,}");
                 	Point p2 = new Point(Double.parseDouble(cord2[0]),Double.parseDouble(cord2[1]));
         	    	
     	    		sum+=demand;
@@ -448,11 +456,11 @@ public class WS extends WeightedSum{
     	    		//System.out.print(" "+cord1[0]+"-"+cord2[0]+" ");
     	    	}
     	    	else
-    	    	{ 
-    	    		cord1    = p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(j)).split("\\s{1,}");          //new beginning point
+    	    	{   //TODO
+    	    		cord1    = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(j).getId()).split("\\s{1,}");          //new beginning point
                 	Point p1 = new Point(Double.parseDouble(cord1[0]),Double.parseDouble(cord1[1]));
-    	    		cord2    = (j==0)?p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(0)).split("\\s{1,}"):
-    	    			              p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(j-1)).split("\\s{1,}"); //last point before new route
+    	    		cord2    = (j==0)?p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(0).getId()).split("\\s{1,}"):
+    	    			              p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(j-1).getId()).split("\\s{1,}"); //last point before new route
     	    		Point p2 = new Point(Double.parseDouble(cord2[0]),Double.parseDouble(cord2[1]));
         	    	 
     	    		sum = demand;
@@ -471,10 +479,10 @@ public class WS extends WeightedSum{
        
        /**
         * 
-        * @param c
+        * @param individual
         * @return
         */
-       public int sumCars(Chromosome c,Properties p)
+       public int sumCars(Chromosome ch,Properties p)
        {
     	  
         	String[] params = new String[6];
@@ -489,9 +497,9 @@ public class WS extends WeightedSum{
         	//System.out.println("#capacity: "+p.getProperty(Constants.VEHICLE_CAPACITY));
     	    int vCapacity = Integer.parseInt(p.getProperty(Constants.VEHICLE_CAPACITY));
     	    
-    	    for(int i=0; i<c.getChromosome().size();i++)
+    	    for(int i=0; i<ch.getGenes().size();i++)
             {
-    	    	params  = p.getProperty(Constants.CO_ORDINATES+"."+c.getChromosome().get(i)).split("\\s{1,}");
+    	    	params  = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(i)).split("\\s{1,}");
     	    	double demand = Double.parseDouble(params[2]);
     	    	/*
     	    	 * keep adding demand until vehicle capacity is full
@@ -524,7 +532,7 @@ public class WS extends WeightedSum{
           double averageFitness = 0;
           for( int i=0; i< pop.size(); i++)
           {
-             averageFitness += sumDistanceVRP(pop.get(i),this.getProperties());
+             averageFitness += sumDistanceVRP(pop.get(i).getChromosome(),this.getProperties());
           }
           return averageFitness/pop.size();
        }

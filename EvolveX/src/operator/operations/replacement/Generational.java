@@ -6,6 +6,7 @@ package operator.operations.replacement;
 
 import fitnessevaluation.FitnessExtension;
 import individuals.Chromosome;
+import individuals.Gene;
 import individuals.Individual;
 import individuals.fitnesspackage.PopulationFitness;
 import individuals.populations.Population;
@@ -152,9 +153,9 @@ public class Generational implements ReplacementStrategy{
                 		selectIndividualsBasedOnFitness(
                 				selectionOperation.getTournamentSelection(),
                 				selectionPressure).get(0)); //select best 2 individuals
-                 
-                c1.setChromosome((ArrayList<Integer>) current.get(generation -1).get(tournamentIndividuals.get(0)).getChromosome().clone()); //clone individuals
-                c2.setChromosome((ArrayList<Integer>) current.get(generation -1).get(tournamentIndividuals.get(1)).getChromosome().clone());  
+                //TODO use individuals instead of chromosomes
+                c1.setGenes((ArrayList<Gene>) current.get(generation -1).get(tournamentIndividuals.get(0)).getChromosome().getGenes().clone()); //clone individuals
+                c2.setGenes((ArrayList<Gene>) current.get(generation -1).get(tournamentIndividuals.get(1)).getChromosome().getGenes().clone());  
                    
                 /* 
                  * add new individuals to population
@@ -163,7 +164,8 @@ public class Generational implements ReplacementStrategy{
                  * nextGeneration.addAll(nextGeneration,crx.performCrossoverOperation(current.get(generation -1), c1, c2,tournamentIndividuals,(current.get(generation-1).size() - this.populationCount)));
                  */
                 
-                nextGeneration.addAll(crx.performCrossoverOperation(current.get(generation -1), c1, c2,tournamentIndividuals,(current.get(generation-1).size() - this.populationCount))); 
+                nextGeneration.addAll(crx.performCrossoverOperation(current.get(generation -1),
+                		c1.clone(), c2.clone(),tournamentIndividuals,(current.get(generation-1).size() - this.populationCount))); 
                 this.populationCount += crx.getOffsprings().size(); //increment population by number of children added
             }
             // mutation?
@@ -180,15 +182,15 @@ public class Generational implements ReplacementStrategy{
                 				selectionOperation.getTournamentSelection(),
                 				selectionPressure).get(0)); 
                 
-                c1.setChromosome((ArrayList<Integer>) current.get(generation -1).
-                		get(tournamentIndividuals.get(0)).getChromosome().clone()); //clone individuals
+                c1.setGenes((ArrayList<Gene>) current.get(generation -1).
+                		get(tournamentIndividuals.get(0)).getChromosome().getGenes().clone()); //clone individuals
                
                /* 
                 * add new individual to population
                 * nextGeneration.addAll(nextGeneration,mtx.performMutationOperation(current.get(generation -1), c1,tournamentIndividuals.get(0)));
                 */
                 nextGeneration.addAll(mtx.performMutationOperation(current.get(generation -1), 
-                		c1,tournamentIndividuals.get(0)));
+                		c1.clone(),tournamentIndividuals.get(0)));
                 this.populationCount++; //increment population
             }
         } 
@@ -362,10 +364,10 @@ public class Generational implements ReplacementStrategy{
                  *  clone individuals not chromosome -- get chromosome from genetic operation
                  *  c1 = evolvingPopulation.get(tournamentIndividuals.get(0)).getChromosome().clone();
                  */
-                c1.setChromosome((ArrayList<Integer>) evolvingPopulation.
-                		get(tournamentIndividuals.get(0)).getChromosome().clone()); //clone individuals
-                c2.setChromosome((ArrayList<Integer>) evolvingPopulation.
-                		get(tournamentIndividuals.get(1)).getChromosome().clone());  
+                c1.setGenes((ArrayList<Gene>) evolvingPopulation.
+                		get(tournamentIndividuals.get(0)).getChromosome().getGenes().clone()); //clone individuals
+                c2.setGenes((ArrayList<Gene>) evolvingPopulation.
+                		get(tournamentIndividuals.get(1)).getChromosome().getGenes().clone());  
                 
                 /**
                  * ALPS: AGE OF parents and offsprings
@@ -395,7 +397,7 @@ public class Generational implements ReplacementStrategy{
                  * nextGeneration.addAll(nextGeneration,crx.performCrossoverOperation(current.get(generation -1), c1, c2,tournamentIndividuals,(current.get(generation-1).size() - this.populationCount)));
                  */
                 nextGeneration.addAll(crx.performCrossoverOperation(
-                		evolvingPopulation, c1, c2,tournamentIndividuals,
+                		evolvingPopulation, c1.clone(), c2.clone(),tournamentIndividuals,
                 		(alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize() - this.populationCount),
                 		ages,alpsLayers.layers.get(alpsLayers.index).getParameters().getReplacementOperator())); 
                 this.populationCount += crx.getOffsprings().size(); //increment population by number of children added
@@ -412,8 +414,8 @@ public class Generational implements ReplacementStrategy{
                 		selectIndividualsBasedOnFitness(
                 				selectionOperation.getTournamentSelection(),
                 				selectionPressure).get(0)); //select best individuals from tournament selection
-                c1.setChromosome((ArrayList<Integer>) evolvingPopulation.
-                		get(tournamentIndividuals.get(0)).getChromosome().clone()); //clone individuals
+                c1.setGenes((ArrayList<Gene>) evolvingPopulation.
+                		get(tournamentIndividuals.get(0)).getChromosome().getGenes().clone()); //clone individuals
                 /**
                  * ALPS: AGE OF parents and offsprings
                  * Offspring: age of oldest parent + 1
@@ -437,7 +439,7 @@ public class Generational implements ReplacementStrategy{
                 */
                 nextGeneration.addAll(
                 		mtx.performMutationOperation(
-                		  evolvingPopulation,c1,
+                		  evolvingPopulation,c1.clone(),
                 		  tournamentIndividuals.get(0),ages,
                 		  alpsLayers.layers.get(alpsLayers.index).getParameters().getReplacementOperator()));
                 

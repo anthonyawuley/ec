@@ -59,7 +59,9 @@ public class CycleCrossover extends CrossoverModule {
      * 
      */
     @Override
-    public ArrayList<Individual> performCrossoverOperation(Population p,Chromosome c1, Chromosome c2,ArrayList<Integer> tournamentIndividuals, int numberOfChildrenToAdd)
+    public ArrayList<Individual> performCrossoverOperation(
+    		Population p,Chromosome c1, Chromosome c2,
+    		ArrayList<Integer> tournamentIndividuals, int numberOfChildrenToAdd)
     {
         
       Individual id1 = new Individual(); 
@@ -67,19 +69,15 @@ public class CycleCrossover extends CrossoverModule {
       //GenerateMask randMsk = new GenerateMask();
      
       ArrayList<Individual> children = new ArrayList<>();
-      ArrayList<Integer> mask = new ArrayList<>();
+      ArrayList<Integer>        mask = new ArrayList<>();
   
-      crossoverMask = GenerateMask.getMask(p.get(0).getChromosome().size());
+      crossoverMask = GenerateMask.getMask(p.get(0).getChromosome().getGenes().size());
       this.indexes.clear(); //very important
       //randomly generate initial point
-      mask = this.getCycleMask(c1,c2,RandomGenerator.getMultiThreadedRandNumber(0,c1.getChromosome().size()-1)); //return index position of 1's in mask
+      mask = this.getCycleMask(c1,c2,
+    		  RandomGenerator.getMultiThreadedRandNumber(0,c1.getGenes().size()-1)); //return index position of 1's in mask
       //mask = this.getCycleMask(c1,c2,0); //return index position of 1's in mask
-      /*
-      System.out.println("Printing my new mask");
-      for(int i=0;i<mask.size();i++)
-      {
-         System.out.print(mask.get(i)+" ");
-      }*/
+   
      
       /*
        * complete replacement of other bit positions without mask flag of "1"
@@ -87,12 +85,12 @@ public class CycleCrossover extends CrossoverModule {
        * individuals that have -1 after operation are invalid
        */
       
-        for(int j=0; j<c1.getChromosome().size();j++) //take size of any of the chromosomes
+        for(int j=0; j<c1.getGenes().size();j++) //take size of any of the chromosomes
         {  
             if(!GenerateMask.isExistIndex(mask,j+""))
             {
-               c1.getChromosome().set(j, p.get(tournamentIndividuals.get(1)).getChromosome().get(j)); //swap remaining chromosomes
-               c2.getChromosome().set(j, p.get(tournamentIndividuals.get(0)).getChromosome().get(j));
+               c1.getGenes().set(j, p.get(tournamentIndividuals.get(1)).getChromosome().getGenes().get(j)); //swap remaining chromosomes
+               c2.getGenes().set(j, p.get(tournamentIndividuals.get(0)).getChromosome().getGenes().get(j));
             } 
         }
         
@@ -101,30 +99,30 @@ public class CycleCrossover extends CrossoverModule {
         
           for(int j=0; j<p.get(tournamentIndividuals.get(1)).getChromosome().size(); j++)
           {
-              System.out.print(c1.getChromosome().get(j)+" ");
+              System.out.print(c1.getGenes().get(j)+" ");
            
           }System.out.println();
           for(int j=0; j<p.get(tournamentIndividuals.get(1)).getChromosome().size(); j++)
           {
-              System.out.print(c2.getChromosome().get(j)+" ");
+              System.out.print(c2.getGenes().get(j)+" ");
           }
         */
         
         //set individual properties for chldren and add to new population
      
-        id1.setChromosome(c1.getChromosome());
+        id1.setChromosome(c1);
         id1.setFitness(new BasicFitness()); //set fitness object
-        id2.setChromosome(c2.getChromosome());
+        id2.setChromosome(c2);
         id2.setFitness(new BasicFitness()); //set fitness object
         //System.out.println("#ADDED "+numberOfChildrenToAdd);
         switch(numberOfChildrenToAdd)
         {
            case 1: //add one offspring
-        	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()))
+        	   if(!chromosomeHasDuplicateGenes(c1.getGenes()))
         		   children.add(id1);
                break;
            default: //add two offsprings
-        	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()) && !chromosomeHasDuplicateGenes(c2.getChromosome()))
+        	   if(!chromosomeHasDuplicateGenes(c1.getGenes()) && !chromosomeHasDuplicateGenes(c2.getGenes()))
         	   {
                  children.add(id1);
                  children.add(id2);
@@ -161,10 +159,10 @@ public class CycleCrossover extends CrossoverModule {
       ArrayList<Individual> children = new ArrayList<>();
       ArrayList<Integer> mask = new ArrayList<>();
   
-      crossoverMask = GenerateMask.getMask(p.get(0).getChromosome().size());
+      crossoverMask = GenerateMask.getMask(p.get(0).getChromosome().getGenes().size());
       this.indexes.clear(); //very important
       //randomly generate initial point
-      mask = this.getCycleMask(c1,c2,RandomGenerator.getMultiThreadedRandNumber(0,c1.getChromosome().size()-1)); //return index position of 1's in mask
+      mask = this.getCycleMask(c1,c2,RandomGenerator.getMultiThreadedRandNumber(0,c1.getGenes().size()-1)); //return index position of 1's in mask
  
      
       /*
@@ -173,19 +171,19 @@ public class CycleCrossover extends CrossoverModule {
        * individuals that have -1 after operation are invalid
        */
       
-        for(int j=0; j<c1.getChromosome().size();j++) //take size of any of the chromosomes
+        for(int j=0; j<c1.getGenes().size();j++) //take size of any of the chromosomes
         {  
             if(!GenerateMask.isExistIndex(mask,j+""))
             {
-               c1.getChromosome().set(j, p.get(tournamentIndividuals.get(1)).getChromosome().get(j)); //swap remaining chromosomes
-               c2.getChromosome().set(j, p.get(tournamentIndividuals.get(0)).getChromosome().get(j));
+               c1.getGenes().set(j, p.get(tournamentIndividuals.get(1)).getChromosome().getGenes().get(j)); //swap remaining chromosomes
+               c2.getGenes().set(j, p.get(tournamentIndividuals.get(0)).getChromosome().getGenes().get(j));
             } 
         }
       
-        id1.setChromosome(c1.getChromosome());
+        id1.setChromosome(c1);
         
         id1.setFitness(new BasicFitness()); //set fitness object
-        id2.setChromosome(c2.getChromosome());
+        id2.setChromosome(c2);
         id2.setFitness(new BasicFitness()); //set fitness object
         
         if(replacementType.equals("SteadyState"))
@@ -206,12 +204,12 @@ public class CycleCrossover extends CrossoverModule {
         switch(numberOfChildrenToAdd)
         {
            case 1: //add one offspring
-        	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()))
+        	   if(!chromosomeHasDuplicateGenes(c1.getGenes()))
         		   children.add(id1);
         	   
                break;
            default: //add two offsprings
-        	   if(!chromosomeHasDuplicateGenes(c1.getChromosome()) && !chromosomeHasDuplicateGenes(c2.getChromosome()))
+        	   if(!chromosomeHasDuplicateGenes(c1.getGenes()) && !chromosomeHasDuplicateGenes(c2.getGenes()))
         	   {
                  children.add(id1);
                  children.add(id2);

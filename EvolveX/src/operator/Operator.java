@@ -5,6 +5,7 @@
 package operator;
 
 import individuals.Chromosome;
+import individuals.Gene;
 import individuals.Individual;
 import individuals.populations.Population;
 import util.random.GenerateMask;
@@ -30,13 +31,13 @@ public abstract class Operator {
 	 */
 	public abstract String getOperation();
 	/**
-	 * @param dupAraay
+	 * @param arrayList
 	 * @return true if there is duplicate
 	 */
-	public boolean chromosomeHasDuplicateGenes(ArrayList<Integer> dupAraay)
+	public boolean chromosomeHasDuplicateGenes(ArrayList<Gene> arrayList)
 	{ 
-		Set<Integer> set = new HashSet<Integer>();
-		for (Integer yourInt : dupAraay)
+		Set<Gene> set = new HashSet<Gene>();
+		for (Gene yourInt : arrayList)
 			if (!set.add(yourInt))
 				return true;
 
@@ -103,7 +104,7 @@ public abstract class Operator {
 	public ArrayList<Integer> getCycleMask(Chromosome p1, Chromosome p2,int id)
 	{
 		this.indexes.add(id);
-		id = GenerateMask.returnIndex(p1.getChromosome(),p2.getChromosome().get(id)+"");
+		id = GenerateMask.returnIndex(p1.getGenes(),p2.getGenes().get(id));
 		if(!GenerateMask.isExistIndex(this.indexes,id+"") && id!=-1)
 			getCycleMask(p1,p2,id); //recursive call
 		

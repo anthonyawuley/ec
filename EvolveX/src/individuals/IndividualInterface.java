@@ -20,19 +20,19 @@ public interface IndividualInterface{
      * Get fitness of individuals
      * @return individual fitness
      */
-    Fitness getFitness();
+    public Fitness getFitness();
     
     /**
      * Set fitness
      * @param f fitness
      */
-    void setFitness(Fitness f);
+    public void setFitness(Fitness fitness);
     
     /**
      * Get the genotype
      * @return genotype
      */
-    Chromosome getGenotype();
+    public Chromosome getGenotype();
     
     
     /**
@@ -46,26 +46,26 @@ public interface IndividualInterface{
      * Get phenotype
      * @return phenotype
      */
-    Phenotype getPhenotype();
+    public Phenotype getPhenotype();
     
     /**
      * Get a String representation of the output(Phenotype)
      * @param map which output to get if there are multiple
      * @return string of output
-     */
-    String getPhenotypeString(int map);
+    public  */
+    public String getPhenotypeString(int map);
     
     /**
      * Set genotype
      * @param g genotype
      */
-    void setGenotype(Chromosome g);
+    public void setGenotype(Chromosome g);
     
     /**
      * Set phenotype
      * @param p phenotype
      */
-    void setPhenotype(Phenotype p);
+    public void setPhenotype(Phenotype p);
     
     /**
      * Has the individual been evaluated

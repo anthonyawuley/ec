@@ -21,11 +21,11 @@ import util.random.RandomGenerator;
  *
  * @author anthony
  */
-public class TSP  extends Representation implements Gene{
+public class TSP  extends Representation{
     
 	   //private ArrayList<Integer> defaultChromeContainer = new ArrayList<>();
 	
-
+      /*
 	   @Override
 	   public void generateChromosome(Chromosome ch,Properties prop) 
 	   {
@@ -52,7 +52,7 @@ public class TSP  extends Representation implements Gene{
 	    	  this.chromosome.add(i); 
 	       }
 	   }
-	
+	  */
 	   /**
 	    * 
 	    * @param min
@@ -64,19 +64,19 @@ public class TSP  extends Representation implements Gene{
 		    return RandomGenerator.getMultiThreadedRandNumber(min,max);
 		}
 
-		@Override
+		
 		public void sort() {
 			// TODO Auto-generated method stub
 			
 		}
 
-		@Override
+	
 		public void addAll(ArrayList<Gene> immigrants) {
 			// TODO Auto-generated method stub
 			
 		}
 
-		@Override
+		
 		public void clear() {
 			// TODO Auto-generated method stub
 			

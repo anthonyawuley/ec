@@ -5,16 +5,19 @@
 package individuals;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Properties;
+import java.util.Random;
 
 import util.DeepClone;
+import util.random.MersenneTwisterFast;
 
 /**
  *
  * @author anthony
  */
-public class Chromosome implements Cloneable, Serializable {
+public class Chromosome extends Representation implements Cloneable, Serializable {
     
   
     /**
@@ -22,10 +25,58 @@ public class Chromosome implements Cloneable, Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private ArrayList<Integer> chromosome = new ArrayList<>();
+	//private ArrayList<Integer> chromosome = new ArrayList<>();
+	
+	private ArrayList<Gene>   chromosome = new ArrayList<>();
     
     private int chromeSize;
-
+    
+    /**
+     * 
+     * @param ch
+     * @param p
+     */
+    public void createChromosome(Chromosome ch,Properties p, MersenneTwisterFast rng) 
+	   {
+		  //limit repeated call to function, since its unecessary
+		  if(chromosome.isEmpty())
+			  create(ch.getChromosomeSize(),p);
+		
+		  //shuffle content of chromosome
+		  Collections.shuffle(chromosome, new Random(rng.nextLong()));
+	      ch.setGenes(chromosome);
+	    }
+    
+    
+    
+      /**
+       * TODO modify start based on problem type
+       * @param size
+       * @param p
+       */
+	   private void create(int size,Properties p)
+	   {
+		   int start = 1;
+		   chromosome.clear();
+		   //begin count from 1, since 0 is used as depot
+		   for(int i=start;i<=size;i++)
+	       {  
+			   Gene g = new Gene(i,p.getProperty(i+"").split("\\s{1,}"));
+	    	   chromosome.add(g); 
+	       }
+	   }
+    
+    
+	   public ArrayList<Integer> convertToInt()
+	   {
+		   ArrayList<Integer> toInt = new ArrayList<>();
+		   
+		   for(int i=0;i<this.chromosome.size();i++)
+			   toInt.add(this.chromosome.get(i).getId());
+		   
+		   return toInt;
+	   }
+	   
 
     /**
      * -revert if new doesnt work
@@ -45,17 +96,35 @@ public class Chromosome implements Cloneable, Serializable {
     
     /**
      * 
+     * @param id 
+     * @return finds a gene in chromosome with specified id, else returns an invalid Gene
+     * check id of returned gene before performing operation
+     */
+    public Gene findGene(int id)
+    {
+    	for(Gene g: chromosome)
+    		if(g.getId()==id)
+    			return g;
+    	
+    	return new Gene(-1);
+    }
+    
+    
+    /**
+     * 
      * @param chrome
      * @return
      */
-    public boolean isFeasible(ArrayList<Integer> chrome)
+    public boolean isFeasible(ArrayList<Gene> ch)
     {
-      return this.chromosome.size()==chrome.size();
+      return this.chromosome.size()==ch.size();
     }
     
     /**
      * @param length
      * @return 
+     * 
+     * @deprecated
      */
     public void createChromosome(Chromosome ch,Gene g,Properties prop)
     {
@@ -81,18 +150,18 @@ public class Chromosome implements Cloneable, Serializable {
      * 
      * @param chrome 
      */
-    public void setChromosome(ArrayList<Integer> chrome)
+    public void setGenes(ArrayList<Gene> chrome)
     { 
-        this.chromosome = chrome;
+        chromosome = chrome;
     }
     
     /**
      * 
      * @return 
      */
-    public ArrayList<Integer> getChromosome()
+    public ArrayList<Gene> getGenes()
     {
-        return this.chromosome;
+        return chromosome;
     }
     
     
@@ -116,9 +185,9 @@ public class Chromosome implements Cloneable, Serializable {
      * 
      * @return 
      */
-    public ArrayList<Integer> getChromosomeConstraint()
+    public ArrayList<Gene> getChromosomeConstraint()
     {
-       return this.chromosome;
+       return chromosome;
     }
     
     
@@ -126,22 +195,20 @@ public class Chromosome implements Cloneable, Serializable {
      * Add an entire gene to the chromosome
      * @param genes Gene to add
      */
-    public void addAll(ArrayList<Integer> genes)
+    public void addAll(ArrayList<Gene> genes)
     {
-    	Iterator<Integer> indIt = genes.iterator();
+    	Iterator<Gene> indIt = genes.iterator();
         while (indIt.hasNext()) 
-        { 
         	this.chromosome.add(indIt.next());
-        }
     }
 
     /**
      * Add an gene to the population
      * @param g Gene to add
      */
-    public void add(int g)
+    public void add(Gene g)
     {
-    	this.chromosome.add(g);
+    	chromosome.add(g);
     }
 
     /**
@@ -150,19 +217,34 @@ public class Chromosome implements Cloneable, Serializable {
      */
     public void remove(int id)
     {
-    	this.chromosome.remove(id);
+    	chromosome.remove(id);
     }
     
     /**
-     * 
+     * remove gene from chromosome
+     * @param g
      */
-    public void validateChromosome()
+    public void remove(Gene g)
     {
-    /*
-     * first = portList.indexOf(someIntValue);
-       int last  = portList.lastIndexOf(someIntValue);
-       if (first != -1 && first != last) {
+    	chromosome.remove(g);
+    }
+    
+    /**
+     * -1 is set on an invalid gene id
      */
+    public boolean validateChromosome()
+    {
+      for(Gene g:chromosome)
+    	  if (g.getId()==-1)
+    		  return false;
+      
+      return true;
+    }
+    
+    
+    public  void clear()
+    {
+    	chromosome = new ArrayList<>();
     }
     
 }

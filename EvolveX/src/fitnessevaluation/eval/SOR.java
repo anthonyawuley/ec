@@ -26,7 +26,7 @@ public class SOR extends WS{
           double averageFitness = 0;
           for( int i=0; i< pop.size(); i++)
           {
-             averageFitness += sumDistanceVRP(pop.get(i),this.getProperties());
+             averageFitness += sumDistanceVRP(pop.get(i).getChromosome(),this.getProperties());
           }
           return averageFitness/pop.size();
        }

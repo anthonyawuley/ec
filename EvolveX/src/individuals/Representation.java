@@ -16,7 +16,7 @@ import individuals.representation.*;
  */
 public abstract class Representation{
     
-	 protected ArrayList<Integer> chromosome = new ArrayList<>();
+	 protected ArrayList<Gene> chromosome = new ArrayList<>();
 	 protected MersenneTwisterFast rng;
 	
 	/**

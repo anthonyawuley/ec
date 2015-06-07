@@ -36,5 +36,19 @@ public class Grow implements InitialisationModule {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Population generateInitialPopulation(Properties prop,
+			int populationSize, int chromosomeLength) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Population generateInitialPopulation(Properties prop,
+			int populationSize, int chromosomeLength, double evaluations) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }

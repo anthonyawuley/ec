@@ -45,7 +45,7 @@ public class TSP extends WS{
    	          //this.setDouble(sumDistanceTSP(this.getIndividual(),p));
               //pop.get(i).setFitness(new BasicFitness());
    	    	   
-   	          pop.get(i).getFitness().setDouble(sumDistanceTSP(pop.get(i),p));
+   	          pop.get(i).getFitness().setDouble(sumDistanceTSP(pop.get(i).getChromosome(),p));
 	          
    	          //this.generationFitness.add(i, this.getDouble());
    	          this.getGenerationFitness().add(i, pop.get(i).getFitness().getDouble());
@@ -72,38 +72,53 @@ public class TSP extends WS{
      * 4 1.14810e+03 1.77110e+03
      * 5 1.18620e+03 1.79650e+03
      */
+    /**
+     * 
+     * @param c
+     * @return
+     * 
+     * NODE_COORD_SECTION
+     * 1 0.00000e+00 0.00000e+00
+     * 2 1.11630e+03 1.55520e+03
+     * 3 1.35760e+03 1.47900e+03
+     * 4 1.14810e+03 1.77110e+03
+     * 5 1.18620e+03 1.79650e+03
+     */
     public double sumDistanceTSP(Chromosome c, Properties p)
     {
      	/*
      	 * node.1.x         = 40.00
          * node.1.y         = 50.00
      	 */
-     	String[] cord0 = new String[6];
-     	String[] cord1 = new String[6];
-     	String[] cord2 = new String[6];
+     	//String[] cord0 = new String[6];
+     	//String[] cord1 = new String[6];
+     	//String[] cord2 = new String[6];
      	
      	DecimalFormat df = new DecimalFormat("#.#####");
      	Point p0, p1 = null, p2 = null;
      	
      	double distance = 0; //initialize distance
-     	cord0    = p.getProperty(""+c.getChromosome().get(0)).split("\\s{1,}"); //get first cordinate in chromosome
+     	//TODO
+     	//cord0    = p.getProperty(""+c.getGenes().get(0).getId()).split("\\s{1,}"); //get first cordinate in chromosome
      	//System.out.println(cord0);
-	    p0       =  new Point(Double.parseDouble(cord0[0]),Double.parseDouble(cord0[1]));
+	    p0       =  new Point(c.getGenes().get(0).getAlleles()[0],c.getGenes().get(0).getAlleles()[1]);
      	
  	    /*
- 	     * c.getChromosome().size() - 1 because of forward looking condition (i+1)
+ 	     * c.getGenes().size() - 1 because of forward looking condition (i+1)
  	     */
- 	     for(int i=0; i<c.getChromosome().size() - 1;i++)
-         {
- 	    	cord1    = p.getProperty(""+c.getChromosome().get(i)).split("\\s{1,}");
-            p1       = new Point(Double.parseDouble(cord1[0]),Double.parseDouble(cord1[1]));
-            
- 	    	cord2    = p.getProperty(""+c.getChromosome().get(i+1)).split("\\s{1,}");
-            p2       = new Point(Double.parseDouble(cord2[0]),Double.parseDouble(cord2[1]));
+ 	     for(int i=0; i<c.getGenes().size() - 1;i++)
+         {  //TODO
+ 	    	//cord1    = p.getProperty(""+c.getGenes().get(i).getId()).split("\\s{1,}");
+            p1       = new Point(c.getGenes().get(i).getAlleles()[0],c.getGenes().get(i).getAlleles()[1]);
+            //TODO
+ 	    	//cord2    = p.getProperty(""+c.getGenes().get(i+1).getId()).split("\\s{1,}");
+            p2       = new Point(c.getGenes().get(i+1).getAlleles()[0],c.getGenes().get(i+1).getAlleles()[1]);
      	    	
  	    	distance += p1.calculateEuclidianDistance(p2);
- 	    	//System.out.print(" "+cord1[0]+"-"+cord2[0]+" ");
-          }
+ 	    	//System.out.print(c.getGenes().get(i).getId()+":"+p1.getX()+"-"+p1.getY()+" ");
+ 	    	//System.out.print(c.getGenes().get(i).getId()+":");
+ 	    	
+          } //System.out.println();
  	     /** note that at the end of the above for-loop, p2 will have last coordinate in chromosome */
  	   distance += p0.calculateEuclidianDistance(p2);
  	    

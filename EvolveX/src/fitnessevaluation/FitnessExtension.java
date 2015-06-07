@@ -145,9 +145,8 @@ public  abstract class FitnessExtension extends PopulationFitness {
     {
     	 double sum=0;
     	 for( int i=0; i< genFit.size(); i++)
-         {
             sum+=genFit.get(i); //System.out.println("Individual#"+i+" "+this.getDouble());
-         }
+         
     	return sum/genFit.size();
     }
     
@@ -161,9 +160,8 @@ public  abstract class FitnessExtension extends PopulationFitness {
     	 double mean = calculateMeanOfPopulationFitness(genFit);
     	 double var=0;
     	 for( int i=0; i< genFit.size(); i++)
-         {
             var += (genFit.get(i)-mean) * (genFit.get(i)-mean);
-         }
+         
     	return var/genFit.size();
     }
     
@@ -196,14 +194,11 @@ public  abstract class FitnessExtension extends PopulationFitness {
         ArrayList<Double> generationFitnessCopy = new ArrayList<>(); //done to prevent modification of original
         
         if(isUpperLayer)
-        {
             generationFitnessCopy = this.getGenerationFitness();
-        }
         else //get lower layer
-        {
         	generationFitnessCopy = alpsLayers.layers.get(alpsLayers.index-1).getEvolution().
         			                  getCurrentPopulation().getFitness().getGenerationFitness();
-        }
+        
         
         RandomGenerator randGen = new RandomGenerator(); 
         double rand = randGen.nextDouble();
@@ -212,9 +207,8 @@ public  abstract class FitnessExtension extends PopulationFitness {
         {
           //System.out.println("#TournamentIndividuals "+ tournamentIndividuals);
            for(int i=0; i < tournamentIndividuals.size(); i++)
-           {
                sorted.add(generationFitnessCopy.get(tournamentIndividuals.get(i)));
-           } 
+         
            Collections.sort(sorted);
         
            selected.add(sortTournamentFitness(generationFitnessCopy,tournamentIndividuals,sorted.get(0)).get(0));
@@ -256,18 +250,17 @@ public  abstract class FitnessExtension extends PopulationFitness {
        {
          //System.out.println("#TournamentIndividuals "+ tournamentIndividuals);
           for(int i=0; i < tournamentIndividuals.size(); i++)
-          { //System.out.println("TournamentSize#"+tournamentIndividuals.get(i));
+           //System.out.println("TournamentSize#"+tournamentIndividuals.get(i));
               sorted.add(this.getGenerationFitness().get(tournamentIndividuals.get(i)));
-          } 
+        
           Collections.sort(sorted);
           //System.out.println("tournament "+ tournamentIndividuals +" sorted "+sorted);
           selected.add(sortTournamentFitness(
         		  this.getGenerationFitness(),tournamentIndividuals,sorted.get(0)).get(0));
           if(sorted.size()>1)
-          {
               selected.add(sortTournamentFitness(
             		  this.getGenerationFitness(),tournamentIndividuals,sorted.get(1)).get(0));
-          }
+          
           //System.out.println("#selected :"+selected +"\nFITNESS "+this.generationFitness+"\nSELECTED"+selected.get(0));      
        }
        else //random selection

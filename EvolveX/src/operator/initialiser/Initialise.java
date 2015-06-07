@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import operator.InitialisationModule;
+import util.random.MersenneTwisterFast;
 
 /**
  *
@@ -21,6 +22,7 @@ import operator.InitialisationModule;
  */
 public class Initialise implements InitialisationModule{
     
+	private MersenneTwisterFast rng = new MersenneTwisterFast();;
     
     public Initialise()
     {
@@ -40,7 +42,44 @@ public class Initialise implements InitialisationModule{
      * @param chromosomeLength
      * @return
      */
-    @SuppressWarnings("unchecked")
+	public  Population generateInitialPopulation(
+			Properties prop, int populationSize, int chromosomeLength) 
+    {
+        
+    	System.out.println(toString(populationSize));
+    	this.toString(populationSize);
+    	
+        Population pop = new Population();
+        //create initial population
+        for(int i=0; i<populationSize;i++)
+        {
+            Chromosome ch = new Chromosome();
+            ch.setChromosomeSize(chromosomeLength);
+            Individual individual = new Individual();
+            //set initial age to zero(0)
+            individual.setAge(0);
+            //set initial layer to zero(0)
+            individual.setLayerId(0);
+            //NB: clone used to make each individual independent
+            //individual.createChromosome(ch,gene,prop); //create individual
+            ch.createChromosome(ch,prop,rng); //create individual
+            individual.setChromosome(ch);
+            //set fitness object
+            individual.setFitness(new BasicFitness()); //create fitness object
+            pop.add(individual);     //add individual to population
+           // pop.get(i).setChromosome((ArrayList<Gene>) ch.getChromosome().clone()); //add chromosome to individual
+        }
+       
+        return pop;
+    }
+
+    /**
+     * 
+     * @param populationSize
+     * @param chromosomeLength
+     * @return
+     * @deprecated
+     */
 	public  Population generateInitialPopulation(
 			Gene gene, Properties prop, int populationSize, int chromosomeLength) 
     {
@@ -60,19 +99,23 @@ public class Initialise implements InitialisationModule{
             //set initial layer to zero(0)
             individual.setLayerId(0);
             //NB: clone used to make each individual independent
-            individual.createChromosome(ch,gene,prop); //create individual
+            //ch.createChromosome(ch,gene,prop); //create individual
+            ch.createChromosome(ch,prop,rng); //create individual
+            individual.setChromosome(ch);
             //set fitness object
             individual.setFitness(new BasicFitness()); //create fitness object
             pop.add(individual.clone());     //add individual to population
-            pop.get(i).setChromosome((ArrayList<Integer>) ch.getChromosome().clone()); //add chromosome to individual
+            //pop.get(i).setChromosome((ArrayList<Gene>) ch.getChromosome().clone()); //add chromosome to individual
         }
        
         return pop;
     }
+    
 
-
-	@SuppressWarnings("unchecked")
-	@Override
+	
+	/**
+	 * @deprecated
+	 */
 	public Population generateInitialPopulation(Gene g, Properties prop,
 			int populationSize, int chromosomeLength, double evaluations) 
 	{
@@ -91,7 +134,9 @@ public class Initialise implements InitialisationModule{
             //set initial layer to zero(0)
             individual.setLayerId(0);
             //NB: clone used to make each individual independent
-            individual.createChromosome(ch,g,prop); //create individual
+            //ch.createChromosome(ch,g,prop); //create individual
+            ch.createChromosome(ch,prop,rng); //create individual
+            individual.setChromosome(ch);
             /* set default number of evaluations for SS ALPS
              * add individual to population
              * individuals created at the same time are assumed 
@@ -101,12 +146,48 @@ public class Initialise implements InitialisationModule{
             //set fitness object
             individual.setFitness(new BasicFitness()); //create fitness object
             pop.add(individual.clone());     //add individual to population
-            pop.get(i).setChromosome((ArrayList<Integer>) ch.getChromosome().clone()); //add chromosome to individual
+            //pop.get(i).setChromosome((ArrayList<Gene>) ch.getChromosome().clone()); //add chromosome to individual
         }
        
         return pop;
 	}
     
+	
+	@Override
+	public Population generateInitialPopulation(Properties prop,
+			int populationSize, int chromosomeLength, double evaluations) 
+	{
+    	System.out.println(toString(populationSize));
+    	this.toString(populationSize);
+    	
+        Population pop = new Population();
+        //create initial population
+        for(int i=0; i<populationSize;i++)
+        {
+            Chromosome ch = new Chromosome();
+            ch.setChromosomeSize(chromosomeLength);
+            Individual individual = new Individual();
+            //set initial age to one(1.0)
+            individual.setAge(0.0);
+            //set initial layer to zero(0)
+            individual.setLayerId(0);
+            //NB: clone used to make each individual independent
+            ch.createChromosome(ch,prop,rng); //create individual
+            individual.setChromosome(ch);
+            /* set default number of evaluations for SS ALPS
+             * add individual to population
+             * individuals created at the same time are assumed 
+             * to be at the same number of evaluations
+             */
+            individual.setBirthEvaluations(evaluations);
+            //set fitness object
+            individual.setFitness(new BasicFitness()); //create fitness object
+            pop.add(individual);     //add individual to population
+            //pop.get(i).setChromosome((ArrayList<Gene>) ch.getChromosome().clone()); //add chromosome to individual
+        }
+       
+        return pop;
+	}
     
 
 }

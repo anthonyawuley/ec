@@ -6,6 +6,7 @@ package operator.operations.replacement;
 
 import fitnessevaluation.FitnessExtension;
 import individuals.Chromosome;
+import individuals.Gene;
 import individuals.fitnesspackage.PopulationFitness;
 import individuals.populations.Population;
 
@@ -258,10 +259,10 @@ public class SteadyState  implements ReplacementStrategy {
                 				selectionOperation.getTournamentSelection(),
                 				selectionPressure).get(0)); 
                  
-                c1.setChromosome((ArrayList<Integer>) evolvingPopulation.
-                		get(tournamentIndividuals.get(0)).getChromosome().clone()); //clone individuals
-                c2.setChromosome((ArrayList<Integer>) evolvingPopulation.
-                		get(tournamentIndividuals.get(1)).getChromosome().clone());  
+                c1.setGenes((ArrayList<Gene>) evolvingPopulation.
+                		get(tournamentIndividuals.get(0)).getChromosome().getGenes().clone()); //clone individuals
+                c2.setGenes((ArrayList<Gene>) evolvingPopulation.
+                		get(tournamentIndividuals.get(1)).getChromosome().getGenes().clone());  
                 
                 /**
                  * ALPS: AGE OF parents and offsprings
@@ -270,9 +271,8 @@ public class SteadyState  implements ReplacementStrategy {
                  */
                 ages.clear();
                 for(int i=0; i<2;i++)
-                {  
             	   ages.add(evolvingPopulation.get(tournamentIndividuals.get(i)).getBirthEvaluations());
-                }
+                
                
                 /* 
                  * add new individuals to population
@@ -281,7 +281,7 @@ public class SteadyState  implements ReplacementStrategy {
                  * nextGeneration.addAll(nextGeneration,crx.performCrossoverOperation(current.get(generation -1), c1, c2,tournamentIndividuals,(current.get(generation-1).size() - this.populationCount)));
                  */
                 crx.performCrossoverOperation(
-                		evolvingPopulation, c1, c2,tournamentIndividuals,
+                		evolvingPopulation, c1.clone(), c2.clone(),tournamentIndividuals,
                 		(alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize() - this.populationCount),
                 		ages,alpsLayers.layers.get(alpsLayers.index).getParameters().getReplacementOperator()); 
                 
@@ -344,8 +344,8 @@ public class SteadyState  implements ReplacementStrategy {
                 		selectIndividualsBasedOnFitness(
                 				selectionOperation.getTournamentSelection(),
                 				selectionPressure).get(0)); //select best individuals from tournament selection
-                c1.setChromosome((ArrayList<Integer>) evolvingPopulation.
-                		get(tournamentIndividuals.get(0)).getChromosome().clone()); //clone individuals
+                c1.setGenes((ArrayList<Gene>) evolvingPopulation.
+                		get(tournamentIndividuals.get(0)).getChromosome().getGenes().clone()); //clone individuals
                 /**
                  * evaluation of parent
                  */
@@ -356,7 +356,7 @@ public class SteadyState  implements ReplacementStrategy {
                 * nextGeneration.addAll(nextGeneration,mtx.performMutationOperation(current.get(generation -1), c1,tournamentIndividuals.get(0)));
                 */
                 mtx.performMutationOperation(
-                		evolvingPopulation,c1,tournamentIndividuals.get(0),ages,
+                		evolvingPopulation,c1.clone(),tournamentIndividuals.get(0),ages,
                 		alpsLayers.layers.get(alpsLayers.index).getParameters().getReplacementOperator());
                 
                 this.evaluationCounter += mtx.getOffsprings().size();

@@ -60,7 +60,7 @@ public class CVRP extends WS{
     	String[] params = new String[6];
     	ArrayList<Double>  vrptw = new ArrayList<>();
     	ArrayList<Integer>  addedSofar= new ArrayList<>();
-    	ArrayList<Integer> chrom = (ArrayList<Integer>) c.getChromosome().clone();
+    	ArrayList<Integer> chrom = (ArrayList<Integer>) c.convertToInt().clone();
     	double totalDistance = 0;
      	int vCount = 1;
      	this.hybrid.clear();
@@ -210,7 +210,7 @@ public class CVRP extends WS{
        public double weightedFitness(Individual i,double alpha, double beta,Properties p)
        {
     	   
-    	   ArrayList<Double> vrp = CVRPEvaluations(i,p);
+    	   ArrayList<Double> vrp = CVRPEvaluations(i.getChromosome(),p);
     	   //set individual fitness values
     	   //in future pass to fitness object. and set fitness property for indiviaul
     	   i.setMultipleFitness(vrp);

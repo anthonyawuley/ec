@@ -5,6 +5,7 @@
 package operator;
 
 import individuals.Chromosome;
+import individuals.Gene;
 import individuals.Individual;
 import individuals.populations.Population;
 
@@ -113,13 +114,13 @@ public abstract class CrossoverModule extends Operator {
     /**
      * 
      * @param child
-     * @param value
+     * @param gene
      * @return 
      */
-    public int returnAvailableIndex(Chromosome child, int value)
+    public int returnAvailableIndex(Chromosome child, Gene gene)
     {
-        for(int i=0; i<child.getChromosome().size(); i++)
-            if(child.getChromosome().get(i).equals(value))
+        for(int i=0; i<child.getGenes().size(); i++)
+            if(child.getGenes().get(i).getId() == gene.getId())
                 return i;
         
         return -1;

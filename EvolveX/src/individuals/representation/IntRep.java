@@ -19,8 +19,9 @@ import util.random.RandomGenerator;
 /**
  *
  * @author anthony
+ * @deprecated
  */
-public class IntRep  extends Representation implements Gene{
+public class IntRep  extends Representation{
    
 	/**
 	    * 
@@ -33,19 +34,19 @@ public class IntRep  extends Representation implements Gene{
 		    return RandomGenerator.getMultiThreadedRandNumber(min,max);
 		}
 
-		@Override
+		
 		public void sort() {
 			// TODO Auto-generated method stub
 			
 		}
 
-		@Override
+		
 		public void addAll(ArrayList<Gene> immigrants) {
 			// TODO Auto-generated method stub
 			
 		}
 
-		@Override
+		
 		public void clear() {
 			// TODO Auto-generated method stub
 			
@@ -54,19 +55,19 @@ public class IntRep  extends Representation implements Gene{
 		 /**
 	     * @throws CloneNotSupportedException 
 	     * 
-	     */
+	       */
 	    public Gene clone() throws CloneNotSupportedException
 	    {
 	    	return (Gene) super.clone();
 	    }
 
-		@Override
+		
 		public void generateChromosome(Chromosome ch,Properties prop)
 		{
 		   this.chromosome.clear();    
 		   for(int i=0;i<ch.getChromosomeSize();i++)
 		   {  
-			 this.chromosome.add(geneRepresentation(1,ch.getChromosomeSize()*14));//*14 to increase the range 
+			 //this.chromosome.add(geneRepresentation(1,ch.getChromosomeSize()*14));//*14 to increase the range 
 			 System.out.print(this.chromosome.get(i)+" ");    
 		   } System.out.println();
 			//set chromosome in base class
@@ -74,7 +75,9 @@ public class IntRep  extends Representation implements Gene{
 		    this.rng = new MersenneTwisterFast();
 			Collections.shuffle(this.chromosome, new Random(this.rng.nextLong()));
 			
-			ch.setChromosome(this.chromosome);
+			ch.setGenes(this.chromosome);
 	     }
+	     
+	   
     
  }
