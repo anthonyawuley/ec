@@ -1,7 +1,7 @@
 /*
 Grammatical Evolution in Java
 Release: GEVA-v2.0.zip
-Copyright (C) 2008 Michael O'Neill, Erik Hemberg, Anthony Brabazon, Conor Gilligan 
+Copyright (C) 2008, 2015 Michael O'Neill, Erik Hemberg, Anthony Brabazon, Conor Gilligan 
 Contributors Patrick Middleburgh, Eliott Bartley, Jonathan Hugosson, Jeff Wrigh
 
 Separate licences for asm, bsf, antlr, groovy, jscheme, commons-logging, jsci is included in the lib folder. 

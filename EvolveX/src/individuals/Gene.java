@@ -1,3 +1,19 @@
+/*******************************************************************************
+ * Copyright (c) 2014, 2015 
+ * Anthony Awuley - Brock University Computer Science Department
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the Academic Free License version 3.0
+ * which accompanies this distribution, and is available at
+ * https://aawuley@bitbucket.org/aawuley/evolvex.git
+ *
+ * Contributors:
+ *     ECJ                     MersenneTwister & MersenneTwisterFast (https://cs.gmu.edu/~eclab/projects/ecj)
+ *     voidException      Tabu Search (http://voidException.weebly.com)
+ *     Lucia Blondel       Simulated Anealing 
+ *     
+ *
+ *        
+ *******************************************************************************/
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -16,16 +32,15 @@ import util.DeepClone;
  */
 public class Gene implements Cloneable, Serializable {
     
-	/**
-	 * 
-	 */
+	/** */
 	private static final long serialVersionUID = 1L;
-
+	/** */
 	private double[] alleles;
+	/** */
 	private String[] strAlleles;
-	
+	/** */
 	private int id;
-	
+	/** */
 	public Gene(){}
 	
 	/**
@@ -33,7 +48,9 @@ public class Gene implements Cloneable, Serializable {
 	 * @param identity
 	 */
 	public Gene(int identity)
-	{ id = identity; }
+	{ 
+		id = identity; 
+	}
 	
 	/**
 	 * 
@@ -74,19 +91,28 @@ public class Gene implements Cloneable, Serializable {
 		
 		return alel;
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public double[] getAlleles()
 	{
 		return alleles;
 	}
     
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public String[] getStringAlleles()
 	{
 		return strAlleles;
 	}
 	
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getId()
 	{
 		return id;
@@ -119,6 +145,7 @@ public class Gene implements Cloneable, Serializable {
 		return null;
 	}
     */
+    /** */
     public Gene clone()
     {
         return (Gene) DeepClone.clone(this);
@@ -132,8 +159,6 @@ public class Gene implements Cloneable, Serializable {
 	{
 		return id !=-1;
 	}
-	
-	
 	
     /**
      * Clear the population of all individuals

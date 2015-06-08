@@ -1,3 +1,19 @@
+/*******************************************************************************
+ * Copyright (c) 2014, 2015 
+ * Anthony Awuley - Brock University Computer Science Department
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the Academic Free License version 3.0
+ * which accompanies this distribution, and is available at
+ * https://aawuley@bitbucket.org/aawuley/evolvex.git
+ *
+ * Contributors:
+ *     ECJ                     MersenneTwister & MersenneTwisterFast (https://cs.gmu.edu/~eclab/projects/ecj)
+ *     voidException      Tabu Search (http://voidException.weebly.com)
+ *     Lucia Blondel       Simulated Anealing 
+ *     
+ *
+ *        
+ *******************************************************************************/
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
@@ -20,16 +36,25 @@ public class Individual implements IndividualInterface, Serializable  {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	//private ArrayList<Integer> chromosome = new ArrayList<>();
+	/** */
     private Fitness f;
+    /** */
     private boolean evaluated;
+    /** */
     private boolean validId;
+    /** */
     private double age;
+    /** */
     private int layer;
+    /** */
     private ArrayList<Integer> hybrid;
+    /** */
     private ArrayList<Double> mopFitness;
+    /** */
     private double numberOfEvaluations;
+    /** */
     public  boolean parentFlag = false; //when individual is used as a parent
+    /** */
     private Chromosome chromosome;
     //private int genControl=0;
     
@@ -90,7 +115,6 @@ public class Individual implements IndividualInterface, Serializable  {
     /**
      * 
      */
-    
     public Individual clone() 
     {
         return (Individual) DeepClone.clone(this);
@@ -121,7 +145,6 @@ public class Individual implements IndividualInterface, Serializable  {
         return this.age;
     }
     
-    
     @Override
     public Chromosome getGenotype() 
     {
@@ -140,7 +163,7 @@ public class Individual implements IndividualInterface, Serializable  {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-    
+    @Override
     public Chromosome getChromosome() 
     {
         return this.chromosome;

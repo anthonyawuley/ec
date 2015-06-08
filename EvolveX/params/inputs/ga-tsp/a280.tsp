@@ -4,11 +4,11 @@
 
 # GENERAL parameters
 number-of-experiments                 = 1
-generations                           = 600
+generations                           = 1000
 population-size                       = 1000
 stop-when-solved                      = true
-crossover-probability                 = 1.0
-mutation-probability                  = 0.0
+crossover-probability                 = 0.95
+mutation-probability                  = 0.05
 tournament-selection-pressure         = 0.9
 
 # How many times the genotype is allowed to wrap
