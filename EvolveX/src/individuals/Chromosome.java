@@ -146,7 +146,7 @@ public class Chromosome extends Representation implements Cloneable, Serializabl
     {
        //this.chromosome.clear();
        
-       g.generateChromosome(ch,prop);
+       //g.generateChromosome(ch,prop);
        
        /*
        for(int i=0;i<ch.getChromosomeSize();i++)

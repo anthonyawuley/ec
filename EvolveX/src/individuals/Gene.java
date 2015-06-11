@@ -21,9 +21,6 @@
 package individuals;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Properties;
-
 import util.DeepClone;
 
 /**
@@ -31,7 +28,7 @@ import util.DeepClone;
  * @author anthony
  */
 public class Gene implements Cloneable, Serializable {
-    
+
 	/** */
 	private static final long serialVersionUID = 1L;
 	/** */
@@ -42,7 +39,7 @@ public class Gene implements Cloneable, Serializable {
 	private int id;
 	/** */
 	public Gene(){}
-	
+
 	/**
 	 * set node id
 	 * @param identity
@@ -51,7 +48,7 @@ public class Gene implements Cloneable, Serializable {
 	{ 
 		id = identity; 
 	}
-	
+
 	/**
 	 * 
 	 * @param identity
@@ -61,10 +58,10 @@ public class Gene implements Cloneable, Serializable {
 	 * e.g of alleles could be or simple city x y cordinates for a TSP problem <br>
 	 * in this example, each node represents a gene  <br>
 	 *  #CUST NO.  XCOORD.    YCOORD.    DEMAND    READY TIME  DUE DATE   SERVICE TIME <br>
-     *  node.1      40.00      50.00       0.00       0.00    1236.00       0.00 <br> 
-     *  node.2      45.00      68.00      10.00       0.00    1127.00      90.00 <br> 
-     *  node.3      45.00      70.00      30.00       0.00    1125.00      90.00 <br> 
-     *  ...
+	 *  node.1      40.00      50.00       0.00       0.00    1236.00       0.00 <br> 
+	 *  node.2      45.00      68.00      10.00       0.00    1127.00      90.00 <br> 
+	 *  node.3      45.00      70.00      30.00       0.00    1125.00      90.00 <br> 
+	 *  ...
 	 */
 	public Gene(int identity, String[] allel)
 	{
@@ -72,23 +69,23 @@ public class Gene implements Cloneable, Serializable {
 		alleles = setAleles(allel);
 		strAlleles = allel;
 	}
-	
+
 	/**
 	 * 
 	 * @param a
 	 * @return
 	 * e.g of alleles could be or simple city x y cordinates for a TSP problem
 	 *  #CUST NO.  XCOORD.    YCOORD.    DEMAND    READY TIME  DUE DATE   SERVICE TIME 
-     *  node.1      40.00      50.00       0.00       0.00    1236.00       0.00 
-     *  node.2      45.00      68.00      10.00       0.00    1127.00      90.00 
-     *  node.3      45.00      70.00      30.00       0.00    1125.00      90.00 
+	 *  node.1      40.00      50.00       0.00       0.00    1236.00       0.00 
+	 *  node.2      45.00      68.00      10.00       0.00    1127.00      90.00 
+	 *  node.3      45.00      70.00      30.00       0.00    1125.00      90.00 
 	 */
 	public double [] setAleles(String [] a)
 	{
 		double [] alel = new double[a.length];
 		for(int c=0;c<a.length;c++)
 			alel[c] = Double.parseDouble(a[c]);
-		
+
 		return alel;
 	}
 	/**
@@ -99,7 +96,7 @@ public class Gene implements Cloneable, Serializable {
 	{
 		return alleles;
 	}
-    
+
 	/**
 	 * 
 	 * @return
@@ -108,7 +105,7 @@ public class Gene implements Cloneable, Serializable {
 	{
 		return strAlleles;
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -117,40 +114,42 @@ public class Gene implements Cloneable, Serializable {
 	{
 		return id;
 	}
-    /**
-     * Sort the individuals in the population
-     */
-    public  void sort(){};
-    
-    /**
-     * 
-     * @param ch
-     * @param prop
-     * @deprecated
-     */
-    public  void generateChromosome(Chromosome ch,Properties prop){};
-   
-    /**
-     * Add a collection of individuals to the population
-     * @param immigrants collection of individuals
-     */
-    public  void addAll(ArrayList<Gene> immigrants){};
+	/**
+	 * Sort the individuals in the population
+	 */
+	public  void sort(){};
 
-    /**
-     * @throws CloneNotSupportedException 
-     * 
-    
+	/**
+	 * 
+	 * @param ch
+	 * @param prop
+	 * @deprecated
+	 * public  void generateChromosome(Chromosome ch,Properties prop){};
+	 */
+
+
+	/**
+	 * Add a collection of individuals to the population
+	 * @param immigrants collection of individuals
+	 * public  void addAll(ArrayList<Gene> immigrants){};
+	 */
+
+
+	/**
+	 * @throws CloneNotSupportedException 
+	 * 
+
     public  Gene clone() throws CloneNotSupportedException
     {
 		return null;
 	}
-    */
-    /** */
-    public Gene clone()
-    {
-        return (Gene) DeepClone.clone(this);
-    }
-    
+	 */
+	/** */
+	public Gene clone()
+	{
+		return (Gene) DeepClone.clone(this);
+	}
+
 	/**
 	 * when id == -1, it means the gene is considered invalid
 	 * @return true if valid else false
@@ -159,14 +158,14 @@ public class Gene implements Cloneable, Serializable {
 	{
 		return id !=-1;
 	}
-	
-    /**
-     * Clear the population of all individuals
-     */
-    public  void clear()
-    {
-    	alleles = null;
-    	id = -1;
-    }
+
+	/**
+	 * Clear the population of all individuals
+	 */
+	public  void clear()
+	{
+		alleles = null;
+		id = -1;
+	}
 
 }
