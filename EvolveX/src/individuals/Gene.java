@@ -66,7 +66,7 @@ public class Gene implements Cloneable, Serializable {
 	public Gene(int identity, String[] allel)
 	{
 		id = identity;
-		alleles = setAleles(allel);
+		alleles = strToDouble(allel);
 		strAlleles = allel;
 	}
 
@@ -80,7 +80,7 @@ public class Gene implements Cloneable, Serializable {
 	 *  node.2      45.00      68.00      10.00       0.00    1127.00      90.00 
 	 *  node.3      45.00      70.00      30.00       0.00    1125.00      90.00 
 	 */
-	public double [] setAleles(String [] a)
+	public double [] strToDouble(String [] a)
 	{
 		double [] alel = new double[a.length];
 		for(int c=0;c<a.length;c++)
@@ -88,6 +88,16 @@ public class Gene implements Cloneable, Serializable {
 
 		return alel;
 	}
+	
+	public String [] doubleToString(double [] a)
+	{
+		String [] alel = new String[a.length];
+		for(int c=0;c<a.length;c++)
+			alel[c] = a[c]+"";
+
+		return alel;
+	}
+	
 	/**
 	 * 
 	 * @return
@@ -119,31 +129,49 @@ public class Gene implements Cloneable, Serializable {
 	 */
 	public  void sort(){};
 
+
 	/**
+	 * Extend size of alleles
+	 * @param all
 	 * 
-	 * @param ch
-	 * @param prop
-	 * @deprecated
-	 * public  void generateChromosome(Chromosome ch,Properties prop){};
 	 */
-
-
-	/**
-	 * Add a collection of individuals to the population
-	 * @param immigrants collection of individuals
-	 * public  void addAll(ArrayList<Gene> immigrants){};
-	 */
-
-
-	/**
-	 * @throws CloneNotSupportedException 
-	 * 
-
-    public  Gene clone() throws CloneNotSupportedException
-    {
-		return null;
+	public  void addAll(String[] all)
+	{
+		String[] temp = new String[strAlleles.length + all.length];
+		
+		for(int i=0;i<strAlleles.length;i++)
+			temp[i] = strAlleles[i];
+		
+		for(int i=strAlleles.length;i<temp.length;i++)
+			temp[i] = all[i%strAlleles.length];
+		
+		strAlleles = temp;
+		alleles = strToDouble(temp);
+		
 	}
+
+	
+	/**
+	 * Extend size of alleles
+	 * @param all
+	 * 
 	 */
+	public  void addAll(double[] all)
+	{
+		double[] temp = new double[alleles.length + all.length];
+		
+		for(int i=0;i<alleles.length;i++)
+			temp[i] = alleles[i];
+		
+		for(int i=alleles.length;i<temp.length;i++)
+			temp[i] = all[i%alleles.length];
+		
+		alleles = temp;
+		strAlleles = doubleToString(temp);
+		
+	}
+	
+	
 	/** */
 	public Gene clone()
 	{
