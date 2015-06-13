@@ -125,6 +125,19 @@ public class Chromosome extends Representation implements Cloneable, Serializabl
     	return new Gene(-1);
     }
     
+    /**
+     * 
+     * @param gene
+     * @return
+     */
+    public Gene findGene(Gene gene)
+    {
+    	for(Gene g: chromosome)
+    		if(g.getId()==gene.getId())
+    			return g;
+    	
+    	return new Gene(-1);
+    }
     
     /**
      * 
