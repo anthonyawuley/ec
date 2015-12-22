@@ -111,12 +111,14 @@ public class WS extends WeightedSum{
         for(int i=0; i<c.getGenes().size();i++)
         {
         	//TODO
-        	cord1  = this.getProperties().getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(i).getId()).split("\\s{1,}");
+        	//cord1  = this.getProperties().getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(i).getId()).split("\\s{1,}");
+        	cord1  = c.getGenes().get(i).getStringAlleles();
         	Point p1 = new Point(Double.parseDouble(cord1[0]),Double.parseDouble(cord1[1]));
         	//when genes are exhausted, loop back j to one
         	//so cycle completes e.g. 2-4-5--1-3-2, 4-2-5-3-1-4 ... etc
         	j = (i==c.getGenes().size()-1)?0:i+1;
-        	cord2  = this.getProperties().getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(j).getId()).split("\\s{1,}");
+        	//cord2  = this.getProperties().getProperty(Constants.CO_ORDINATES+"."+c.getGenes().get(j).getId()).split("\\s{1,}");
+        	cord2  = c.getGenes().get(j).getStringAlleles();
         	Point p2 = new Point(Double.parseDouble(cord2[0]),Double.parseDouble(cord2[1]));
         	
         	//System.out.println(c.getChromosome() + "\n#sum "+p1.cartesianDistance(p2));
@@ -372,7 +374,10 @@ public class WS extends WeightedSum{
         	j = (i==c.getGenes().size()-1)?0:i+1;
         	//note use of i+1 & j+1 to reference cordinates, because of cordinate numbering in param file
         	//TODO modify c.getChromosome().get(i).getId() to read directly from Gene
-	    	params        = p.getProperty(Constants.CO_ORDINATES+"."+(c.getGenes().get(i).getId()+1)).split("\\s{1,}");
+	    	//params        = p.getProperty(Constants.CO_ORDINATES+"."+(c.getGenes().get(i).getId()+1)).split("\\s{1,}");
+	    	params        = c.getGenes().get(i+1).getStringAlleles();
+	    	
+	    	
 	    	double demand = Double.parseDouble(params[2]);
  	    	/*
  	    	 * keep adding demand until vehicle capacity is full
@@ -380,12 +385,16 @@ public class WS extends WeightedSum{
  	    	 * TODO 
  	    	 */
 	    	cordi0     = p.getProperty(Constants.CO_ORDINATES+"."+(c.getGenes().get(i).getId()+1)).split("\\s{1,}");
+	    	cordi0     = c.getGenes().get(i+1).getStringAlleles();
+	    	
             Point pi0 = new Point(Double.parseDouble(cordi0[0]),Double.parseDouble(cordi0[1]));
             //System.out.println("hahahaha" + i+ " : "+ (c.getChromosome().get(j)+1));
             //TODO c.getChromosome().get(j).getId()
-	    	cordi1      = p.getProperty(Constants.CO_ORDINATES+"."+(c.getGenes().get(j).getId()+1)).split("\\s{1,}");
+	    	//cordi1      = p.getProperty(Constants.CO_ORDINATES+"."+(c.getGenes().get(j).getId()+1)).split("\\s{1,}");
+	    	cordi1      = c.getGenes().get(j+1).getStringAlleles();
+	    	
             Point pi1 = new Point(Double.parseDouble(cordi1[0]),Double.parseDouble(cordi1[1]));
-    	    
+            
             //distanceTime += Double.parseDouble(cordi0[3]) + Double.parseDouble(cordi0[5]); //ready time + service time
             	
             if( (distanceTime < Double.parseDouble(cordi0[4])) && (sumOfDemand < vCapacity) ) //compare current distance-time to due date
@@ -454,7 +463,9 @@ public class WS extends WeightedSum{
             	 */
             	j = (i==ch.getGenes().size()-1)?0:i+1;
             	//TODO
-    	    	params        = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(i).getId()).split("\\s{1,}");
+    	    	//params        = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(i).getId()).split("\\s{1,}");
+    	    	params        = ch.getGenes().get(i).getStringAlleles();
+    	    	
     	    	double demand = Double.parseDouble(params[2]);
     	    	/*
     	    	 * keep adding demand until vehicle capacity is full
@@ -462,9 +473,13 @@ public class WS extends WeightedSum{
     	    	 */
     	    	if( (sum+demand) <= vCapacity)
     	    	{
-    	    		cord1    = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(i).getId()).split("\\s{1,}");
+    	    		//cord1    = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(i).getId()).split("\\s{1,}");
+    	    		cord1    = ch.getGenes().get(i).getStringAlleles();
+    	    		
                 	Point p1 = new Point(Double.parseDouble(cord1[0]),Double.parseDouble(cord1[1]));
-    	    		cord2    = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(j).getId()).split("\\s{1,}");
+    	    		//cord2    = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(j).getId()).split("\\s{1,}");
+    	    		cord2    = ch.getGenes().get(j).getStringAlleles();
+    	    		
                 	Point p2 = new Point(Double.parseDouble(cord2[0]),Double.parseDouble(cord2[1]));
         	    	
     	    		sum+=demand;
@@ -473,10 +488,15 @@ public class WS extends WeightedSum{
     	    	}
     	    	else
     	    	{   //TODO
-    	    		cord1    = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(j).getId()).split("\\s{1,}");          //new beginning point
-                	Point p1 = new Point(Double.parseDouble(cord1[0]),Double.parseDouble(cord1[1]));
-    	    		cord2    = (j==0)?p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(0).getId()).split("\\s{1,}"):
-    	    			              p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(j-1).getId()).split("\\s{1,}"); //last point before new route
+    	    		//cord1    = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(j).getId()).split("\\s{1,}");          //new beginning point
+                	cord1    = ch.getGenes().get(j).getStringAlleles();
+                	
+    	    		Point p1 = new Point(Double.parseDouble(cord1[0]),Double.parseDouble(cord1[1]));
+    	    		//cord2    = (j==0)?p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(0).getId()).split("\\s{1,}"):
+    	    		//	              p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(j-1).getId()).split("\\s{1,}"); //last point before new route
+    	    		cord2    = (j==0)?ch.getGenes().get(0).getStringAlleles():ch.getGenes().get(j-1).getStringAlleles(); //last point before new route
+		
+    	    		
     	    		Point p2 = new Point(Double.parseDouble(cord2[0]),Double.parseDouble(cord2[1]));
         	    	 
     	    		sum = demand;
@@ -515,7 +535,8 @@ public class WS extends WeightedSum{
     	    
     	    for(int i=0; i<ch.getGenes().size();i++)
             {
-    	    	params  = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(i)).split("\\s{1,}");
+    	    	//params  = p.getProperty(Constants.CO_ORDINATES+"."+ch.getGenes().get(i)).split("\\s{1,}");
+    	    	params  = ch.getGenes().get(i).getStringAlleles();
     	    	double demand = Double.parseDouble(params[2]);
     	    	/*
     	    	 * keep adding demand until vehicle capacity is full

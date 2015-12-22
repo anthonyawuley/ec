@@ -41,9 +41,8 @@ public class SOR extends WS{
        {
           double averageFitness = 0;
           for( int i=0; i< pop.size(); i++)
-          {
              averageFitness += sumDistanceVRP(pop.get(i).getChromosome(),this.getProperties());
-          }
+          
           return averageFitness/pop.size();
        }
 
@@ -63,10 +62,8 @@ public class SOR extends WS{
       		  //get elements ranked using SOR
       		  this.setGenerationFitness(sor.sorCalculations(changePopFormatForMOP(pop,p,","),pop.size()));
       		  //add total fitnes of rank
-      		  for(double d: this.getGenerationFitness())
-      		  {
+      		  for(double d: getGenerationFitness())
       			  sum+=d;
-      		  }
       	     
       	     this.setTotalFitness(sum); //total fitness
       	  return this.getGenerationFitness();

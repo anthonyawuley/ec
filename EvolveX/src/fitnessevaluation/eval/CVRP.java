@@ -84,7 +84,7 @@ public class CVRP extends WS{
      	this.hybrid.add(1); // constructing hybrid array-- add depot
     	
  	    int vCapacity = Integer.parseInt(p.getProperty(Constants.VEHICLE_CAPACITY));
- 	    cord0    = p.getProperty("1").split("\\s{1,}"); //get depo cordinates
+ 	    cord0    = p.getProperty(Constants.CO_ORDINATES+".1").split("\\s{1,}"); //get depo cordinates
    	    Point p0 = new Point(Double.parseDouble(cord0[0]),Double.parseDouble(cord0[1]));
    	    Point pi1 = p0;  //initialize end pi1 to start point
    	    
@@ -105,7 +105,7 @@ public class CVRP extends WS{
  	 	     */
  	 	    
  	    	//cordinate for first point in chromosome
- 	    	corda          = p.getProperty(chrom.get(0)+"").split("\\s{1,}"); 
+ 	    	corda          = p.getProperty(Constants.CO_ORDINATES+"."+chrom.get(0)).split("\\s{1,}"); 
  	   	    Point pa       = new Point(Double.parseDouble(corda[0]),Double.parseDouble(corda[1]));
  	   	    demand        += Double.parseDouble(corda[2]); 
  	     	totalDistance += p0.calculateEuclidianDistance(pa); //distance from depot to first coordinate
@@ -114,13 +114,13 @@ public class CVRP extends WS{
  	 	    for(int i=1; i<chrom.size();i++)
  	        {  
  	            //get last point added so far
- 	 	    	cordi0     = p.getProperty(addedSofar.get(addedSofar.size()-1)+"").split("\\s{1,}"); //get current cordinate
+ 	 	    	cordi0     = p.getProperty(Constants.CO_ORDINATES+"."+addedSofar.get(addedSofar.size()-1)).split("\\s{1,}"); //get current cordinate
 	   	        Point pi0  = new Point(Double.parseDouble(cordi0[0]),Double.parseDouble(cordi0[1]));
  	 	    	
 	   	        //only for look ahead purposes: used in if(condition)
-	   	        cordi1      = p.getProperty(chrom.get(i)+"").split("\\s{1,}"); //get to be visited point
+	   	        cordi1      = p.getProperty(Constants.CO_ORDINATES+"."+chrom.get(i)).split("\\s{1,}"); //get to be visited point
  	           
- 	            /**
+ 	            /*
  	             * customers are added only when they rightfully fall within the given time window. 
  	             * (current time + service time is less than closing time)
  	             * (distanceTime+Double.parseDouble(cordi0[5]))
@@ -149,7 +149,7 @@ public class CVRP extends WS{
  	 	    //System.out.println("BIG CHROME"+ chrom.size());
  	 	    addedSofar.clear(); //clear content
  	 	    
- 	 	    /**
+ 	 	    /*
         	 * get last coordinate in previous route
         	 * This will be used to complete total distance traveled by previous route
         	 * by adding distance from this point to depot
@@ -218,7 +218,9 @@ public class CVRP extends WS{
       	          sum += pop.get(i).getFitness().getDouble();
       	          //System.out.println("Individual#"+i+" "+this.getDouble());
       	       }
+      	       
       	     this.setTotalFitness(sum); //total fitness
+      	     
       	   return this.getGenerationFitness();
       	}
 

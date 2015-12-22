@@ -218,17 +218,19 @@ public class TournamentSelection implements SelectionOperation {
     * 
     * @param populationSize
     * @param tournamentSize
-    */
+    * @deprecated
+   
     public void setTournamentSelection(int populationSize, int tournamentSize)
     {
        this.tournamentSelect = performTournamentSelection(populationSize, tournamentSize);
     }
-    
+     */
     
     /**
-     * 
+     *
      */
-    public ArrayList<Integer> setTournamentSelection(ArrayList<Integer> tournamentSelect)
+    private ArrayList<Integer> setTournamentSelection
+    (ArrayList<Integer> tournamentSelect)
     {
        return this.tournamentSelect = tournamentSelect;
     }

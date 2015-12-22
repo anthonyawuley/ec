@@ -163,6 +163,11 @@ public final class Constants {
      */ 
     public static final String VEHICLE_CAPACITY                          = "vehicle-capacity";
     
+    /** depot node */
+    public static final String DEPOT_NODE                                = "depot-node";
+    
+    /**determines where city node starts */
+    public static final String START_NODE                                = "start-node";
     
     /**
      * Path to default properties file

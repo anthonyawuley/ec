@@ -26,6 +26,7 @@ import java.util.Iterator;
 import java.util.Properties;
 import java.util.Random;
 
+import util.Constants;
 import util.DeepClone;
 import util.random.MersenneTwisterFast;
 
@@ -54,11 +55,19 @@ public class Chromosome extends Representation implements Cloneable, Serializabl
      */
     public void createChromosome(Chromosome ch,Properties p, MersenneTwisterFast rng) 
 	   {
+    	
+    	int start     = Integer.parseInt(p.getProperty(Constants.START_NODE));
+        //int depotNode     = Integer.parseInt(p.getProperty(Constants.DEPOT_NODE));
+    	
 		  //limit repeated call to function, since its unecessary
 		  if(chromosome.isEmpty())
-			  create(ch.getChromosomeSize(),p);
+			  create(start,ch.getChromosomeSize(),p);
 		
-		  //shuffle content of chromosome
+		  /*
+		   * shuffle content of chromosome
+		   * once initial chromosome is created, shuffle for
+		   * x number of calls to create an individual
+		   */
 		  Collections.shuffle(chromosome, new Random(rng.nextLong()));
 	      ch.setGenes(chromosome);
 	    }
@@ -70,14 +79,15 @@ public class Chromosome extends Representation implements Cloneable, Serializabl
        * @param size
        * @param p
        */
-	   private void create(int size,Properties p)
+	   private void create(int start, int size,Properties p)
 	   {
-		   int start = 1;
+		   //int start = 1;
 		   chromosome.clear();
 		   //begin count from 1, since 0 is used as depot
 		   for(int i=start;i<=size;i++)
 	       {  
-			   Gene g = new Gene(i,p.getProperty(i+"").split("\\s{1,}"));
+			   //Gene g = new Gene(i,p.getProperty(i+"").split("\\s{1,}"));
+			   Gene g = new Gene(i,p.getProperty(Constants.CO_ORDINATES+"."+i).split("\\s{1,}"));
 	    	   chromosome.add(g); 
 	       }
 	   }

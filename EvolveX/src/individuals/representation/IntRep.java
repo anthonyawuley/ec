@@ -71,7 +71,7 @@ public class IntRep  extends Representation{
 		 /**
 	     * @throws CloneNotSupportedException 
 	     * 
-	       */
+	     */
 	    public Gene clone() throws CloneNotSupportedException
 	    {
 	    	return (Gene) super.clone();

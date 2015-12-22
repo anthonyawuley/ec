@@ -68,7 +68,7 @@ public abstract class MutationModule extends Operator {
     {
         this.mutationRate = rate;
     }
-    
+   
     
     /**
      * 

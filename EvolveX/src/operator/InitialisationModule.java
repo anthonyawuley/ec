@@ -18,6 +18,7 @@ package operator;
 
 import java.util.Properties;
 
+import algorithms.ga.Evolve;
 import individuals.Gene;
 import individuals.populations.Population;
 

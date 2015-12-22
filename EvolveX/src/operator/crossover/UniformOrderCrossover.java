@@ -107,16 +107,19 @@ public class UniformOrderCrossover extends CrossoverModule {
           {  
             if((this.returnAvailableIndex(c1,p.get(tournamentIndividuals.get(1)).getChromosome().getGenes().get(j)) == -1) /*&& (c1.getChromosome().get(mask.get(1).get(i))==-1)*/ )
             {  
-               c1.getGenes().set(mask.get(1).get(i), p.get(tournamentIndividuals.get(1)).getChromosome().getGenes().get(j)); //swap remaining chromosomes
+               c1.getGenes().set(mask.get(1).get(i), 
+            		   p.get(tournamentIndividuals.get(1)).getChromosome().getGenes().get(j)); //swap remaining chromosomes
                //c2.getChromosome().set(j, p.get(parentsId[0]).getChromosome().get(j));
                break; //to avoid exhaustive but not-required search
             }
           }
           for(int j=0; j<c2.getGenes().size();j++) //take size of any of the chromosomes
           {  
-            if((this.returnAvailableIndex(c2,p.get(tournamentIndividuals.get(0)).getChromosome().getGenes().get(j)) == -1) /*&& (c2.getChromosome().get(mask.get(1).get(i))==-1)*/ )
+            if((this.returnAvailableIndex(
+            		c2,p.get(tournamentIndividuals.get(0)).getChromosome().getGenes().get(j)) == -1) /*&& (c2.getChromosome().get(mask.get(1).get(i))==-1)*/ )
             {  
-               c2.getGenes().set(mask.get(1).get(i), p.get(tournamentIndividuals.get(0)).getChromosome().getGenes().get(j)); //swap remaining chromosomes
+               c2.getGenes().set(mask.get(1).get(i), 
+            		   p.get(tournamentIndividuals.get(0)).getChromosome().getGenes().get(j)); //swap remaining chromosomes
                //System.out.println("\nRR "+c2.getChromosome().get(mask.get(1).get(i)));
                break;
             }
@@ -204,7 +207,6 @@ public class UniformOrderCrossover extends CrossoverModule {
        * set -1 for values that must be replaced
        * individuals that have -1 after operation are invalid
        */
-      
        for(int j=0; j<c1.getGenes().size();j++) //take size of any of the chromosomes
        {  
           if(!GenerateMask.isExistIndex(mask.get(0),j+""))
@@ -242,10 +244,10 @@ public class UniformOrderCrossover extends CrossoverModule {
         
         if(replacementType.equals("SteadyState"))
         {   //asssign parent with lowest evluation value
-        	/**
+        	/*
         	 * Randomly generated individuals store the number of evaluations that have been 
         	 * performed so far, and individuals created through mutation and recombination store
-        	 *  the smallest (which is equivalent to oldest) value of their parents
+        	 * the smallest (which is equivalent to oldest) value of their parents
         	 */
             double eval = ages.get(0)<ages.get(1)?ages.get(0):ages.get(1);
             id1.setBirthEvaluations(eval);

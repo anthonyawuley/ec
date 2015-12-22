@@ -92,35 +92,9 @@ public class Engine {
 		/* keep running till stopped */
 		while(Engine.completeGenerationalCount <= layers.get(0).getParameters().getEvaluations())
 		{
-			for(int j=layers.size()-1;j>=0;j--)
-			{  
-				alps.index =  j; //only modify the index
-
-				if(layers.get(j).getIsBottomLayer() ) //set initializer flag to true when bottom layer is called
-				{ 
-					if( (layers.get(j).layerEvaluationCount == 0) || (layers.get(j).getEvolution().getCurrentPopulation().size()>0) 
-							|| layers.get(j).initializerFlag  )
-						layers.get(j).getEvolution().start(alps); //good
-
-					if((Engine.completeGenerationalCount % layers.get(0).getMaxAge()==0))
-					{
-						layers.get(j).initializerFlag      = true;
-						layers.get(j).layerEvaluationCount = 0;
-					}
-				}
-				else if((layers.get(j).getEvolution().getCurrentPopulation().size()>0) && //remove if problematic
-						Engine.completeGenerationalCount > layers.get(j-1).getMaxAge() )
-				{  
-					/*
-					 * Generational worked without this condition - 
-					 * was put here because of SteadyState -- remove if problematic
-					 */
-					layers.get(j).getEvolution().start(alps); //good
-
-					if((layers.get(j).layerEvaluationCount%layers.get(j).getGenerations())==0)
-						layers.get(j).layerEvaluationCount=0;
-				}
-			}
+			
+			sequentialLoop(alps,layers);
+			
 			Engine.completeGenerationalCount++;
 			Engine.completeEvaluationCount += layers.get(0).getParameters().getPopulationSize(); //all layers have the same default population size
 		}
@@ -128,6 +102,49 @@ public class Engine {
 	}
 
 
+	/**
+	 * sequentially loop through all layers
+	 */
+	public void sequentialLoop(ALPSLayers alps, ArrayList<Layer> layers)
+	{
+		
+		for(int j=layers.size()-1;j>=0;j--)
+		{  
+			alps.index =  j; //only modify the index
+
+			if(layers.get(j).getIsBottomLayer() ) //set initializer flag to true when bottom layer is called
+			{ 
+				if( (layers.get(j).layerEvaluationCount == 0) || 
+						(layers.get(j).getEvolution().getCurrentPopulation().size()>0) || layers.get(j).initializerFlag  )
+					layers.get(j).getEvolution().start(alps); //good
+
+				if((Engine.completeGenerationalCount % layers.get(0).getMaxAge()==0))
+				{
+					layers.get(j).initializerFlag      = true;
+					layers.get(j).layerEvaluationCount = 0;
+				}
+			}
+			else if((layers.get(j).getEvolution().getCurrentPopulation().size()>0) && //remove if problematic
+					Engine.completeGenerationalCount > layers.get(j-1).getMaxAge() )
+			{  
+				/*
+				 * Generational worked without this condition - 
+				 * was put here because of SteadyState -- remove if problematic
+				 */
+				layers.get(j).getEvolution().start(alps); //good
+
+				if((layers.get(j).layerEvaluationCount%layers.get(j).getGenerations())==0)
+					layers.get(j).layerEvaluationCount=0;
+			}
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
 
 	/**
 	 * 

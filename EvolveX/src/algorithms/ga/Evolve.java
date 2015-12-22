@@ -58,6 +58,16 @@ public class Evolve extends Instance{
     @SuppressWarnings("unused")
 	private IslandModel im = null;
     
+    /**
+     * start node for customers or user nodes
+     */
+    public int startNode = 1;
+    /**
+     * node used for depot when performing VRP
+     */
+    public int depotNode = 1; 
+    
+    
     public Evolve()
     {
     }
@@ -74,35 +84,33 @@ public class Evolve extends Instance{
     	/*
          * SET SYSTEM PARAMETERS
          */
-    	this.number_of_experiments = Integer.parseInt(properties.getProperty(Constants.NUMBER_OF_EXPERIMENTS));
-        this.populationSize        = Integer.parseInt(properties.getProperty(Constants.POPULATION_SIZE));
-        this.chromosomeLength      = Integer.parseInt(properties.getProperty(Constants.INITIAL_CHROMOSOME_SIZE));
-        this.crossoverRate         = Double.parseDouble(properties.getProperty(Constants.CROSSOVER_PROBABILITY));
-        this.mutationRate          = Double.parseDouble(properties.getProperty(Constants.MUTATION_PROBABILITY));
-        this.generations           = Integer.parseInt(properties.getProperty(Constants.GENERATIONS));
-        this.tournamentSize        = Integer.parseInt(properties.getProperty(Constants.TOURNAMENT_SIZE));
-        this.stopFlag              = Boolean.parseBoolean(properties.getProperty(Constants.STOP_WHEN_SOLVED));
-        this.elitismSize           = Integer.parseInt(properties.getProperty(Constants.ELITE_SIZE));
-        this.selectionPressure     = Double.parseDouble(properties.getProperty(Constants.TOURNAMENT_SELECTION_PRESSURE));
-        this.prop = properties;
+    	number_of_experiments = Integer.parseInt(properties.getProperty(Constants.NUMBER_OF_EXPERIMENTS));
+        populationSize        = Integer.parseInt(properties.getProperty(Constants.POPULATION_SIZE));
+        chromosomeLength      = Integer.parseInt(properties.getProperty(Constants.INITIAL_CHROMOSOME_SIZE));
+        crossoverRate         = Double.parseDouble(properties.getProperty(Constants.CROSSOVER_PROBABILITY));
+        mutationRate          = Double.parseDouble(properties.getProperty(Constants.MUTATION_PROBABILITY));
+        generations           = Integer.parseInt(properties.getProperty(Constants.GENERATIONS));
+        tournamentSize        = Integer.parseInt(properties.getProperty(Constants.TOURNAMENT_SIZE));
+        stopFlag              = Boolean.parseBoolean(properties.getProperty(Constants.STOP_WHEN_SOLVED));
+        elitismSize           = Integer.parseInt(properties.getProperty(Constants.ELITE_SIZE));
+        selectionPressure     = Double.parseDouble(properties.getProperty(Constants.TOURNAMENT_SELECTION_PRESSURE));
+                   
+        
+        startNode             = Integer.parseInt(properties.getProperty(Constants.START_NODE));
+        depotNode             = Integer.parseInt(properties.getProperty(Constants.DEPOT_NODE));
         
         
-        if (this.crossoverRate < 0 || this.crossoverRate > 1) 
-        {
-            throw new InitializationException(this.crossoverRate, 0, 1);
-        }
-        if (this.mutationRate < 0 || this.mutationRate > 1) 
-        {
-            throw new InitializationException(this.mutationRate, 0, 1);
-        }
-        if (this.tournamentSize == 0 || this.tournamentSize > 5) 
-        {
-            throw new InitializationException(this.mutationRate, 1, 5);
-        }
-        if (this.selectionPressure  < 0 || this.selectionPressure  > 1) 
-        {
-            throw new InitializationException(this.selectionPressure, 0, 1);
-        }
+        prop = properties;
+        
+        
+        if (crossoverRate < 0 || crossoverRate > 1) 
+            throw new InitializationException(crossoverRate, 0, 1);
+        if (mutationRate < 0 || mutationRate > 1) 
+            throw new InitializationException(mutationRate, 0, 1);
+        if (tournamentSize == 0 || tournamentSize > 5) 
+            throw new InitializationException(mutationRate, 1, 5);
+        if (selectionPressure  < 0 || selectionPressure  > 1) 
+            throw new InitializationException(selectionPressure, 0, 1);
         
         
         //set other constraints that could run system into fail
@@ -151,9 +159,9 @@ public class Evolve extends Instance{
          * BEGIN Island
          * start Server/Client processes
          
-    	if(this.generationsEvolved == 0)
+    	if(generationsEvolved == 0)
     	{
-    		im = new IslandModel(this.prop);
+    		im = new IslandModel(prop);
     	}
         */
         
@@ -167,29 +175,30 @@ public class Evolve extends Instance{
      */
     public void start()
     {
-    	for(int i=0;i<this.number_of_experiments;i++)
+    	for(int i=0;i<number_of_experiments;i++)
         {
           System.out.println("\nInitializing population for Run # "+i +"\n");
          /*
        	  * set initialiser module
        	  */
-       	  InitialisationModule init = initialiserModule(this.prop);
+       	  InitialisationModule init = initialiserModule(prop);
        	/*
-       	  this.evolve(
+       	  evolve(
        			init.generateInitialPopulation(
-       					geneRepresentation(this.prop),
-       					this.prop,this.populationSize,
-       					this.chromosomeLength), 
-       			new StoppingCondition(this.stopFlag),
+       					geneRepresentation(prop),
+       					prop,populationSize,
+       					chromosomeLength), 
+       			new StoppingCondition(stopFlag),
        			i);
        	 */
        	  
-       	 this.evolve(
-        			init.generateInitialPopulation(
-        					this.prop,this.populationSize,
-        					this.chromosomeLength), 
-        			new StoppingCondition(this.stopFlag),
-        			i);
+       	 evolve(
+       			 init.generateInitialPopulation(
+       					    prop,
+        					populationSize,
+        					chromosomeLength), 
+        			        new StoppingCondition(stopFlag),
+        			        i);
        	 
        	 //previous generateInitialPopulation(i);
         }
@@ -218,19 +227,19 @@ public class Evolve extends Instance{
     	/*
     	 * set initialiser module
     	 */
-    	InitialisationModule init = initialiserModule(this.prop);
+    	InitialisationModule init = initialiserModule(prop);
     	
        /*
         * begin evolve
         * return last population
         */
-        //this.evolve(pop,new StoppingCondition(this.stopFlag),run);
+        //evolve(pop,new StoppingCondition(stopFlag),run);
     	//new Initialise().generateInitialPopulation(run, run)
-    	this.evolve(
+    	evolve(
     			init.generateInitialPopulation(
-    					geneRepresentation(this.prop),this.prop,
-    					this.populationSize,this.chromosomeLength),
-    			new StoppingCondition(this.stopFlag),
+    					geneRepresentation(prop),prop,
+    					populationSize,chromosomeLength),
+    			new StoppingCondition(stopFlag),
     			run);
     	
     }
@@ -253,16 +262,16 @@ public class Evolve extends Instance{
         Population current;  // = initial;
         
         ArrayList<Population> generationalPopulation = new ArrayList<>();
-        this.generationsEvolved = 0;
+        generationsEvolved = 0;
         
-        PopulationFitness fitnessFunction = fitnessEvaluator(this.prop);
-        ((FitnessExtension) fitnessFunction).setProperties(this.prop); //set properties file for report generation
+        PopulationFitness fitnessFunction = fitnessEvaluator(prop);
+        ((FitnessExtension) fitnessFunction).setProperties(prop); //set properties file for report generation
         
         //set initial population
         //Pop 0
-        generationalPopulation.add(this.generationsEvolved,initial); 
+        generationalPopulation.add(generationsEvolved,initial); 
         //System.out.println(initial.getAll().size()); System.exit(0);
-        while (!condition.generationCount(this.generationsEvolved, this.generations)) //false is returned when generations are not equal 
+        while (!condition.generationCount(generationsEvolved, generations)) //false is returned when generations are not equal 
         {
             /**
              * BEGIN Island
@@ -274,15 +283,15 @@ public class Evolve extends Instance{
         		//System.out.println("I am a server!!! Hurayy!!!"+im.getServers().get(0).priorityKey);
         		//im.getServers().get(1).priorityKey = 1;
         		im.serverMigratePacketToClient(
-        				im.getServers(),this.generationsEvolved);
+        				im.getServers(),generationsEvolved);
         	}
         	if(im.getIsClient())
         	{ 
         		//System.out.println("I am a client!!! Hurayy!!!");
         		 Client client = im.getClient();
-                 if((this.generationsEvolved % client.getUpdateFrequecy())==0)
+                 if((generationsEvolved % client.getUpdateFrequecy())==0)
                  {
-                   im.txClientPackets(client,generationalPopulation.get(this.generationsEvolved));
+                   im.txClientPackets(client,generationalPopulation.get(generationsEvolved));
                  }
                  
                  //try to recieve
@@ -299,39 +308,39 @@ public class Evolve extends Instance{
         	*/
         	//END island
             
-            System.out.println("Generation #"+ this.generationsEvolved);
-            this.generationsEvolved++;
+            System.out.println("Generation #"+ generationsEvolved);
+            generationsEvolved++;
             
             //replacement strategy 
-            ReplacementStrategy replacment = replacementOperation(this.prop);
+            ReplacementStrategy replacment = replacementOperation(prop);
            
             //perform generational replacement
             current = replacment.nextGeneration(
             		                  fitnessFunction,  
-            		                  crossoverOperation(this.prop),
-            		                  mutationOperation(this.prop),
-            		                  selectionOperator(this.prop),
-            		                  statisticsOperation(this.prop),
-            		                  this.prop,
+            		                  crossoverOperation(prop),
+            		                  mutationOperation(prop),
+            		                  selectionOperator(prop),
+            		                  statisticsOperation(prop),
+            		                  prop,
                                       generationalPopulation,
-                                      this.generationsEvolved,
+                                      generationsEvolved,
                                       run,
-                                      this.crossoverRate, 
-                                      this.mutationRate,
-                                      this.elitismSize,
-                                      this.tournamentSize,
-                                      this.selectionPressure); 
+                                      crossoverRate, 
+                                      mutationRate,
+                                      elitismSize,
+                                      tournamentSize,
+                                      selectionPressure); 
             
             /*
              * unset previous 2 generations to free memory
              * keep only previous and current
              */
-            if(this.generationsEvolved > 1)
+            if(generationsEvolved > 1)
             {
-               generationalPopulation.set(this.generationsEvolved-2, new Population());
+               generationalPopulation.set(generationsEvolved-2, new Population());
             }
             //System.out.println("#SIZE"+current.size());
-            generationalPopulation.add(this.generationsEvolved,current);
+            generationalPopulation.add(generationsEvolved,current);
         }
         return generationalPopulation;
     }

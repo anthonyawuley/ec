@@ -83,19 +83,16 @@ public class TSP  extends Representation {
 		
 		public void sort() {
 			// TODO Auto-generated method stub
-			
 		}
 
 		
 		public void addAll(ArrayList<Gene> immigrants) {
 			// TODO Auto-generated method stub
-			
 		}
 
 		
 		public void clear() {
 			// TODO Auto-generated method stub
-			
 		}
 		
 		 /**

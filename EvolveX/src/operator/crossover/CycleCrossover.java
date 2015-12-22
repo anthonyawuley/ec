@@ -68,7 +68,7 @@ public class CycleCrossover extends CrossoverModule {
      * Example: Cycle crossover
      * Step 1: identify cycle
      * p1: 1 2 3 4 5 6 7 8 9
-     * p2:9 3 7 8 2 6 5 1 4
+     * p2: 9 3 7 8 2 6 5 1 4
      * c1: 1 * * 4 * * * 8 9
      * Step 2: Fill the remaining cities from the other parent
      * c1: 1 3 7 4 2 6 5 8 9

@@ -21,6 +21,7 @@
 package individuals;
 
 import java.util.ArrayList;
+import java.util.Properties;
 
 import util.random.MersenneTwisterFast;
 import individuals.representation.*;
@@ -35,11 +36,18 @@ public abstract class Representation{
 	 protected ArrayList<Gene> chromosome = new ArrayList<>();
 	 protected MersenneTwisterFast rng;
 	
+	 
+	 
+	 public void createChromosome(Chromosome ch,Properties p, MersenneTwisterFast rng) 
+	 {}
+	 
+	 
 	/**
      * 
      * @param min
      * @param max
      * @return 
+     * @deprecated
      */
     public int integerGene (int min, int max)
     {
@@ -51,6 +59,7 @@ public abstract class Representation{
      * @param min
      * @param max
      * @return 
+     * @deprecated
      */
     public int characterGene (int min, int max)
     {
@@ -62,6 +71,7 @@ public abstract class Representation{
      * @param min
      * @param max
      * @return 
+     * @deprecated
      */
     public int vrptwGene (int min, int max)
     {

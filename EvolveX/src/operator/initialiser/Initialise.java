@@ -29,6 +29,7 @@ import individuals.populations.Population;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import algorithms.ga.Evolve;
 import operator.InitialisationModule;
 import util.random.MersenneTwisterFast;
 
@@ -38,7 +39,7 @@ import util.random.MersenneTwisterFast;
  */
 public class Initialise implements InitialisationModule{
     
-	private MersenneTwisterFast rng = new MersenneTwisterFast();;
+	private MersenneTwisterFast rng = new MersenneTwisterFast();
     
     public Initialise()
     {
@@ -174,6 +175,7 @@ public class Initialise implements InitialisationModule{
 			int populationSize, int chromosomeLength, double evaluations) 
 	{
     	System.out.println(toString(populationSize));
+    	
     	this.toString(populationSize);
     	
         Population pop = new Population();

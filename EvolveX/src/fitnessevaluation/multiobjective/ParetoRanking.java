@@ -60,9 +60,8 @@ public class ParetoRanking extends MultiObjective{
        //System.out.println("#SORTED");
        //replace with a more efficient later
        for(int i=0; i<popSize;i++)
-       {
     	   selectionRank.add((double)Constants.DEFAULT_WORSE_FITNESS); //fill with dump values to enable set in second loop
-       }
+       
        
        for(int i=0; i<popSize;i++)
        {
@@ -77,9 +76,8 @@ public class ParetoRanking extends MultiObjective{
                  ranked.add((Double.parseDouble(sp[1])));
                  //ranked.get(j);
                  if(!rankedLevels.contains(ranks.get(j))) // records of ranked values from ranks
-                 {
                     rankedLevels.add(ranks.get(j));
-                 } 
+                 
                  //ranks2.remove(rank);
                  //System.out.println(sp[0]+","+sp[1]+" #Rank:"+rank);
                  //set appropriate indexes with ranked values
@@ -97,9 +95,7 @@ public class ParetoRanking extends MultiObjective{
          for(String v:rankedLevels)
          {
              while(ranks.contains(v))
-             {
                  ranks.remove(v);
-             }
          }
          rank++; //increment ranking number e.g. rank 0, rank 1, e.t.c
          ranked.clear(); //clear contents of current rank for a new rank

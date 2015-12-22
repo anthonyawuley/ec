@@ -50,7 +50,7 @@ public class TSP extends WS{
    	{
     	
    		  double sum = 0;
-   		  this.getGenerationFitness().clear(); //added to control population increment
+   		  getGenerationFitness().clear(); //added to control population increment
    		 
    	       for( int i=0; i< pop.size(); i++)
    	       {
@@ -64,14 +64,14 @@ public class TSP extends WS{
    	          pop.get(i).getFitness().setDouble(sumDistanceTSP(pop.get(i).getChromosome(),p));
 	          
    	          //this.generationFitness.add(i, this.getDouble());
-   	          this.getGenerationFitness().add(i, pop.get(i).getFitness().getDouble());
+   	          getGenerationFitness().add(i, pop.get(i).getFitness().getDouble());
 	          
    	          //this.totalFitness += this.getDouble();
    	          sum += pop.get(i).getFitness().getDouble();
    	          //System.out.println("Individual#"+i+" "+this.getDouble());
    	       }
-   	    this.setTotalFitness(sum); //total fitness
-   	    return this.getGenerationFitness();
+   	    setTotalFitness(sum); //total fitness
+   	    return getGenerationFitness();
    	}
     
     

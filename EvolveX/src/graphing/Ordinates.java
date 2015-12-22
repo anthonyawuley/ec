@@ -194,13 +194,10 @@ public class Ordinates{
 	 	 	            bw.write((int) Double.parseDouble(cordi1[0])+seperator+(int) Double.parseDouble(cordi1[1])+"\n"); //always end with beginning cordinate
 	 	 	   		   
 	 	 	            if(distanceTime <= Double.parseDouble(cordi0[3]))
-	 	 	            {
-	 	 	            	distanceTime = Double.parseDouble(cordi0[3]) + Double.parseDouble(cordi0[5]);       	
-	 	 	            }
+	 	 	            	distanceTime = Double.parseDouble(cordi0[3]) + Double.parseDouble(cordi0[5]); 
 	 	 	            else
-	 	 	            {
 	 	 	            	distanceTime += ( Double.parseDouble(cordi0[5])); //add service time
-	 	 	            }
+	 	 	            
 	 	 	            
 	 	 	            sumOfDemand += demand;
 	 	                skippedCount = 0; //reset skipped counter anytime an assignable customer is found
@@ -360,9 +357,8 @@ public class Ordinates{
  
 			// if file doesnt exists, then create it
 			if (!file.exists()) 
-			{
 				file.createNewFile();
-			}
+			
  
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 			
