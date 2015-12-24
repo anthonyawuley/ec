@@ -25,6 +25,7 @@ import util.random.RandomGenerator;
 import individuals.populations.Population;
 import algorithms.alps.ALPSReplacement;
 import algorithms.alps.system.ALPSLayers;
+import algorithms.ga.Evolve;
 
 public class ReverseTournamentNearest extends ALPSReplacement{
 
@@ -41,7 +42,7 @@ public class ReverseTournamentNearest extends ALPSReplacement{
 
 
 	@Override
-	public Population performAgeLayerMovements(ALPSLayers alpsLayers,
+	public Population performAgeLayerMovements(Evolve e, ALPSLayers alpsLayers,
 			Population current) {
 		
 		Population higherPop = null;
@@ -70,8 +71,7 @@ public class ReverseTournamentNearest extends ALPSReplacement{
 			        mtf.setSeed(alpsLayers.layers.get(alpsLayers.index).getParameters().getSeed()); //set seed
 			        
 			        //perform tournament selection on higher layer
-					selectionOperation.performTournamentSelection(alpsLayers,higherPop.size(),
-						 alpsLayers.layers.get(alpsLayers.index+1).getParameters().getTournamentSize());
+					selectionOperation.performTournamentSelection(e,alpsLayers);
 			        
 					if(mtf.nextDouble()<= alpsLayers.layers.get(alpsLayers.index).getParameters().getLayerSelectionPressure())
 					{ // n% worse replacement  : NB: index returned by nearestTournamentIndividual is a value in  getTournamentSelection()
@@ -82,8 +82,8 @@ public class ReverseTournamentNearest extends ALPSReplacement{
 					}
 					else
 					{ //(100-n)% random replacement
-						this.individualID = selectionOperation.performTournamentSelection(
-								selectionOperation.getTournamentSelection().size(),1).get(0);
+						this.individualID = selectionOperation.performTournamentSelection(e,
+								selectionOperation.getTournamentSelection().size()).get(0);
 					}
 					alpsLayers.layers.get(alpsLayers.index+1).getEvolution().getCurrentPopulation().
 					   set(this.individualID,current.get(i));

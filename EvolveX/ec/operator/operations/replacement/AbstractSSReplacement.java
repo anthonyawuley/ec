@@ -20,6 +20,7 @@ import java.util.ArrayList;
 
 import individuals.populations.Population;
 import algorithms.alps.system.ALPSLayers;
+import algorithms.ga.Evolve;
 
 public abstract class AbstractSSReplacement {
 
@@ -36,7 +37,7 @@ public abstract class AbstractSSReplacement {
 	 * @param current
 	 * @return population with selected replacement individuals
 	 */
-	public abstract Population ssReplacements(
+	public abstract Population ssReplacements(Evolve e,
 			ALPSLayers alpsLayers,Population currentPop, Population replacement);
 	
 	

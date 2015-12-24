@@ -110,7 +110,7 @@ public class Generational implements ReplacementStrategy{
         ArrayList<Individual> bestIndividualsOfPreviousGeneration = new ArrayList<>();
         this.populationCount = 0; //initialized from one because of addition of best individual
         
-        RandomGenerator randGen = new RandomGenerator(); 
+        //RandomGenerator randGen = new RandomGenerator(); 
         ((FitnessExtension) f).calculateSimpleFitness(current.get(generation -1),run,generation,(BasicStatistics) stats,e.properties);
         /* 
          * old implementation assuming one best individual
@@ -136,7 +136,7 @@ public class Generational implements ReplacementStrategy{
         //System.out.println(crossoverRate+" mutation: "+mutationRate);
         while (this.populationCount < current.get(generation-1).size() ) // best for nextGeneration.size()
         {  
-            this.randomNumber = randGen.nextDouble();
+            this.randomNumber = e.random.nextDouble();
             // crossover?
             /**
              * Individuals that are created through variation, such as by 
@@ -154,13 +154,13 @@ public class Generational implements ReplacementStrategy{
                 /*
                  * Perform two tournament selections and pick "best" from each using selection pressure
                  */
-            	selectionOperation.performTournamentSelection(current.get(generation-1).size(), e.tournamentSize);
+            	selectionOperation.performTournamentSelection(e,current.get(generation-1).size());
                 tournamentIndividuals.add(((FitnessExtension) f).
                 		selectIndividualsBasedOnFitness(
                 				selectionOperation.getTournamentSelection(),
                 				e.selectionPressure).get(0)); //select best 2 individuals
                 
-                selectionOperation.performTournamentSelection(current.get(generation-1).size(), e.tournamentSize);
+                selectionOperation.performTournamentSelection(e,current.get(generation-1).size());
                 tournamentIndividuals.add(((FitnessExtension) f).
                 		selectIndividualsBasedOnFitness(
                 				selectionOperation.getTournamentSelection(),
@@ -186,7 +186,7 @@ public class Generational implements ReplacementStrategy{
             	tournamentIndividuals.clear(); //clear content of tournament individuals
             	
             	//SelectionOperation;
-                selectionOperation.performTournamentSelection(current.get(generation-1).size(), e.tournamentSize);
+                selectionOperation.performTournamentSelection(e,current.get(generation-1).size());
                 //select two best tournament individuals
                 //select best individuals from tournament selection
                 tournamentIndividuals.add(((FitnessExtension) f).
@@ -267,10 +267,10 @@ public class Generational implements ReplacementStrategy{
         ArrayList<Individual> bestIndividualsOfPreviousGeneration = new ArrayList<>();
         this.populationCount = 0; //initialized from one because of addition of best individual
         
-		@SuppressWarnings("unused")
-		RandomGenerator randGen = new RandomGenerator(); 
-        MersenneTwisterFast mtf = new MersenneTwisterFast();
-        mtf.setSeed(alpsLayers.layers.get(alpsLayers.index).getParameters().getSeed()); //set seed
+		//@SuppressWarnings("unused")
+		//RandomGenerator randGen = new RandomGenerator(); 
+        //MersenneTwisterFast mtf = new MersenneTwisterFast();
+        //mtf.setSeed(alpsLayers.layers.get(alpsLayers.index).getParameters().getSeed()); //set seed
         
         System.out.println("Layer #"+ alpsLayers.layers.get(alpsLayers.index).getId()+
 		                   " Layer Generation #"+ alpsLayers.layers.get(alpsLayers.index).layerEvaluationCount+
@@ -334,7 +334,7 @@ public class Generational implements ReplacementStrategy{
         while (this.populationCount < alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize() /* current.get(generation-1).size()*/ ) // best for nextGeneration.size()
         {  
             //this.randomNumber = randGen.nextDouble();
-            this.randomNumber = mtf.nextDouble();
+            this.randomNumber = e.random.nextDouble();
             
             // crossover?
             /**
@@ -354,13 +354,13 @@ public class Generational implements ReplacementStrategy{
                  * add best individual to index 0 and 1 of tournamentIndividuals
                  */
             	//first tournament: select best individual
-            	selectionOperation.performTournamentSelection(alpsLayers,evolvingPopulation.size(), e.tournamentSize);
+            	selectionOperation.performTournamentSelection(e,alpsLayers);
                 tournamentIndividuals.add(((FitnessExtension) f).
                 		selectIndividualsBasedOnFitness(
                 				selectionOperation.getTournamentSelection(),
                 				e.selectionPressure).get(0)); 
                 //second tournament: select best individual
-                selectionOperation.performTournamentSelection(alpsLayers,evolvingPopulation.size(), e.tournamentSize);
+                selectionOperation.performTournamentSelection(e,alpsLayers);
                 tournamentIndividuals.add(((FitnessExtension) f).
                 		selectIndividualsBasedOnFitness(
                 				selectionOperation.getTournamentSelection(),
@@ -416,7 +416,7 @@ public class Generational implements ReplacementStrategy{
             	tournamentIndividuals.clear(); //clear content of tournament individuals
             	
             	//SelectionOperation;
-                selectionOperation.performTournamentSelection(alpsLayers,evolvingPopulation.size(),e.tournamentSize);
+                selectionOperation.performTournamentSelection(e,alpsLayers);
                 //select two best tournament individuals
                 tournamentIndividuals.add(((FitnessExtension) f).
                 		selectIndividualsBasedOnFitness(
@@ -461,7 +461,7 @@ public class Generational implements ReplacementStrategy{
 		 * alpsLayers.layers.get(alpsLayers.index).getEvolution().setCurrentPopulation(evolvingPopulation);
          */
       
-        return alpsReplacment.performAgeLayerMovements(alpsLayers,nextGeneration);
+        return alpsReplacment.performAgeLayerMovements(e,alpsLayers,nextGeneration);
        
        //return nextGeneration;
        

@@ -304,12 +304,6 @@ public class EvolveALPS extends Evolve{
 				//Engine.completeEvaluationCount,
 				(int) alpsLayers.layers.get(alpsLayers.index).layerEvaluationCount,
 				alpsLayers
-				//this.prop,
-				//this.crossoverRate, 
-				//this.mutationRate,
-				//this.elitismSize,
-				//this.tournamentSize,
-				//this.selectionPressure
 				); 
 
 		/*

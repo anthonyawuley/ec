@@ -19,6 +19,7 @@ package algorithms.alps.replacement.sfs;
 import individuals.populations.Population;
 import algorithms.alps.ALPSReplacement;
 import algorithms.alps.system.ALPSLayers;
+import algorithms.ga.Evolve;
 
 /**
  * 
@@ -43,7 +44,7 @@ public class Worst  extends ALPSReplacement{
 	}
 	
 	@Override
-	public Population performAgeLayerMovements(ALPSLayers alpsLayers,
+	public Population performAgeLayerMovements(Evolve e, ALPSLayers alpsLayers,
 			Population current) {
 		
 		Population higherPop = null;
@@ -76,7 +77,7 @@ public class Worst  extends ALPSReplacement{
 				       alpsLayers.layers.get(alpsLayers.index+1).getEvolution().getCurrentPopulation().get(this.individualID).getAge()
 				  		+ "is to be replaced by " + current.get(i).getAge()); //System.exit(0);
 		          */
-				  /**
+				  /*
 				   * comment next 4 lines when using worseBottomIndividual
 				   */
 				  this.individualID = worsePopulationIndividual(higherPop);

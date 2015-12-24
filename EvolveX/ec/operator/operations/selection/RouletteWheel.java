@@ -23,6 +23,7 @@ package operator.operations.selection;
 import java.util.ArrayList;
 
 import algorithms.alps.system.ALPSLayers;
+import algorithms.ga.Evolve;
 import operator.operations.SelectionOperation;
 
 /**
@@ -46,25 +47,24 @@ public class RouletteWheel implements SelectionOperation{
 		return new ArrayList<Integer>();
 	}
 
-	
 	@Override
-	public ArrayList<Integer> performTournamentSelection(int populationSize,
-			int tournamentSize) 
-	{
-		return null;
-	}
-
-	@Override
-	public ArrayList<Integer> performTournamentSelection(ALPSLayers alpsLayers,
-			int populationSize, int tournamentSize) 
-	{
-		return null;
-	}
-
-	@Override
-	public ArrayList<Integer> performTournamentSelectionWithLimits(
-			int tournamentSize, int min, int max) {
+	public ArrayList<Integer> performTournamentSelection(Evolve e, int popSize) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public ArrayList<Integer> performTournamentSelection(Evolve e,
+			ALPSLayers alpsLayers) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Integer> performTournamentSelectionWithLimits(Evolve e,
+			int min, int max) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

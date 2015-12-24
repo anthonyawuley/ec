@@ -24,6 +24,7 @@ import operator.operations.selection.TournamentSelection;
 import util.random.MersenneTwisterFast;
 import util.random.RandomGenerator;
 import algorithms.alps.system.ALPSLayers;
+import algorithms.ga.Evolve;
 
 /**
  * 
@@ -47,7 +48,7 @@ public class ReverseTournamentWorst extends AbstractSSReplacement {
 	}
 	
 	
-	public Population ssReplacements(ALPSLayers alpsLayers, Population currentPop, Population replacement) {
+	public Population ssReplacements(Evolve e, ALPSLayers alpsLayers, Population currentPop, Population replacement) {
 		
 		//Population currentPop = null;
 		//Population deleteList = new Population();
@@ -58,16 +59,10 @@ public class ReverseTournamentWorst extends AbstractSSReplacement {
 		//currentPop = (Population) alpsLayers.layers.get(alpsLayers.index).
 		//		getEvolution().getCurrentPopulation();
 		
-		@SuppressWarnings("unused")
-		RandomGenerator randGen = new RandomGenerator(); 
-		MersenneTwisterFast mtf = new MersenneTwisterFast();
-		mtf.setSeed(alpsLayers.layers.get(alpsLayers.index).getParameters().getSeed()); //set seed
-		
 		for(Individual ind: replacement.getAll()) //iterate through individuals to be replaced
 		{
-		   selectionOperation.performTournamentSelection(
-				      alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize(),
-				      alpsLayers.layers.get(alpsLayers.index).getParameters().getTournamentSize());
+		   selectionOperation.performTournamentSelection(e, 
+				      alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize());
 		   
 			
 		    /*

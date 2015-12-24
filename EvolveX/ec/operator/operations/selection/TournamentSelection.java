@@ -26,6 +26,7 @@ import util.random.MersenneTwisterFast;
 import java.util.ArrayList;
 
 import algorithms.alps.system.ALPSLayers;
+import algorithms.ga.Evolve;
 import operator.operations.SelectionOperation;
 import util.random.RandomGenerator;
 
@@ -54,6 +55,7 @@ public class TournamentSelection implements SelectionOperation {
  	/**
  	 * 
  	 * @return
+ 	 * @deprecated
  	 */
     public int getTournamentSize()
     {
@@ -63,6 +65,7 @@ public class TournamentSelection implements SelectionOperation {
     /**
      * 
      * @param tSize
+     * @deprecated
      */
     public void setTournamentSize(int tSize)
     {
@@ -75,7 +78,7 @@ public class TournamentSelection implements SelectionOperation {
      * @param tournamentSize
      * @return id's of selected individuals
      */
-    public ArrayList<Integer> performTournamentSelection(int populationSize, int tournamentSize)
+    public ArrayList<Integer> performTournamentSelection(Evolve e, int popSize)
     {
     	
         int select; 
@@ -86,7 +89,7 @@ public class TournamentSelection implements SelectionOperation {
           int count = 0;
           do
           {
-             select = RandomGenerator.getRandomNumberBetween(0,populationSize-1); //replace value with pop size
+             select = RandomGenerator.getRandomNumberBetween(0,popSize-1); //replace value with pop size
              count++;
              if(count>loopCap)
             	 break;
@@ -105,8 +108,8 @@ public class TournamentSelection implements SelectionOperation {
     * @param tournamentSize
     * @return id's of selected individuals
     */
-   public ArrayList<Integer> performTournamentSelection(
-		   ALPSLayers alpsLayers, int populationSize, int tournamentSize)
+   public ArrayList<Integer> performTournamentSelection(Evolve e,
+		   ALPSLayers alpsLayers)
    {
         int select; 
        
@@ -119,9 +122,9 @@ public class TournamentSelection implements SelectionOperation {
         	this.tournamentSelect.clear();
         	this.tournamentSelect = 
         	performTournamentSelection(
-        			//populationSize,
-        			alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size(), //more dynamic
-        			alpsLayers.layers.get(alpsLayers.index).getParameters().getTournamentSize());
+        			e,
+        			alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size() //more dynamic
+        			);
         }
         else //higher layers 1...N
         {  
@@ -133,11 +136,11 @@ public class TournamentSelection implements SelectionOperation {
             //		alpsLayers.layers.get(alpsLayers.index-1).getEvolution().getCurrentPopulation().size();
         	
         	//System.out.println("INDEX::"+ alpsLayers.index+ " currentLayerPopSize:::"+currentLayerPopSize+" lowerLayerPopSize:::"+lowerLayerPopSize);
-        	while(this.tournamentSelect.size()<tournamentSize) //for(int i=0;i<tournamentSize;i++) 
+        	while(this.tournamentSelect.size()<e.tournamentSize) //for(int i=0;i<tournamentSize;i++) 
             { 
-        		RandomGenerator randGen = new RandomGenerator(); 
-                MersenneTwisterFast mtf = new MersenneTwisterFast();
-                mtf.setSeed(alpsLayers.layers.get(alpsLayers.index).getParameters().getSeed()); //set seed
+        		//RandomGenerator randGen = new RandomGenerator(); 
+                //MersenneTwisterFast mtf = new MersenneTwisterFast();
+                //mtf.setSeed(alpsLayers.layers.get(alpsLayers.index).getParameters().getSeed()); //set seed
                 //this gives actual current layer population size
                 
                 //System.out.println("TOTAL "+ currentLayerPopSize +" "+lowerLayerPopSize + " pop size#"+  populationSize); 
@@ -146,7 +149,7 @@ public class TournamentSelection implements SelectionOperation {
                  * selection pressure for first half (current layer):
                  * if overall size is less than populationSize, it means first half is empty or second half (lower layer) is empty
                  */
-        		if(randGen.nextDouble() <= alpsLayers.layers.get(alpsLayers.index).getParameters().getLayerSelectionPressure() &&
+        		if(e.random.nextDouble() <= alpsLayers.layers.get(alpsLayers.index).getParameters().getLayerSelectionPressure() &&
         				currentLayerPopSize >0)
         		{ //n%
         			 int count = 0;
@@ -194,13 +197,13 @@ public class TournamentSelection implements SelectionOperation {
     * @return
     */
    public ArrayList<Integer> performTournamentSelectionWithLimits(
-		   int tournamentSize,int min, int max)
+		   Evolve e,int min, int max)
    {
    	
        int select; 
        this.tournamentSelect.clear();
        
-       for(int i=0;i<tournamentSize;i++)
+       for(int i=0;i<e.tournamentSize;i++)
        {  
     	   do
 	        { 

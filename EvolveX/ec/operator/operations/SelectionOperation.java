@@ -23,6 +23,7 @@ package operator.operations;
 import java.util.ArrayList;
 
 import algorithms.alps.system.ALPSLayers;
+import algorithms.ga.Evolve;
 
 /**
  *
@@ -45,12 +46,12 @@ public interface SelectionOperation {
 	
 	/**
 	 * 
-	 * @param populationSize
-	 * @param tournamentSize
+	 * @param populationSize dynamic pop size
+	 * @param tournamentSize dynamic tournament size
 	 * @return ArrayList<Integer> of tournament individuals
 	 */
-	public ArrayList<Integer> performTournamentSelection(
-			int populationSize, int tournamentSize);
+	public ArrayList<Integer> performTournamentSelection(Evolve e, int popSize);
+	
 	
 	/**
 	 * 
@@ -59,8 +60,8 @@ public interface SelectionOperation {
 	 * @param tournamentSize
 	 * @return
 	 */
-	public ArrayList<Integer> performTournamentSelection(
-			ALPSLayers alpsLayers, int populationSize, int tournamentSize);
+	public ArrayList<Integer> performTournamentSelection(Evolve e,
+			ALPSLayers alpsLayers);
 	
 	
 	/**
@@ -70,7 +71,6 @@ public interface SelectionOperation {
 	 * @param max
 	 * @return
 	 */
-	public ArrayList<Integer> performTournamentSelectionWithLimits(
-			   int tournamentSize,int min, int max);
+	public ArrayList<Integer> performTournamentSelectionWithLimits(Evolve e,int min, int max);
 	
 }

@@ -326,12 +326,6 @@ public class Evolve extends Instance{
                                       generationalPopulation,
                                       generationsEvolved,
                                       run
-                                      //properties,
-                                      //crossoverRate, 
-                                      //mutationRate,
-                                      //elitismSize,
-                                      //tournamentSize,
-                                      //selectionPressure
                                       ); 
             
             /*

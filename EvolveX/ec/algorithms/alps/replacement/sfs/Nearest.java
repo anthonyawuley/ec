@@ -21,6 +21,7 @@ import util.random.RandomGenerator;
 import individuals.populations.Population;
 import algorithms.alps.ALPSReplacement;
 import algorithms.alps.system.ALPSLayers;
+import algorithms.ga.Evolve;
 
 public class Nearest extends ALPSReplacement{
 
@@ -37,7 +38,7 @@ public class Nearest extends ALPSReplacement{
 
 
 	@Override
-	public Population performAgeLayerMovements(ALPSLayers alpsLayers,
+	public Population performAgeLayerMovements(Evolve e, ALPSLayers alpsLayers,
 			Population current) 
 	{
 		

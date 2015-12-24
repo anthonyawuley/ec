@@ -19,6 +19,7 @@ package algorithms.alps.replacement;
 import individuals.populations.Population;
 import algorithms.alps.ALPSReplacement;
 import algorithms.alps.system.ALPSLayers;
+import algorithms.ga.Evolve;
 /**
  * @author anthony
  *
@@ -37,9 +38,12 @@ public class Default  extends ALPSReplacement{
 	}
 
 	@Override
-	public Population performAgeLayerMovements(ALPSLayers alpsLayers,
+	public Population performAgeLayerMovements(Evolve e, ALPSLayers alpsLayers,
 			Population current) {
-		return current;
+		// TODO Auto-generated method stub
+		return null;
 	}
+
+	
 
 }
