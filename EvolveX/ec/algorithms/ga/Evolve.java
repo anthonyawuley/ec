@@ -33,6 +33,7 @@ import operator.operations.ReplacementStrategy;
 import operator.operations.StoppingCondition;
 import parameter.Instance;
 import util.Constants;
+import util.random.MersenneTwisterFast;
 import exceptions.InitializationException;
 import exceptions.OutOfRangeException;
 import fitnessevaluation.FitnessExtension;
@@ -43,20 +44,22 @@ import fitnessevaluation.FitnessExtension;
  */
 public class Evolve extends Instance{
     
-    private int generationsEvolved;
-    private int chromosomeLength;
-    private int generations;
-    private int populationSize;
-    private double crossoverRate;
-    private double mutationRate;
-    private int tournamentSize;
-    private boolean stopFlag;
-    private Properties prop;
-    private int number_of_experiments;
-    private int elitismSize;
-    private double selectionPressure;
+    public int generationsEvolved;
+    public int chromosomeLength;
+    public int generations;
+    public int populationSize;
+    public double crossoverRate;
+    public double mutationRate;
+    public int tournamentSize;
+    public boolean stopFlag;
+    public Properties properties;
+    public int number_of_experiments;
+    public int elitismSize;
+    public double selectionPressure;
+    public MersenneTwisterFast random;
     @SuppressWarnings("unused")
-	private IslandModel im = null;
+    public IslandModel im = null;
+    public long seed;
     
     /**
      * start node for customers or user nodes
@@ -79,28 +82,29 @@ public class Evolve extends Instance{
     * @throws OutOfRangeException 
     */
     
-    public Evolve(Properties properties) throws InitializationException
+    public Evolve(Properties p) throws InitializationException
     {
     	/*
          * SET SYSTEM PARAMETERS
          */
-    	number_of_experiments = Integer.parseInt(properties.getProperty(Constants.NUMBER_OF_EXPERIMENTS));
-        populationSize        = Integer.parseInt(properties.getProperty(Constants.POPULATION_SIZE));
-        chromosomeLength      = Integer.parseInt(properties.getProperty(Constants.INITIAL_CHROMOSOME_SIZE));
-        crossoverRate         = Double.parseDouble(properties.getProperty(Constants.CROSSOVER_PROBABILITY));
-        mutationRate          = Double.parseDouble(properties.getProperty(Constants.MUTATION_PROBABILITY));
-        generations           = Integer.parseInt(properties.getProperty(Constants.GENERATIONS));
-        tournamentSize        = Integer.parseInt(properties.getProperty(Constants.TOURNAMENT_SIZE));
-        stopFlag              = Boolean.parseBoolean(properties.getProperty(Constants.STOP_WHEN_SOLVED));
-        elitismSize           = Integer.parseInt(properties.getProperty(Constants.ELITE_SIZE));
-        selectionPressure     = Double.parseDouble(properties.getProperty(Constants.TOURNAMENT_SELECTION_PRESSURE));
-                   
+    	number_of_experiments = Integer.parseInt(p.getProperty(Constants.NUMBER_OF_EXPERIMENTS));
+        populationSize        = Integer.parseInt(p.getProperty(Constants.POPULATION_SIZE));
+        chromosomeLength      = Integer.parseInt(p.getProperty(Constants.INITIAL_CHROMOSOME_SIZE));
+        crossoverRate         = Double.parseDouble(p.getProperty(Constants.CROSSOVER_PROBABILITY));
+        mutationRate          = Double.parseDouble(p.getProperty(Constants.MUTATION_PROBABILITY));
+        generations           = Integer.parseInt(p.getProperty(Constants.GENERATIONS));
+        tournamentSize        = Integer.parseInt(p.getProperty(Constants.TOURNAMENT_SIZE));
+        stopFlag              = Boolean.parseBoolean(p.getProperty(Constants.STOP_WHEN_SOLVED));
+        elitismSize           = Integer.parseInt(p.getProperty(Constants.ELITE_SIZE));
+        selectionPressure     = Double.parseDouble(p.getProperty(Constants.TOURNAMENT_SELECTION_PRESSURE));
+        seed                  = Long.parseLong(p.getProperty(Constants.SEED));           
         
-        startNode             = Integer.parseInt(properties.getProperty(Constants.START_NODE));
-        depotNode             = Integer.parseInt(properties.getProperty(Constants.DEPOT_NODE));
+        startNode             = Integer.parseInt(p.getProperty(Constants.START_NODE));
+        depotNode             = Integer.parseInt(p.getProperty(Constants.DEPOT_NODE));
         
-        
-        prop = properties;
+        random                = new MersenneTwisterFast();
+        random.setSeed(seed); //set seed
+        properties                  = p;
         
         
         if (crossoverRate < 0 || crossoverRate > 1) 
@@ -161,7 +165,7 @@ public class Evolve extends Instance{
          
     	if(generationsEvolved == 0)
     	{
-    		im = new IslandModel(prop);
+    		im = new IslandModel(properties);
     	}
         */
         
@@ -181,12 +185,12 @@ public class Evolve extends Instance{
          /*
        	  * set initialiser module
        	  */
-       	  InitialisationModule init = initialiserModule(prop);
+       	  InitialisationModule init = initialiserModule(properties);
        	/*
        	  evolve(
        			init.generateInitialPopulation(
-       					geneRepresentation(prop),
-       					prop,populationSize,
+       					geneRepresentation(properties),
+       					properties,populationSize,
        					chromosomeLength), 
        			new StoppingCondition(stopFlag),
        			i);
@@ -194,9 +198,7 @@ public class Evolve extends Instance{
        	  
        	 evolve(
        			 init.generateInitialPopulation(
-       					    prop,
-        					populationSize,
-        					chromosomeLength), 
+       					    this), 
         			        new StoppingCondition(stopFlag),
         			        i);
        	 
@@ -218,7 +220,7 @@ public class Evolve extends Instance{
     
     /**
      * 
-     * @param properties
+     * @param propertieserties
      * @param run
      * @deprecated
      */
@@ -227,7 +229,7 @@ public class Evolve extends Instance{
     	/*
     	 * set initialiser module
     	 */
-    	InitialisationModule init = initialiserModule(prop);
+    	InitialisationModule init = initialiserModule(properties);
     	
        /*
         * begin evolve
@@ -237,8 +239,7 @@ public class Evolve extends Instance{
     	//new Initialise().generateInitialPopulation(run, run)
     	evolve(
     			init.generateInitialPopulation(
-    					geneRepresentation(prop),prop,
-    					populationSize,chromosomeLength),
+    					this,geneRepresentation(properties)),
     			new StoppingCondition(stopFlag),
     			run);
     	
@@ -264,8 +265,8 @@ public class Evolve extends Instance{
         ArrayList<Population> generationalPopulation = new ArrayList<>();
         generationsEvolved = 0;
         
-        PopulationFitness fitnessFunction = fitnessEvaluator(prop);
-        ((FitnessExtension) fitnessFunction).setProperties(prop); //set properties file for report generation
+        PopulationFitness fitnessFunction = fitnessEvaluator(properties);
+        ((FitnessExtension) fitnessFunction).setProperties(properties); //set propertieserties file for report generation
         
         //set initial population
         //Pop 0
@@ -312,24 +313,26 @@ public class Evolve extends Instance{
             generationsEvolved++;
             
             //replacement strategy 
-            ReplacementStrategy replacment = replacementOperation(prop);
+            ReplacementStrategy replacment = replacementOperation(properties);
            
             //perform generational replacement
             current = replacment.nextGeneration(
+            		                  this,
             		                  fitnessFunction,  
-            		                  crossoverOperation(prop),
-            		                  mutationOperation(prop),
-            		                  selectionOperator(prop),
-            		                  statisticsOperation(prop),
-            		                  prop,
+            		                  crossoverOperation(properties),
+            		                  mutationOperation(properties),
+            		                  selectionOperator(properties),
+            		                  statisticsOperation(properties),
                                       generationalPopulation,
                                       generationsEvolved,
-                                      run,
-                                      crossoverRate, 
-                                      mutationRate,
-                                      elitismSize,
-                                      tournamentSize,
-                                      selectionPressure); 
+                                      run
+                                      //properties,
+                                      //crossoverRate, 
+                                      //mutationRate,
+                                      //elitismSize,
+                                      //tournamentSize,
+                                      //selectionPressure
+                                      ); 
             
             /*
              * unset previous 2 generations to free memory

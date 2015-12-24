@@ -29,6 +29,7 @@ import java.util.Properties;
 
 import algorithms.alps.layers.InitializeParams;
 import algorithms.alps.layers.Layer;
+import algorithms.ga.Evolve;
 import operator.InitialisationModule;
 import operator.operations.ReplacementStrategy;
 import operator.operations.StoppingCondition;
@@ -42,7 +43,7 @@ import fitnessevaluation.FitnessExtension;
  *
  * @author anthony
  */
-public class EvolveGA extends Instance{
+public class EvolveALPS extends Evolve{
 
 	private long seed;
 	private int generationsEvolved;
@@ -67,7 +68,7 @@ public class EvolveGA extends Instance{
 
 	//private IslandModel im = null;
 
-	public EvolveGA()
+	public EvolveALPS()
 	{
 	}
 
@@ -78,7 +79,7 @@ public class EvolveGA extends Instance{
 	 * @throws OutOfRangeException 
 	 */
 
-	public EvolveGA(Properties properties) throws InitializationException
+	public EvolveALPS(Properties properties) throws InitializationException
 	{
 		/*
 		 * SET SYSTEM PARAMETERS
@@ -164,10 +165,8 @@ public class EvolveGA extends Instance{
 		layer.layerEvaluationCount =0; //reinitialize counter when evolution starts
 
 		return init.generateInitialPopulation(
+				this,
 				geneRepresentation(this.prop),
-				this.prop,
-				this.populationSize,
-				this.chromosomeLength,
 				//layer.layerEvaluationCount 
 				Engine.completeEvaluationCount
 				); //set evaluations as this.populationSize * getGenerationsEvolved()
@@ -294,22 +293,24 @@ public class EvolveGA extends Instance{
 		//replacement strategy 
 		ReplacementStrategy replacment = replacementOperation(this.prop);
 		current = replacment.nextGenerationALPS(
+				this,
 				fitnessFunction,  
 				crossoverOperation(this.prop),
 				mutationOperation(this.prop),
 				selectionOperator(this.prop),
 				statisticsOperation(this.prop),
 				replacementStrategyALPS(this.prop),
-				this.prop,
 				generationalPopulation,
 				//Engine.completeEvaluationCount,
 				(int) alpsLayers.layers.get(alpsLayers.index).layerEvaluationCount,
-				alpsLayers,
-				this.crossoverRate, 
-				this.mutationRate,
-				this.elitismSize,
-				this.tournamentSize,
-				this.selectionPressure); 
+				alpsLayers
+				//this.prop,
+				//this.crossoverRate, 
+				//this.mutationRate,
+				//this.elitismSize,
+				//this.tournamentSize,
+				//this.selectionPressure
+				); 
 
 		/*
 		 * set an alternate stopping flag based on aged individuals in a population

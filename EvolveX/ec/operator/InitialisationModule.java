@@ -16,8 +16,6 @@
  *******************************************************************************/
 package operator;
 
-import java.util.Properties;
-
 import algorithms.ga.Evolve;
 import individuals.Gene;
 import individuals.populations.Population;
@@ -36,10 +34,7 @@ public interface InitialisationModule {
 	 * @deprecated
 	 */
 	public  Population generateInitialPopulation(
-			Gene g,
-			Properties prop, 
-			int populationSize, 
-			int chromosomeLength);
+			Evolve e, Gene g);
 	
 	/**
 	 * 
@@ -50,9 +45,7 @@ public interface InitialisationModule {
 	 * @return initialization for Generational Replacement
 	 */
 	public  Population generateInitialPopulation(
-			Properties prop, 
-			int populationSize, 
-			int chromosomeLength);
+			Evolve e);
 	
 	/**
 	 * 
@@ -65,13 +58,10 @@ public interface InitialisationModule {
 	 * @deprecated
 	 */
 	public  Population generateInitialPopulation(
+			Evolve e,
 			Gene g,
-			Properties prop, 
-			int populationSize, 
-			int chromosomeLength,
 			double evaluations);
 
-	Population generateInitialPopulation(Properties prop, int populationSize,
-			int chromosomeLength, double evaluations);
+	Population generateInitialPopulation(Evolve e, double evaluations);
 	
 }

@@ -25,6 +25,7 @@ import individuals.populations.Population;
 
 import java.util.Properties;
 
+import algorithms.ga.Evolve;
 import operator.InitialisationModule;
 
 /**
@@ -40,31 +41,30 @@ public class Full implements InitialisationModule {
 	}
 
 	@Override
-	public Population generateInitialPopulation(Gene g, Properties prop,
-			int populationSize, int chromosomeLength) {
+	public Population generateInitialPopulation(Evolve e, Gene g) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Population generateInitialPopulation(Gene g, Properties prop,
-			int populationSize, int chromosomeLength, double evaluations) {
+	public Population generateInitialPopulation(Evolve e) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Population generateInitialPopulation(Properties prop,
-			int populationSize, int chromosomeLength) {
+	public Population generateInitialPopulation(Evolve e, Gene g,
+			double evaluations) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Population generateInitialPopulation(Properties prop,
-			int populationSize, int chromosomeLength, double evaluations) {
+	public Population generateInitialPopulation(Evolve e, double evaluations) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	
     
 }

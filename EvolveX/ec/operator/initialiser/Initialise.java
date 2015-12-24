@@ -60,18 +60,18 @@ public class Initialise implements InitialisationModule{
      * @return
      */
 	public  Population generateInitialPopulation(
-			Properties prop, int populationSize, int chromosomeLength) 
+			Evolve e) 
     {
         
-    	System.out.println(toString(populationSize));
-    	this.toString(populationSize);
+    	System.out.println(toString(e.populationSize));
+    	this.toString(e.populationSize);
     	
         Population pop = new Population();
         //create initial population
-        for(int i=0; i<populationSize;i++)
+        for(int i=0; i<e.populationSize;i++)
         {
             Chromosome ch = new Chromosome();
-            ch.setChromosomeSize(chromosomeLength);
+            ch.setChromosomeSize(e.chromosomeLength);
             Individual individual = new Individual();
             //set initial age to zero(0)
             individual.setAge(0);
@@ -79,7 +79,7 @@ public class Initialise implements InitialisationModule{
             individual.setLayerId(0);
             //NB: clone used to make each individual independent
             //individual.createChromosome(ch,gene,prop); //create individual
-            ch.createChromosome(ch,prop,rng); //create individual
+            ch.createChromosome(ch,e.properties,e.random); //create individual
             individual.setChromosome(ch);
             //set fitness object
             individual.setFitness(new BasicFitness()); //create fitness object
@@ -97,19 +97,19 @@ public class Initialise implements InitialisationModule{
      * @return
      * @deprecated
      */
-	public  Population generateInitialPopulation(
-			Gene gene, Properties prop, int populationSize, int chromosomeLength) 
+	public  Population generateInitialPopulation(Evolve e,
+			Gene gene) 
     {
         
-    	System.out.println(toString(populationSize));
-    	this.toString(populationSize);
+    	System.out.println(toString(e.populationSize));
+    	this.toString(e.populationSize);
     	
         Population pop = new Population();
         //create initial population
-        for(int i=0; i<populationSize;i++)
+        for(int i=0; i<e.populationSize;i++)
         {
             Chromosome ch = new Chromosome();
-            ch.setChromosomeSize(chromosomeLength);
+            ch.setChromosomeSize(e.chromosomeLength);
             Individual individual = new Individual();
             //set initial age to zero(0)
             individual.setAge(0);
@@ -117,7 +117,7 @@ public class Initialise implements InitialisationModule{
             individual.setLayerId(0);
             //NB: clone used to make each individual independent
             //ch.createChromosome(ch,gene,prop); //create individual
-            ch.createChromosome(ch,prop,rng); //create individual
+            ch.createChromosome(ch,e.properties,rng); //create individual
             individual.setChromosome(ch);
             //set fitness object
             individual.setFitness(new BasicFitness()); //create fitness object
@@ -133,18 +133,17 @@ public class Initialise implements InitialisationModule{
 	/**
 	 * @deprecated
 	 */
-	public Population generateInitialPopulation(Gene g, Properties prop,
-			int populationSize, int chromosomeLength, double evaluations) 
+	public Population generateInitialPopulation(Evolve e,Gene g, double evaluations) 
 	{
-    	System.out.println(toString(populationSize));
-    	this.toString(populationSize);
+    	System.out.println(toString(e.populationSize));
+    	this.toString(e.populationSize);
     	
         Population pop = new Population();
         //create initial population
-        for(int i=0; i<populationSize;i++)
+        for(int i=0; i<e.populationSize;i++)
         {
             Chromosome ch = new Chromosome();
-            ch.setChromosomeSize(chromosomeLength);
+            ch.setChromosomeSize(e.chromosomeLength);
             Individual individual = new Individual();
             //set initial age to one(1.0)
             individual.setAge(0.0);
@@ -152,7 +151,7 @@ public class Initialise implements InitialisationModule{
             individual.setLayerId(0);
             //NB: clone used to make each individual independent
             //ch.createChromosome(ch,g,prop); //create individual
-            ch.createChromosome(ch,prop,rng); //create individual
+            ch.createChromosome(ch,e.properties,rng); //create individual
             individual.setChromosome(ch);
             /* set default number of evaluations for SS ALPS
              * add individual to population
@@ -171,26 +170,25 @@ public class Initialise implements InitialisationModule{
     
 	
 	@Override
-	public Population generateInitialPopulation(Properties prop,
-			int populationSize, int chromosomeLength, double evaluations) 
+	public Population generateInitialPopulation(Evolve e, double evaluations) 
 	{
-    	System.out.println(toString(populationSize));
+    	System.out.println(toString(e.populationSize));
     	
-    	this.toString(populationSize);
+    	this.toString(e.populationSize);
     	
         Population pop = new Population();
         //create initial population
-        for(int i=0; i<populationSize;i++)
+        for(int i=0; i<e.populationSize;i++)
         {
             Chromosome ch = new Chromosome();
-            ch.setChromosomeSize(chromosomeLength);
+            ch.setChromosomeSize(e.chromosomeLength);
             Individual individual = new Individual();
             //set initial age to one(1.0)
             individual.setAge(0.0);
             //set initial layer to zero(0)
             individual.setLayerId(0);
             //NB: clone used to make each individual independent
-            ch.createChromosome(ch,prop,rng); //create individual
+            ch.createChromosome(ch,e.properties,rng); //create individual
             individual.setChromosome(ch);
             /* set default number of evaluations for SS ALPS
              * add individual to population

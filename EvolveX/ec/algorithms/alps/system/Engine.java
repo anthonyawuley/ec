@@ -63,7 +63,7 @@ public class Engine {
 		for(Layer l: layers)
 		{
 			System.out.println("Setting up evolutionary system for layer #"+ l.getId());
-			l.setEvolution(new EvolveGA(this.properties));
+			l.setEvolution(new EvolveALPS(this.properties));
 
 			if(!l.getIsBottomLayer())
 				l.initializerFlag = Boolean.FALSE;

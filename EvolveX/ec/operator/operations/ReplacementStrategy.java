@@ -24,10 +24,10 @@ import individuals.fitnesspackage.PopulationFitness;
 import individuals.populations.Population;
 
 import java.util.ArrayList;
-import java.util.Properties;
 
 import algorithms.alps.ALPSReplacement;
 import algorithms.alps.system.ALPSLayers;
+import algorithms.ga.Evolve;
 import operator.CrossoverModule;
 import operator.MutationModule;
 import util.statistics.StatisticsCollector;
@@ -58,20 +58,16 @@ public interface ReplacementStrategy {
     * @param tournamentSize - tournament size
     * @return
     */
-    public  Population nextGeneration(PopulationFitness f,
+    public  Population nextGeneration(Evolve e,
+    		                         PopulationFitness f,
     		                         CrossoverModule crx,
                                      MutationModule mtx,
                                      SelectionOperation so,
                                      StatisticsCollector stats,
-                                     Properties p,
     		                         final ArrayList<Population> current,
     		                         int generation,
-                                     int run,
-                                     double crossoverRate, 
-                                     double mutationRate,
-                                     int elitismSize,
-                                     int tournamentSize,
-                                     double selectionPressure);
+                                     int run
+                                     );
     
   
 	
@@ -90,21 +86,17 @@ public interface ReplacementStrategy {
      * @return
      */
      public Population nextGenerationALPS(
+    		                          Evolve e,
     		                          PopulationFitness f,
      		                          CrossoverModule crx,
                                       MutationModule mtx,
                                       SelectionOperation so,
                                       StatisticsCollector stats,
                                       ALPSReplacement alpsReplacement,
-                                      Properties p,
      		                          final ArrayList<Population> current,
      		                          int generation,
-     		                          ALPSLayers alpsLayers,
-                                      double crossoverRate, 
-                                      double mutationRate,
-                                      int elitismSize,
-                                      int tournamentSize,
-                                      double selectionPressure);
+     		                          ALPSLayers alpsLayers
+     		                          );
     
  
      

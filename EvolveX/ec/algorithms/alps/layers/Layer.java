@@ -18,7 +18,7 @@ package algorithms.alps.layers;
 
 import individuals.populations.Population;
 import algorithms.alps.LayerInterface;
-import algorithms.alps.system.EvolveGA;
+import algorithms.alps.system.EvolveALPS;
 
 public class Layer implements LayerInterface {
 
@@ -26,7 +26,7 @@ public class Layer implements LayerInterface {
 	private boolean isBottomLayer = Boolean.FALSE;
 	private boolean isActive = Boolean.FALSE;
 	private InitializeParams params;
-	private EvolveGA evolve;
+	private EvolveALPS evolve;
 	private int generationalCount, generations;
 	private int layerId;
 	public int layerEvaluationCount   = 0;
@@ -100,7 +100,7 @@ public class Layer implements LayerInterface {
 
 
 	@Override
-	public void setEvolution(EvolveGA e) 
+	public void setEvolution(EvolveALPS e) 
 	{
 		this.evolve = e;
 	}
@@ -108,7 +108,7 @@ public class Layer implements LayerInterface {
 
 
 	@Override
-	public EvolveGA getEvolution() 
+	public EvolveALPS getEvolution() 
 	{
 		return this.evolve;
 	}

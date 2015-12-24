@@ -17,7 +17,7 @@
 package algorithms.alps;
 
 import algorithms.alps.layers.InitializeParams;
-import algorithms.alps.system.EvolveGA;
+import algorithms.alps.system.EvolveALPS;
 import individuals.populations.Population;
 
     public interface LayerInterface {
@@ -60,12 +60,12 @@ import individuals.populations.Population;
 	 * 
 	 * @param e
 	 */
-	public void setEvolution(EvolveGA e);
+	public void setEvolution(EvolveALPS e);
 	/**
 	 * 
 	 * @return
 	 */
-	public EvolveGA getEvolution();
+	public EvolveALPS getEvolution();
 	/**
 	 * 
 	 * @param i
