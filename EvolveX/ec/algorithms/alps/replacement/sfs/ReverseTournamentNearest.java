@@ -116,13 +116,9 @@ public class ReverseTournamentNearest extends ALPSReplacement{
 		int nearest = 0;
 		//System.out.println("\nBegin:::\n" + age);
 		for(int id=1;id<tournament.size();id++)
-		{
 			if(Math.abs(pop.get(tournament.get(nearest)).getAge() - age) > Math.abs(pop.get(tournament.get(id)).getAge() - age))
-			{   
 				nearest = id;
-			}//System.out.print(" "+pop.get(tournament.get(id)).getAge()+" ");
-		}
-		//System.out.println("\nThis is the nearest "+pop.get(tournament.get(nearest)).getAge()+" \n");
+		
 		return tournament.get(nearest);
 	}
 	

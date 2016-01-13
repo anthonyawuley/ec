@@ -82,13 +82,11 @@ public class Random  extends ALPSReplacement {
 		}
 		//remove all individuals older than current layer
 		for(int id=0;id<deleteList.size();id++)
-		{
 			current.remove(deleteList.get(id));
-		}
 		
-		System.out.println(deleteList.size()+ " -- Current!! "+current.size()+
+		/*System.out.println(deleteList.size()+ " -- Current!! "+current.size()+
 				" Next "+alpsLayers.layers.get(alpsLayers.index+1).getEvolution().
-				getCurrentPopulation().size()); //System.exit(0);
+				getCurrentPopulation().size()); //System.exit(0);*/
 		
 		return current;
 	}

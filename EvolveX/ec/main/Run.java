@@ -89,7 +89,6 @@ public class Run extends Parameters{
     	end = System.currentTimeMillis();
         
     }
-   
     
     /**
      * @param args the command line arguments
@@ -98,8 +97,4 @@ public class Run extends Parameters{
     {
         new Run(args);
     }
-
-
-
-	
 }

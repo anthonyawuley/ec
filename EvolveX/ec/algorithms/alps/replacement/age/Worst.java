@@ -82,9 +82,7 @@ public class Worst  extends ALPSReplacement{
 		  }
 		  //remove all individuals older than current layer
 		  for(int id=0;id<deleteList.size();id++)
-		  {
 			current.remove(deleteList.get(id));
-		  }
 		/*
 		System.out.println("DeleteList "+ deleteList.size()+ " Current1: "+current.size()+ " Current2: "+ alpsLayers.layers.get(alpsLayers.index).getEvolution().
 				getCurrentPopulation().size()+

@@ -102,13 +102,8 @@ public class Nearest extends ALPSReplacement{
 		int nearest = 0;
 		System.out.println("\nBegin:::\n" + age);
 		for(int id=1;id<pop.size();id++)
-		{
 			if(Math.abs(pop.get(nearest).getAge() - age) > Math.abs(pop.get(id).getAge() - age))
-			{   
 				nearest = id;
-			}System.out.print(" "+pop.get(id).getAge()+" ");
-		}
-		System.out.println("\nThis is the nearest "+pop.get(nearest).getAge()+" \n");
 		return nearest;
 	}
 	
