@@ -19,10 +19,11 @@ package algorithms.tabu;
 import java.io.IOException;
 import java.util.Properties;
 
+import main.EC;
 import algorithms.tabu.solution.Writer;
 import util.Constants;
 
-public class RunTabu {
+public class RunTabu  implements EC {
 
 	int number_of_experiments;
 	

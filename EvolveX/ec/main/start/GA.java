@@ -14,7 +14,7 @@
  *
  *        
  *******************************************************************************/
-package main;
+package main.start;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutionException;
@@ -62,7 +62,8 @@ public class GA  extends Start{
             	/* Start Evolve time */
             	start = System.currentTimeMillis();
             	
-            	propertiesFilePath = arguments[f].toString().length()>1?arguments[f]:Constants.DEFAULT_PROPERTIES;
+            	propertiesFilePath = arguments[f].toString().length()>1?
+            			arguments[f]:Constants.DEFAULT_PROPERTIES;
             	new Evolve(this.setup());
             	/* End  Evolve  time */
             	end = System.currentTimeMillis();

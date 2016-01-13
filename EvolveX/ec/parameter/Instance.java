@@ -21,6 +21,7 @@ import individuals.fitnesspackage.PopulationFitness;
 
 import java.util.Properties;
 
+import main.EC;
 import main.Run;
 import algorithms.alps.ALPSReplacement;
 import algorithms.alps.AgingScheme;
@@ -158,6 +159,29 @@ public class Instance {
 	        }
 	        return cm;
 	    }
+	    
+	    
+	    protected EC mainClass(Properties p) 
+	    {
+	    	EC ec = null;
+	        String className;
+	        try {
+	            className = p.getProperty(Constants.MAIN_CLASS);
+	            Class<?> obj = Class.forName(className);
+		    ec = (EC)obj.newInstance();
+		    
+	        } catch(IllegalAccessException e) {
+	            System.err.println(this.getClass().getName()+". exception: "+e);
+	        }  catch (ClassNotFoundException e) {
+	            System.err.println(this.getClass().getName()+". exception: "+e);
+		    e.printStackTrace();    
+	        }  catch (InstantiationException e) {
+	            System.err.println(this.getClass().getName()+". exception: "+e);
+		    e.printStackTrace();
+	        }
+	        return ec;
+	    }
+	    
 	    
 	    protected MutationModule mutationOperation(Properties p) 
 	    {

@@ -20,7 +20,7 @@
  */
 package main;
 
-import algorithms.ga.Evolve;
+import parameter.Parameters;
 import exceptions.InitializationException;
 import util.Constants;
 
@@ -28,17 +28,28 @@ import util.Constants;
  *
  * @author anthony
  */
-public class Run extends Start{
+public class Run extends Parameters{
 
-    /**
-     * @param args the command line arguments
-     */
+	  private long start      = 0;
+	  private long end        = 0;
+	  private long sysEndTime = 0;
+	  
+		
+	  long sysStartTime = System.currentTimeMillis();
+	  private EC ec;
+	
+	  @Override
+	  public String toString() {
+			return "Begin evolution";
+	  }   
     
     //private long startTime;
      
     /** Creates a new instance of Run */
     public Run(String[] arguments) 
     {
+    	/* Start Evolve time */
+    	start = System.currentTimeMillis();
     	
     	/* 
     	int port = 2502;
@@ -62,29 +73,27 @@ public class Run extends Start{
         	//propertiesFilePath = arguments[1].toString().length()>1?arguments[1]:Constants.DEFAULT_PROPERTIES;
             for(int f=1;f<arguments.length;f++)
             {  
-            	/* Start Evolve time */
-            	start = System.currentTimeMillis();
-            	
             	propertiesFilePath = arguments[f].toString().length()>1?arguments[f]:Constants.DEFAULT_PROPERTIES;
-            	new Evolve(this.setup());
-            	
-            	/* Start Evolve time */
-            	end = System.currentTimeMillis();
+            	//new Evolve(this.setup());
+            	ec = mainClass(this.setup());
             }
-            
             /* Start Evolve time */
         	sysEndTime = System.currentTimeMillis();
-            
 		} 
         catch (InitializationException e) 
         {
 			e.printStackTrace();
 		}
         
+        /* Start Evolve time */
+    	end = System.currentTimeMillis();
+        
     }
    
     
-    
+    /**
+     * @param args the command line arguments
+     */
     public static void main(String[] args) 
     {
         new Run(args);
@@ -92,9 +101,5 @@ public class Run extends Start{
 
 
 
-	@Override
-	public String toString() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }

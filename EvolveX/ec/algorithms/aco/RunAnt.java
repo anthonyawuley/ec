@@ -20,9 +20,10 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.ExecutionException;
 
+import main.EC;
 import util.Constants;
 
-public class RunAnt {
+public class RunAnt implements EC {
 
 	private int number_of_experiments;
 	

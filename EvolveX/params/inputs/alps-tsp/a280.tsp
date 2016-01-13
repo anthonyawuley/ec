@@ -39,7 +39,7 @@ tournament-size                       = 7
  
 # REPRODUCTION operators
 # Probability of crossover. State if the point of crossover is fixed on both chromosomes (The size will always be the same) or not
-mutation_operation                    = Operator.Operations.IntFlipMutation
+mutation_operation                    = operator.operations.IntFlipMutation
 elite-size                            = 3
  
  

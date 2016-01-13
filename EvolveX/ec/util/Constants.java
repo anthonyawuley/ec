@@ -190,6 +190,10 @@ public final class Constants {
      */
     public static final String CROSSOVER_OPERATION                       = "crossover-operation";
     /**
+     * Class name of main-class
+     */
+    public static final String MAIN_CLASS                                = "main-class";    
+    /**
      * Class name of mutation operation. Reflection used to load
      */
     public static final String MUTATION_OPERATION                        = "mutation-operation";

@@ -27,7 +27,7 @@ import island.IslandModel;
 import java.util.ArrayList;
 import java.util.Properties;
 
-import main.Start;
+import main.EC;
 import operator.InitialisationModule;
 import operator.operations.ReplacementStrategy;
 import operator.operations.StoppingCondition;
@@ -42,7 +42,7 @@ import fitnessevaluation.FitnessExtension;
  *
  * @author anthony
  */
-public class Evolve extends Instance{
+public class Evolve extends Instance implements EC{
     
     public int generationsEvolved;
     public int chromosomeLength;

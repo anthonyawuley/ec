@@ -19,9 +19,10 @@ package algorithms.simulatedannealing;
 import java.io.IOException;
 import java.util.Properties;
 
+import main.EC;
 import util.Constants;
 
-public class RunSA {
+public class RunSA implements EC {
 
 	int number_of_experiments;
 	boolean isTSP = Boolean.FALSE;
