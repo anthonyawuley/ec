@@ -93,7 +93,7 @@ public class Engine {
 		while(Engine.completeGenerationalCount <= layers.get(0).getParameters().getEvaluations())
 		{
 			
-			sequentialLoop(alps,layers);
+			sequentialLayerSelection(alps,layers);
 			
 			Engine.completeGenerationalCount++;
 			Engine.completeEvaluationCount += layers.get(0).getParameters().getPopulationSize(); //all layers have the same default population size
@@ -105,7 +105,7 @@ public class Engine {
 	/**
 	 * sequentially loop through all layers
 	 */
-	public void sequentialLoop(ALPSLayers alps, ArrayList<Layer> layers)
+	public void sequentialLayerSelection(ALPSLayers alps, ArrayList<Layer> layers)
 	{
 		
 		for(int j=layers.size()-1;j>=0;j--)
@@ -141,9 +141,15 @@ public class Engine {
 	}
 	
 	
-	
-	
-	
+	/**
+	 * Selects layers randomly using equall probability
+	 * @param alps
+	 * @param layers
+	 * TODO
+	 */
+	public void randomLayerSelection(ALPSLayers alps, ArrayList<Layer> layers){
+		
+	}
 	
 
 	/**
@@ -193,7 +199,7 @@ public class Engine {
 	 */
 	public ArrayList<Layer> moveLayerUp(
 			ArrayList<Layer> layers, int evolvedLayerIncrement) throws CloneNotSupportedException
-			{
+	{
 		ALPSReplacementStrategy ars = new ALPSReplacementStrategy();
 		//push upwards to the next higher layer
 		for(int i=evolvedLayerIncrement; i>0;i--)
@@ -224,7 +230,7 @@ public class Engine {
 		}
 
 		return layers;
-			}
+	}
 
 
 }

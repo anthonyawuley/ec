@@ -1,6 +1,7 @@
 package main;
 
-public interface EC {
+import java.io.Serializable;
 
+public interface EC extends Serializable {
 
 }
