@@ -22,135 +22,210 @@ import individuals.populations.Population;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import main.EC;
 import parameter.Instance;
 import exceptions.InitializationException;
 import util.Constants;
 import algorithms.alps.layers.Layer;
 import algorithms.alps.replacement.ALPSReplacementStrategy;
 
-public class Engine {
+public class Engine extends Instance implements EC {
 
+	/** */
 	private int ageGap;
-	private int ageLayers;
+	/** */
+	public static int numberOfLayers;
+	/** */
 	private Properties properties;
-	public  static int completeGenerationalCount = 1;
-	public  static int completeEvaluationCount   = 0;
-	protected Instance instance;
+	/** */
+	public static int completeGenerationalCount = 1;
+	/** */
+	public static int completeEvaluationCount = 0;
+	/** */
+	public static int evaluations;
+	/** */
+	public int number_of_experiments;
+	/** */
+	public static long seed;
 
-	public Engine(Properties p) 
-	{
-		this.ageGap      = Integer.parseInt(p.getProperty(Constants.ALPS_AGE_GAP));
-		this.ageLayers   = Integer.parseInt(p.getProperty(Constants.ALPS_NUMBER_OF_LAYERS));
-		this.properties  = p;
-		try 
-		{
-			start(new Instance());
-		} 
-		catch (InitializationException e) 
-		{
-			System.out.println("Parameter instance could not be created \n"+ e.getMessage());
-			e.printStackTrace();
-		}
+	// protected Instance instance;
+
+	public Engine() {
 	}
 
+	public void setup(Properties p) {
+		this.properties = p;
+		/* */
+		this.ageGap = Integer.parseInt(p.getProperty(Constants.ALPS_AGE_GAP));
+		/* */
+		this.numberOfLayers = Integer.parseInt(p
+				.getProperty(Constants.ALPS_NUMBER_OF_LAYERS));
+    	/* */
+    	Engine.seed                  = Long.parseLong(p.getProperty(Constants.SEED));
+		
+		/*
+		 * try { start(p); } catch (InitializationException e) {
+		 * System.out.println("Parameter instance could not be created \n"+
+		 * e.getMessage()); e.printStackTrace(); }
+		 */
 
-	public void start(Instance instance) throws InitializationException
-	{
-		ArrayList<Layer> layers = instance.agingLayers(this.properties).
-				agingScheme(this.ageGap, this.ageLayers);
-
-		/* add a GA to each layer */
-		for(Layer l: layers)
-		{
-			System.out.println("Setting up evolutionary system for layer #"+ l.getId());
-			l.setEvolution(new EvolveALPS(this.properties));
-
-			if(!l.getIsBottomLayer())
-				l.initializerFlag = Boolean.FALSE;
-
-			/**initialize generational count **/
-			l.setParameters(l.getEvolution().getParameters());
-			/**l.getEvolution().getParameters().setGenerationsEvolved(0) **/
-			l.getParameters().setGenerationsEvolved(0); 
-			l.getParameters().setSeed(l.getParameters().getSeed());               //set seed
-			/**l.getParameters().setSeed(l.getParameters().getSeed()+l.getId()+1); //set seed **/
-			/**fill with empty population  **/
-			l.getEvolution().setCurrentPopulation(new Population());
-		}
-
-		//print replacement strategy
-		System.out.println("\n------------------------"+ 
-				instance.replacementOperation(this.properties).toString() + 
-				" ALPS STARTED" + "------------------------\n");
-		layeredEvolutionALPS(layers);
 	}
 
+	public void start(Properties p) throws InitializationException {
+		
+		/* */
+    	this.number_of_experiments = Integer.parseInt(p.getProperty(Constants.NUMBER_OF_EXPERIMENTS));
+		
+		for (int i = 0; i < number_of_experiments; i++) {
+		
+			setup(p);
+			
+			System.out.println("\nInitializing population for Run # " + i
+					+ "\n");
 
-	public void layeredEvolutionALPS(ArrayList<Layer> layers)
-	{
-		ALPSLayers alps = new ALPSLayers(layers,0);
+			ArrayList<Layer> layers = agingLayers(p).agingScheme(this.ageGap,
+					Engine.numberOfLayers);
+
+			System.out
+					.println("-----------------CONFIGURING ALPS-----------------");
+
+			/* add a GA to each layer */
+			for (Layer l : layers) {
+				System.out.println("Setting up evolutionary system for layer #"
+						+ l.getId());
+				System.out.println("Maximum Age #" + l.getMaxAge());
+				System.out.println("Number of Generations #"
+						+ l.getGenerations());
+				System.out.println("");
+
+				l.setEvolution(new EvolveALPS(p));
+
+				if (!l.getIsBottomLayer())
+					l.initializerFlag = Boolean.FALSE;
+
+				/* initialize generational count */
+				l.setParameters(l.getEvolution().getParameters());
+				/* l.getEvolution().getParameters().setGenerationsEvolved(0) */
+				l.getParameters().setGenerationsEvolved(0);
+				l.getParameters().setSeed(Engine.seed); // set seed
+				/* l.getParameters().setSeed(l.getParameters().getSeed()+l.getId()+1); //set seed*/
+				/* fill with empty population */
+				l.getEvolution().setCurrentPopulation(new Population());
+			}
+
+			/* number of evaluations to observe */
+			if(layers.get(0).getEvolution().getParameters().getEvaluations()==layers.get(0).getEvolution().getParameters().getPopulationSize()
+					&& layers.get(0).getEvolution().getParameters().getGenerations()==1){
+				Engine.evaluations =layers.get(0).getEvolution().getParameters().getPopulationSize();
+			}
+			else if(layers.get(0).getEvolution().getParameters().getEvaluations()>layers.get(0).getEvolution().getParameters().getPopulationSize()){
+				Engine.evaluations = (int) layers.get(0).getEvolution().getParameters().getEvaluations();
+			}
+			else if((layers.get(0).getEvolution().getParameters().getGenerations() == 1) 
+					&& layers.get(0).getEvolution().getParameters().getEvaluations() > layers.get(0).getEvolution().getParameters().getPopulationSize()){
+				Engine.evaluations = (int) layers.get(0).getEvolution().getParameters().getEvaluations();
+			}
+			else {
+				Engine.evaluations = (int) numberOfLayers * layers.get(0).getEvolution().getParameters()
+						.getGenerations() * layers.get(0).getEvolution().getParameters().getPopulationSize();
+			}
+            
+			// print replacement strategy
+			System.out.println("\n------------------------"
+					+ replacementOperation(this.properties).toString()
+					+ " ALPS STARTED" + "------------------------\n");
+			layeredEvolutionALPS(layers,i);
+			/* increment seed */
+			Engine.seed++;
+			
+			
+			unsetVariables();
+			
+		}
+
+	}
+
+	/**
+	 * 
+	 */
+	public void unsetVariables(){
+		Engine.completeEvaluationCount  = 0;
+		Engine.completeGenerationalCount= 1;
+	}
+	
+	/**
+	 * 
+	 * @param layers
+	 * @param run
+	 */
+	public void layeredEvolutionALPS(ArrayList<Layer> layers,int run) {
+		ALPSLayers alps = new ALPSLayers(layers, 0);
 		/* keep running till stopped */
-		while(Engine.completeGenerationalCount <= layers.get(0).getParameters().getEvaluations())
+		/* Engine.completeGenerationalCount<=layers.get(0).getParameters().getEvaluations ()*/
+		while (Engine.completeEvaluationCount <= Engine.evaluations)
 		{
-			
-			sequentialLayerSelection(alps,layers);
-			
+			sequentialLayerSelection(alps, layers,run);
+
 			Engine.completeGenerationalCount++;
-			Engine.completeEvaluationCount += layers.get(0).getParameters().getPopulationSize(); //all layers have the same default population size
+			// Engine.completeEvaluationCount +=
+			// layers.get(0).getParameters().getPopulationSize(); //all layers
+			// have the same default population size
 		}
 
 	}
-
 
 	/**
 	 * sequentially loop through all layers
 	 */
-	public void sequentialLayerSelection(ALPSLayers alps, ArrayList<Layer> layers)
-	{
-		
-		for(int j=layers.size()-1;j>=0;j--)
-		{  
-			alps.index =  j; //only modify the index
+	public void sequentialLayerSelection(ALPSLayers alps,
+			ArrayList<Layer> layers,int run) {
 
-			if(layers.get(j).getIsBottomLayer() ) //set initializer flag to true when bottom layer is called
-			{ 
-				if( (layers.get(j).layerEvaluationCount == 0) || 
-						(layers.get(j).getEvolution().getCurrentPopulation().size()>0) || layers.get(j).initializerFlag  )
-					layers.get(j).getEvolution().start(alps); //good
+		for (int j = layers.size() - 1; j >= 0; j--) {
+			alps.index = j; // only modify the index
 
-				if((Engine.completeGenerationalCount % layers.get(0).getMaxAge()==0))
-				{
-					layers.get(j).initializerFlag      = true;
+			if (layers.get(j).getIsBottomLayer()) // set initializer flag to
+													// true when bottom layer is
+													// called
+			{
+				if ((layers.get(j).layerEvaluationCount == 0)
+						|| (layers.get(j).getEvolution().getCurrentPopulation()
+								.size() > 0) || layers.get(j).initializerFlag)
+					layers.get(j).getEvolution().start(alps,run); // good
+
+				if ((Engine.completeGenerationalCount
+						% layers.get(0).getMaxAge() == 0)) {
+					layers.get(j).initializerFlag = true;
 					layers.get(j).layerEvaluationCount = 0;
 				}
-			}
-			else if((layers.get(j).getEvolution().getCurrentPopulation().size()>0) && //remove if problematic
-					Engine.completeGenerationalCount > layers.get(j-1).getMaxAge() )
-			{  
+			} else if ((layers.get(j).getEvolution().getCurrentPopulation()
+					.size() > 0)
+					&& // remove if problematic
+					Engine.completeGenerationalCount > layers.get(j - 1)
+							.getMaxAge()) {
 				/*
-				 * Generational worked without this condition - 
-				 * was put here because of SteadyState -- remove if problematic
+				 * Generational worked without this condition - was put here
+				 * because of SteadyState -- remove if problematic
 				 */
-				layers.get(j).getEvolution().start(alps); //good
+				layers.get(j).getEvolution().start(alps,run); // good
 
-				if((layers.get(j).layerEvaluationCount%layers.get(j).getGenerations())==0)
-					layers.get(j).layerEvaluationCount=0;
+				if ((layers.get(j).layerEvaluationCount % layers.get(j)
+						.getGenerations()) == 0)
+					layers.get(j).layerEvaluationCount = 0;
 			}
 		}
-		
+
 	}
-	
-	
+
 	/**
 	 * Selects layers randomly using equall probability
+	 * 
 	 * @param alps
 	 * @param layers
-	 * TODO
+	 *            TODO
 	 */
-	public void randomLayerSelection(ALPSLayers alps, ArrayList<Layer> layers){
-		
+	public void randomLayerSelection(ALPSLayers alps, ArrayList<Layer> layers) {
+
 	}
-	
 
 	/**
 	 * 
@@ -158,36 +233,30 @@ public class Engine {
 	 * @param point
 	 * @deprecated
 	 */
-	public void runner(ArrayList<Layer> layers,int point)
-	{
-		//cycle through the layers starting from the back
-		for(int i=point; i>=0;i--)
-		{
+	public void runner(ArrayList<Layer> layers, int point,int run) {
+		// cycle through the layers starting from the back
+		for (int i = point; i >= 0; i--) {
 			System.out.println("---------------------------------------"
-					+ "\nEvolution started in layer #"+layers.get(i).getId());
-			//assign the most current evaluation of the highest layer to layer#0 
+					+ "\nEvolution started in layer #" + layers.get(i).getId());
+			// assign the most current evaluation of the highest layer to
+			// layer#0
 			/*
-		     if(i==0)
-		     {
-		   	    layers.get(0).setEvaluationCounter(layers.get(point).getEvaluationCounter()); 
-		     }
+			 * if(i==0) { layers.get(0).setEvaluationCounter(layers.get(point).
+			 * getEvaluationCounter()); }
 			 */
-			layers.get(i).getEvolution().start(new ALPSLayers(layers,i)); //good
+			layers.get(i).getEvolution().start(new ALPSLayers(layers, i),run); // good
 		}
 
-		if((point+1)<layers.size()) //dont perform movement if evolution has reached the last layer
+		if ((point + 1) < layers.size()) // dont perform movement if evolution
+											// has reached the last layer
 		{
-			try 
-			{
-				layers = moveLayerUp(layers,point+1);
-			} 
-			catch (CloneNotSupportedException e)
-			{
+			try {
+				layers = moveLayerUp(layers, point + 1);
+			} catch (CloneNotSupportedException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-
 
 	/**
 	 * 
@@ -197,40 +266,37 @@ public class Engine {
 	 * @throws CloneNotSupportedException
 	 * @deprecated
 	 */
-	public ArrayList<Layer> moveLayerUp(
-			ArrayList<Layer> layers, int evolvedLayerIncrement) throws CloneNotSupportedException
-	{
+	public ArrayList<Layer> moveLayerUp(ArrayList<Layer> layers,
+			int evolvedLayerIncrement) throws CloneNotSupportedException {
 		ALPSReplacementStrategy ars = new ALPSReplacementStrategy();
-		//push upwards to the next higher layer
-		for(int i=evolvedLayerIncrement; i>0;i--)
-		{
-			System.out.println("Moving population from layer #"+ layers.get(i-1).getId() +
-					" to layer #"+ layers.get(i).getId());
-			layers.get(i).initializerFlag   = true;
-			layers.get(i-1).initializerFlag = true;
+		// push upwards to the next higher layer
+		for (int i = evolvedLayerIncrement; i > 0; i--) {
+			System.out.println("Moving population from layer #"
+					+ layers.get(i - 1).getId() + " to layer #"
+					+ layers.get(i).getId());
+			layers.get(i).initializerFlag = true;
+			layers.get(i - 1).initializerFlag = true;
 
-			//second implementation
-			//ars.interLayerMigrations(layers,layers.get(i-1).getEvolution().getCurrentPopulation(),i);
+			// second implementation
+			// ars.interLayerMigrations(layers,layers.get(i-1).getEvolution().getCurrentPopulation(),i);
 
-			ars.completeLayerMigrations(layers,i);
+			ars.completeLayerMigrations(layers, i);
 
 			/*
 			 * first implementation
-			 * layers.get(i).getEvolution().setCurrentPopulation(
-			 * 		(Population) layers.get(i-1).getEvolution().getCurrentPopulation());
-
-			 * global value preferred
-			 * layers.get(i).setEvaluationCounter(
-			 *		layers.get(i-1).getEvaluationCounter());
-
-			 * clear previous layer and prepare for replacement of population
-			 * layers.get(i-1).getEvolution().setCurrentPopulation(new Population());
+			 * layers.get(i).getEvolution().setCurrentPopulation( (Population)
+			 * layers.get(i-1).getEvolution().getCurrentPopulation());
 			 * 
+			 * global value preferred layers.get(i).setEvaluationCounter(
+			 * layers.get(i-1).getEvaluationCounter());
+			 * 
+			 * clear previous layer and prepare for replacement of population
+			 * layers.get(i-1).getEvolution().setCurrentPopulation(new
+			 * Population());
 			 */
 		}
 
 		return layers;
 	}
-
 
 }

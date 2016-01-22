@@ -119,6 +119,7 @@ public class FitnessExperimental extends FitnessExtension{
 			Population pop, 
 			final Layer layer, 
 			final int generation,
+			final int run,
 			BasicStatistics stats,
 			Properties p,
 			Boolean statsFlag)
@@ -168,6 +169,7 @@ public class FitnessExperimental extends FitnessExtension{
     		   this.bestFitnessIndividualsOfGeneration,
     		   layer,
     		   generation,
+    		   run,
     		   this);
        }
     }

@@ -27,7 +27,9 @@ public class RunTabu  implements EC {
 
 	int number_of_experiments;
 	
-	public RunTabu(Properties prop) throws IOException 
+	public RunTabu(){}
+	
+	public void start(Properties prop) throws IOException 
 	{
 		
 		 this.number_of_experiments = Integer.parseInt(prop.getProperty(Constants.NUMBER_OF_EXPERIMENTS));

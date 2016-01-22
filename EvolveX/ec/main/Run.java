@@ -20,6 +20,9 @@
  */
 package main;
 
+import java.io.IOException;
+import java.util.concurrent.ExecutionException;
+
 import parameter.Parameters;
 import exceptions.InitializationException;
 import util.Constants;
@@ -45,8 +48,11 @@ public class Run extends Parameters{
     
     //private long startTime;
      
-    /** Creates a new instance of Run */
-    public Run(String[] arguments) 
+    /** Creates a new instance of Run 
+     * @throws ExecutionException 
+     * @throws InterruptedException 
+     * @throws IOException */
+    public Run(String[] arguments) throws IOException, InterruptedException, ExecutionException 
     {
     	/* Start Evolve time */
     	start = System.currentTimeMillis();
@@ -70,23 +76,34 @@ public class Run extends Parameters{
         
         try 
         {
+        	
+        	  
         	//propertiesFilePath = arguments[1].toString().length()>1?arguments[1]:Constants.DEFAULT_PROPERTIES;
             for(int f=1;f<arguments.length;f++)
             {  
+            	/* Start Evolve time */
+           	    start = System.currentTimeMillis();
+           	 
             	propertiesFilePath = arguments[f].toString().length()>1?arguments[f]:Constants.DEFAULT_PROPERTIES;
-            	//new Evolve(this.setup());
+                /* load main class */	
             	ec = mainClass(this.setup());
+            	/* begin evolution */
+            	ec.start(properties);
+
+              /* End Evolve time */
+               end = System.currentTimeMillis();
             }
             /* Start Evolve time */
-        	sysEndTime = System.currentTimeMillis();
+       	   sysEndTime = System.currentTimeMillis();
+       	   
+           System.out.println("Exiting!!");
+           System.exit(0);
 		} 
         catch (InitializationException e) 
         {
 			e.printStackTrace();
 		}
         
-        /* Start Evolve time */
-    	end = System.currentTimeMillis();
         
     }
     
@@ -95,6 +112,11 @@ public class Run extends Parameters{
      */
     public static void main(String[] args) 
     {
-        new Run(args);
+        try {
+			new Run(args);
+		} catch (IOException | InterruptedException | ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

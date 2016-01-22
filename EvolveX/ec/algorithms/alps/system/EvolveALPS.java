@@ -35,6 +35,7 @@ import operator.operations.ReplacementStrategy;
 import operator.operations.StoppingCondition;
 import parameter.Instance;
 import util.Constants;
+import util.random.MersenneTwisterFast;
 import exceptions.InitializationException;
 import exceptions.OutOfRangeException;
 import fitnessevaluation.FitnessExtension;
@@ -45,19 +46,19 @@ import fitnessevaluation.FitnessExtension;
  */
 public class EvolveALPS extends Evolve{
 
-	private long seed;
-	private int generationsEvolved;
-	private int chromosomeLength;
-	private int generations;
-	private int populationSize;
-	private double crossoverRate;
-	private double mutationRate;
-	private int tournamentSize;
-	private boolean stopFlag;
-	private Properties prop;
-	private int number_of_experiments;
-	private int elitismSize;
-	private double selectionPressure;
+	//private long seed;
+	//private int generationsEvolved;
+	//private int chromosomeLength;
+	//private int generations;
+	//private int populationSize;
+	//private double crossoverRate;
+	//private double mutationRate;
+	//private int tournamentSize;
+	//private boolean stopFlag;
+	//private Properties prop;
+	//private int number_of_experiments;
+	//private int elitismSize;
+	//private double selectionPressure;
 	private int ageGap, ageLayers;
 	private InitializeParams init;
 	private Population currentPopulation;
@@ -68,9 +69,7 @@ public class EvolveALPS extends Evolve{
 
 	//private IslandModel im = null;
 
-	public EvolveALPS()
-	{
-	}
+	
 
 	/**
 	 * 
@@ -89,7 +88,8 @@ public class EvolveALPS extends Evolve{
 		this.chromosomeLength      = Integer.parseInt(properties.getProperty(Constants.INITIAL_CHROMOSOME_SIZE));
 		this.crossoverRate         = Double.parseDouble(properties.getProperty(Constants.CROSSOVER_PROBABILITY));
 		this.mutationRate          = Double.parseDouble(properties.getProperty(Constants.MUTATION_PROBABILITY));
-		this.generations           = Integer.parseInt(properties.getProperty(Constants.GENERATIONS));
+		/*set generations to popsize when its null*/
+		this.generations           = Integer.parseInt(properties.getProperty(Constants.GENERATIONS,1+""));
 		this.tournamentSize        = Integer.parseInt(properties.getProperty(Constants.TOURNAMENT_SIZE));
 		this.stopFlag              = Boolean.parseBoolean(properties.getProperty(Constants.STOP_WHEN_SOLVED));
 		this.elitismSize           = Integer.parseInt(properties.getProperty(Constants.ELITE_SIZE));
@@ -99,11 +99,15 @@ public class EvolveALPS extends Evolve{
 
 		this.ageGap                = Integer.parseInt(properties.getProperty(Constants.ALPS_AGE_GAP));
 		this.ageLayers             = Integer.parseInt(properties.getProperty(Constants.ALPS_NUMBER_OF_LAYERS));
-		this.seed                  = Long.parseLong(properties.getProperty(Constants.SEED));
-		this.evaluations           = Long.parseLong(properties.getProperty(Constants.EVALUATIONS));
+		
+		/*default evaluations pop size when its empty */
+		this.evaluations           = Long.parseLong(properties.getProperty(Constants.EVALUATIONS,this.populationSize+""));
 		this.alpsSSSelectionPressure          = Double.parseDouble(properties.getProperty(Constants.ALPS_SS_SELECTION_PRESSURE));
-
-		this.prop = properties;
+		
+		random                = new MersenneTwisterFast();
+        random.setSeed(Engine.seed); //set seed
+        
+		this.properties = properties;
 		init = new InitializeParams();
 		init.setNumberOfExperiments(number_of_experiments);
 		init.setReplacementOperator(replacementOperator);
@@ -122,7 +126,6 @@ public class EvolveALPS extends Evolve{
 		init.setLayerSelectionPressure(layerSelectionPressure);
 		init.setSSSelectionPressure(this.alpsSSSelectionPressure);
 		init.setEvaluations(evaluations);
-
 
 	}
 
@@ -161,38 +164,45 @@ public class EvolveALPS extends Evolve{
 	 */
 	public Population generateRandomPopulation(Layer layer)
 	{
-		InitialisationModule init = initialiserModule(this.prop);
+		InitialisationModule init = initialiserModule(this.properties);
 		layer.layerEvaluationCount =0; //reinitialize counter when evolution starts
-
+		
+		return init.generateInitialPopulation(
+				this,Engine.completeEvaluationCount
+				); //set evaluations as this.populationSize * getGenerationsEvolved()
+		/*
 		return init.generateInitialPopulation(
 				this,
 				geneRepresentation(this.prop),
 				//layer.layerEvaluationCount 
 				Engine.completeEvaluationCount
 				); //set evaluations as this.populationSize * getGenerationsEvolved()
+				*/
 	}
 
 	/**
 	 * 
-	 * @param properties
+	 * @param alpsLayers
 	 * @param run
-	 * @throws InitializationException 
 	 */
-	public  void start(ALPSLayers alpsLayers) 
+	public  void start(ALPSLayers alpsLayers, int run) 
 	{
-
+         
 		//set parameters for layer
 		alpsLayers.layers.get(alpsLayers.index).setParameters(this.getParameters());
 
 		//System.out.println("generations... getting parameters"+ this.getParameters().getAgeGap());
-		if(alpsLayers.layers.get(alpsLayers.index).getIsBottomLayer() && alpsLayers.layers.get(alpsLayers.index).initializerFlag) //bottom layer - new individuals will be generated
+		if(alpsLayers.layers.get(alpsLayers.index).getIsBottomLayer() && 
+				alpsLayers.layers.get(alpsLayers.index).initializerFlag) //bottom layer - new individuals will be generated
 		{
-			alpsLayers.layers.get(0).getEvolution().
-			setCurrentPopulation(generateRandomPopulation(alpsLayers.layers.get(alpsLayers.index)));
+			alpsLayers.layers.get(0).
+			getEvolution().setCurrentPopulation(
+					generateRandomPopulation(alpsLayers.layers.get(alpsLayers.index)));
+			
 			this.evolve(
 					alpsLayers.layers.get(0).getEvolution().getCurrentPopulation(),
 					new StoppingCondition(this.stopFlag),
-					alpsLayers);   
+					alpsLayers,run);   
 			/*  
 			 *this.evolve(
     				alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation(),
@@ -229,7 +239,7 @@ public class EvolveALPS extends Evolve{
 			this.evolve(
 					alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation(),
 					new StoppingCondition(this.stopFlag),
-					alpsLayers);  
+					alpsLayers,run);  
 
 		}
 	}
@@ -264,15 +274,15 @@ public class EvolveALPS extends Evolve{
 	public ArrayList<Population> evolve(
 			final Population initial, 
 			final StoppingCondition condition, 
-			final ALPSLayers alpsLayers) 
+			final ALPSLayers alpsLayers, final int run) 
 			{
 
 		Population current;             // = initial;
 		ArrayList<Population> generationalPopulation = new ArrayList<>();
 		this.generationsEvolved = 0;
 
-		PopulationFitness fitnessFunction = fitnessEvaluator(this.prop);
-		((FitnessExtension) fitnessFunction).setProperties(this.prop); //set properties file for report generation
+		PopulationFitness fitnessFunction = fitnessEvaluator(this.properties);
+		((FitnessExtension) fitnessFunction).setProperties(this.properties); //set properties file for report generation
 
 		//set initial population - Pop 0
 		generationalPopulation.add(this.generationsEvolved,initial); 
@@ -291,19 +301,20 @@ public class EvolveALPS extends Evolve{
 		alpsLayers.layers.get(alpsLayers.index).getParameters().setGenerationsEvolved(
 				alpsLayers.layers.get(alpsLayers.index).getParameters().getGenerationsEvolved()+1);
 		//replacement strategy 
-		ReplacementStrategy replacment = replacementOperation(this.prop);
+		ReplacementStrategy replacment = replacementOperation(this.properties);
 		current = replacment.nextGenerationALPS(
 				this,
 				fitnessFunction,  
-				crossoverOperation(this.prop),
-				mutationOperation(this.prop),
-				selectionOperator(this.prop),
-				statisticsOperation(this.prop),
-				replacementStrategyALPS(this.prop),
+				crossoverOperation(this.properties),
+				mutationOperation(this.properties),
+				selectionOperator(this.properties),
+				statisticsOperation(this.properties),
+				replacementStrategyALPS(this.properties),
 				generationalPopulation,
+				alpsLayers,
 				//Engine.completeEvaluationCount,
 				(int) alpsLayers.layers.get(alpsLayers.index).layerEvaluationCount,
-				alpsLayers
+				run
 				); 
 
 		/*
@@ -323,8 +334,10 @@ public class EvolveALPS extends Evolve{
 		 * Onset previous 2 generations to free memory
 		 * keep only previous and current
 		 */
-		if(this.generationsEvolved > 1)
+		if(this.generationsEvolved > 1){
 			generationalPopulation.set(this.generationsEvolved-2, new Population());
+			generationalPopulation.get(this.generationsEvolved-2).clear();
+		}
 
 		//System.out.println("#SIZE"+current.size());
 		generationalPopulation.add(this.generationsEvolved,current);
@@ -334,6 +347,8 @@ public class EvolveALPS extends Evolve{
 		 * layer.setPopulation(current);//set population for layer
 		 */
 		this.setCurrentPopulation(current);
+		
+		Engine.completeEvaluationCount += current.size(); //increment evaluations
 
 		return generationalPopulation;
      }

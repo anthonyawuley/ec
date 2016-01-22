@@ -3,51 +3,72 @@
 # Computer Science Department
 
 # GENERAL parameters
-number-of-experiments                 = 1
-generations                           = 1000
-population-size                       = 1000
+number-of-experiments                 = 5
+#generations                           = 1000
+#population size per layer
+population-size                       = 50
 stop-when-solved                      = true
-crossover-probability                 = 0.95
-mutation-probability                  = 0.05
+crossover-probability                 = 0.5
+mutation-probability                  = 0.5
 tournament-selection-pressure         = 0.9
+seed                                  = 0
+evaluations                           = 100000
+
+# ALPS configuration
+alps-age-gap                          = 10
+alps-number-of-layers                 = 5
+alps-aging-scheme                    = algorithms.alps.agingscheme.Polynomial
+#alps-aging-scheme                     = algorithms.alps.agingscheme.Linear
+alps-selection-pressure               = 0.8
+alps-ss-selection-pressure            = 1.0
+
+#alps-replacement-strategy            = algorithms.alps.replacement.age.Worst
+#alps-replacement-strategy            = algorithms.alps.replacement.age.Nearest
+alps-replacement-strategy             = algorithms.alps.replacement.age.ReverseTournamentWorst
+
+
+#steady-state-replacement             = operator.operations.replacement.steadystate.ReverseTournamentWorst
+steady-state-replacement              = operator.operations.replacement.steadystate.Worst
+
 
 # How many times the genotype is allowed to wrap
 max-repairs                           = 1
 
 # SELECTION
 selection-operation                   = operator.operations.selection.TournamentSelection
-tournament-size                       = 3
+tournament-size                       = 7
  
 # REPRODUCTION operators
 # Probability of crossover. State if the point of crossover is fixed on both chromosomes (The size will always be the same) or not
-mutation_operation                    = Operator.Operations.IntFlipMutation
-elite-size                            = 2
+mutation_operation                    = operator.operations.IntFlipMutation
+elite-size                            = 3
  
  
 # The chromosomes are fixed length structures and doesnt change to mutation and crossover. 
 # The initialiser will random create integer strings in this case of length specified
 initial-chromosome-size                = 280
   
-# FITNESS function - Fitness function requires the full package name
-#fitness-function                       = fitnessevaluation.singleObjective.WeightedSum
-#fitness-function                       = fitnessevaluation.simplefitness.FitnessExperimental
-#fitness-function                        = fitnessevaluation.vrptw.WS
-#fitness-function                       = fitnessevaluation.vrptw.SOR
-#fitness-function                        = fitnessevaluation.vrptw.PR
-fitness-function                        = fitnessevaluation.eval.TSP
+#FITNESS function - Fitness function requires the full package name
+#fitness-function                      = fitnessevaluation.singleObjective.WeightedSum
+#fitness-function                      = fitnessevaluation.simplefitness.FitnessExperimental
+#fitness-function                      = fitnessevaluation.vrptw.WS
+#fitness-function                      = fitnessevaluation.vrptw.SOR
+#fitness-function                      = fitnessevaluation.vrptw.PR
+fitness-function                       = fitnessevaluation.eval.TSP
  
 # EC
-main-class                           = main.Run
+main-class                           = algorithms.alps.system.Engine
 
 # INITIALISATION - Specifies which module to use as an initialiser initial population. 
 initialiser                          = operator.initialiser.Initialise
 gene-representation                  = individuals.representation.VRPTW
 
 # REPLACEMENT
-replacement-operation                = operator.operations.replacement.Generational
+replacement-operation               = operator.operations.replacement.Generational
+#replacement-operation                = operator.operations.replacement.SteadyState
 
 # CROSSOVER MODULE
-#crossover-operation                  = operator.crossover.CycleCrossover
+#crossover-operation                 = operator.crossover.CycleCrossover
 crossover-operation                  = operator.crossover.UniformOrderCrossover
 
 # MUTATION MODULE
@@ -55,13 +76,14 @@ mutation-operation                   = operator.mutation.Inversion
  
 
 # Specification of output statistics files
-number-of-individuals                = 2
-#stats-operation                      = util.statistics.mop.ParethoStatistics
-#stats-operation                      = util.statistics.mop.SumOfRankStatistics
-#stats-operation                      = util.statistics.BasicStatistics
-stats-operation                      = util.statistics.singleobjective.TSPStatistics
+number-of-individuals                = 1
+#stats-operation                     = util.statistics.mop.ParethoStatistics
+#stats-operation                     = util.statistics.mop.SumOfRankStatistics
+#stats-operation                     = util.statistics.BasicStatistics
+stats-operation                      = util.statistics.singleobjective.alps.TSPStatistics
 
 nodes                                = 280
+start-node                           = 1
 stat-out                             = a280
 
 # NAME : a280

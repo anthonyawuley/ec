@@ -168,7 +168,7 @@ public class Instance {
 	        try {
 	            className = p.getProperty(Constants.MAIN_CLASS);
 	            Class<?> obj = Class.forName(className);
-		    ec = (EC)obj.newInstance();
+		    ec = (EC) obj.newInstance();
 		    
 	        } catch(IllegalAccessException e) {
 	            System.err.println(this.getClass().getName()+". exception: "+e);

@@ -120,7 +120,7 @@ public final class Constants {
     /**
      * output directory
      */
-    public static final String DEFAULT_PARAM_ROOT                        = "params/outputs/";
+    public static final String DEFAULT_PARAM_ROOT                        = "io/outputs/";
     /**
      * 
      */

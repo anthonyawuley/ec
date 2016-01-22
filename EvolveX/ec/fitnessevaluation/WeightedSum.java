@@ -49,8 +49,12 @@ public abstract class WeightedSum extends FitnessExtension{
      * @param pop 
      */
     @SuppressWarnings("unchecked")
-	public void calculateSimpleFitness(Population pop, final int run, final int generation,
-			BasicStatistics stats,Properties p)
+	public void calculateSimpleFitness(
+			Population pop, 
+			final int run, 
+			final int generation,
+			BasicStatistics stats,
+			Properties p)
     {
        
        //this.generationFitness = calcGenerationalFitness(pop,p);
@@ -136,7 +140,7 @@ public abstract class WeightedSum extends FitnessExtension{
      */
     @SuppressWarnings("unchecked")
 	public void calculateSimpleFitness(Population pop, final Layer layer, 
-			final int generation,BasicStatistics stats,Properties p,Boolean statsFlag)
+			final int generation,final int run, BasicStatistics stats,Properties p,Boolean statsFlag)
     {
        //this.generationFitness = calcGenerationalFitness(pop,p);
        calcGenerationalFitness(pop,p);
@@ -177,6 +181,7 @@ public abstract class WeightedSum extends FitnessExtension{
     		   this.bestFitnessIndividualsOfGeneration,
     		   layer,
     		   generation,
+    		   run,
     		   this);
        }
        

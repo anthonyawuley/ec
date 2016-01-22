@@ -173,8 +173,7 @@ public class Initialise implements InitialisationModule{
 	public Population generateInitialPopulation(Evolve e, double evaluations) 
 	{
     	System.out.println(toString(e.populationSize));
-    	
-    	this.toString(e.populationSize);
+    	//this.toString(e.populationSize);
     	
         Population pop = new Population();
         //create initial population

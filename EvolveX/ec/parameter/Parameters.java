@@ -63,7 +63,7 @@ public class Parameters extends Instance implements ParameterInterface {
             this.properties = new Properties();
             //System.out.println(this.propertiesFilePath);System.exit(0);
             
-            File f = new File("src/"+this.propertiesFilePath);
+            File f = new File("ec/"+this.propertiesFilePath);
              
             if (!f.exists()) 
             {   //try classloading
@@ -134,7 +134,7 @@ public class Parameters extends Instance implements ParameterInterface {
               +          "| Evolutionary computation\n"
               +          "| By Anthony Awuley\n"
               +          "| Mail: aa12qw@brocku.ca\n"
-              +          "| Date: February 01, 2014"
+              +          "| Date: February 01, 2014-2015"
               +          "\n");
       
     }

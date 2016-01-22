@@ -61,6 +61,7 @@ public  abstract class FitnessExtension extends PopulationFitness {
 	 * @param pop
 	 * @param layer
 	 * @param generation
+	 * @param run
 	 * @param stats
 	 * @param p
 	 */
@@ -68,6 +69,7 @@ public  abstract class FitnessExtension extends PopulationFitness {
 			Population pop, 
 			final Layer layer, 
 			final int generation,
+			final int run,
 			BasicStatistics stats,
 			Properties p,
 			Boolean statsFlag);
@@ -265,10 +267,10 @@ public  abstract class FitnessExtension extends PopulationFitness {
        if(rand<=selectionPressure) //selection based on fitness
        {
          //System.out.println("#TournamentIndividuals "+ tournamentIndividuals);
-          for(int i=0; i < tournamentIndividuals.size(); i++)
+          for(int i=0; i < tournamentIndividuals.size(); i++){
            //System.out.println("TournamentSize#"+tournamentIndividuals.get(i));
               sorted.add(this.getGenerationFitness().get(tournamentIndividuals.get(i)));
-        
+          }
           Collections.sort(sorted);
           //System.out.println("tournament "+ tournamentIndividuals +" sorted "+sorted);
           selected.add(sortTournamentFitness(

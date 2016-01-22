@@ -141,8 +141,9 @@ public class SteadyState  implements ReplacementStrategy {
             StatisticsCollector stats,
             ALPSReplacement alpsReplacment,
             final ArrayList<Population> current,
+            ALPSLayers alpsLayers,
             int generation,
-            ALPSLayers alpsLayers
+            int run
             ) 
 	{
 		//Population  nextGeneration     = new Population();
@@ -202,8 +203,13 @@ public class SteadyState  implements ReplacementStrategy {
 		     System.out.println("\nAFTERRRR!!!: "+alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size());
 		     */
     		
-   		    evolvingPopulation =  (Population) alpsLayers.layers.get(alpsLayers.index).         //current layer
-   					 getEvolution().getCurrentPopulation().clone();
+    		/*
+    		 * TODO Memory usage with clone()
+    		 */
+   		    //evolvingPopulation =  (Population) alpsLayers.layers.get(alpsLayers.index).         //current layer
+   			//		 getEvolution().getCurrentPopulation().clone();
+   		    evolvingPopulation.addAll(((Population) alpsLayers.layers.get(alpsLayers.index).         //current layer
+   					 getEvolution().getCurrentPopulation().clone()).getAll());
    		 
    		    evolvingPopulation.addAll(((Population) alpsLayers.layers.get(alpsLayers.index-1). //previous layer
 				     getEvolution().getCurrentPopulation().clone()).getAll());
@@ -216,6 +222,7 @@ public class SteadyState  implements ReplacementStrategy {
         		//generation,
         		//Engine.completeGenerationalCount,
         		Engine.completeEvaluationCount,
+        		run,
         		(BasicStatistics) stats,
         		e.properties,true);
        
@@ -242,7 +249,7 @@ public class SteadyState  implements ReplacementStrategy {
             { 
             	tournamentIndividuals.clear(); //clear content of tournament individuals
             	//conditional fitness evaluator for dynamic population
-                dynamicPopulationFitnessEvaluator(evolvingPopulation,alpsLayers,f,generation,stats,e.properties);
+                dynamicPopulationFitnessEvaluator(evolvingPopulation,alpsLayers,f,generation,stats,e.properties,run);
                 /*
                  * Perform two tournament selections and pick "best" from each using selection pressure
                  * add best individual to index 0 and 1 of tournamentIndividuals
@@ -300,6 +307,7 @@ public class SteadyState  implements ReplacementStrategy {
                 		crx.getOffsprings(),
                 		alpsLayers.layers.get(alpsLayers.index),
                 		generation,
+                		run,
                 		(BasicStatistics) stats,
                 		e.properties,false);
                 
@@ -337,9 +345,8 @@ public class SteadyState  implements ReplacementStrategy {
             {   //apply mutation policy to the chromosomes
             	tournamentIndividuals.clear(); //clear content of tournament individuals
             	//conditional fitness evaluator for dynamic population
-                dynamicPopulationFitnessEvaluator(evolvingPopulation,alpsLayers,f,generation,stats,e.properties);
-            	/*
-            	 * SelectionOperation;
+                dynamicPopulationFitnessEvaluator(evolvingPopulation,alpsLayers,f,generation,stats,e.properties,run);
+            	/* SelectionOperation;
             	 * commented preferred; verify why evolvingPopulation.size() != f.getGenerationFitness().size() 
             	 */
                 selectionOperation.performTournamentSelection(e,alpsLayers);
@@ -374,6 +381,7 @@ public class SteadyState  implements ReplacementStrategy {
                 		mtx.getOffsprings(),
                 		alpsLayers.layers.get(alpsLayers.index),
                 		generation,
+                		run,
                 		(BasicStatistics) stats,
                 		e.properties,false);
                 
@@ -386,10 +394,7 @@ public class SteadyState  implements ReplacementStrategy {
                 mtx.getOffsprings().calculateAge((int) Engine.completeEvaluationCount,
                 		       alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize());
                 //mtx.getOffsprings().calculateAge(alpsLayers,(int) Engine.completeEvaluationCount);
-                /*
-                 * TODO
-                 * attempt move of offsprings to higher layer -- can be taken out. check done during age layer movements
-                 */
+                /* attempt move of offsprings to higher layer -- can be taken out. check done during age layer movements */
                 //rs.layerMovements(alpsLayers,alpsLayers.index, mtx.getOffsprings());
                 
                 //keep count of total evaluations so far
@@ -437,7 +442,7 @@ public class SteadyState  implements ReplacementStrategy {
 	 * @param p
 	 */
 	private void dynamicPopulationFitnessEvaluator(Population evolvingPopulation, ALPSLayers alpsLayers, 
-			PopulationFitness f, int generation, StatisticsCollector stats,Properties p)
+			PopulationFitness f, int generation, StatisticsCollector stats,Properties p,int run)
 	{
 		if(alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size() < 
 				alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize())
@@ -446,6 +451,7 @@ public class SteadyState  implements ReplacementStrategy {
         		evolvingPopulation,
         		alpsLayers.layers.get(alpsLayers.index),
         		generation,
+        		run,
         		(BasicStatistics) stats,
         		p,false);
         }

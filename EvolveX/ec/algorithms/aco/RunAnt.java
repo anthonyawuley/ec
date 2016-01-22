@@ -27,7 +27,9 @@ public class RunAnt implements EC {
 
 	private int number_of_experiments;
 	
-	public RunAnt(Properties prop) throws IOException, InterruptedException, ExecutionException {
+	public RunAnt(){}
+	
+	public void start(Properties prop) throws IOException, InterruptedException, ExecutionException {
 		
 		/*
 	     * SET SYSTEM PARAMETERS

@@ -81,7 +81,7 @@ public class CVRPHybridStatistics extends BasicStatistics{
    		
 	   	try 
 	   	{
-	   		File file = getIndFile(run,p);
+	   		File file = getIndFile(run,p,"");
 	   		//if file doesnt exists, then create it
 	   		if(!file.exists())
 	   		{

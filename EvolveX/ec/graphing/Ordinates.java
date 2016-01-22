@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+import algorithms.alps.layers.Layer;
 import util.Constants;
 import util.Point;
 
@@ -87,9 +88,11 @@ public class Ordinates{
    public Ordinates(Population pop,
 		   ArrayList<Integer> bestIndividuals,
 		   int numberOfIndividualsToPrint,
-		   Properties p,int run,
+		   Properties p,
+		   int run,
 		   int generation,
-		   String seperator,String type) 
+		   String seperator,
+		   String type) 
    {
 		//setChromosome(c);
 		//setProperties(p);
@@ -112,6 +115,48 @@ public class Ordinates{
 		//writeToFile();
 	}
 	
+   /**
+    * 
+    * @param pop
+    * @param bestIndividuals
+    * @param numberOfIndividualsToPrint
+    * @param p
+    * @param layer
+    * @param run
+    * @param generation
+    * @param seperator
+    * @param type
+    */
+   public Ordinates(Population pop,
+		   ArrayList<Integer> bestIndividuals,
+		   int numberOfIndividualsToPrint,
+		   Properties p,
+		   Layer layer,
+		   int run,
+		   int generation,
+		   String seperator,
+		   String type) 
+   {
+		for(int i=0;i<numberOfIndividualsToPrint;i++)
+		{
+			append = i+"";
+			
+			switch(type)
+			{
+			   case "vrp":
+				   writeToFileVRPTW(pop.get(bestIndividuals.get(i)).getChromosome(),p,run,generation,seperator);
+				break;
+			   default:
+				   writeToFileTSP(pop.get(bestIndividuals.get(i)).getChromosome(),p,run,generation,seperator);
+				break;
+			}
+			
+		}
+		// TODO Auto-generated constructor stub
+		//writeToFile();
+	}
+   
+   
 	/**
 	 * 
 	 * @param c

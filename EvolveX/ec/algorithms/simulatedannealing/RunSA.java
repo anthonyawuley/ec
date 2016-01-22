@@ -27,7 +27,9 @@ public class RunSA implements EC {
 	int number_of_experiments;
 	boolean isTSP = Boolean.FALSE;
 	
-	public RunSA(Properties prop) throws IOException 
+	public RunSA(){}
+	
+	public void start(Properties prop) throws IOException 
 	{
 		
 		 this.number_of_experiments = Integer.parseInt(prop.getProperty(Constants.NUMBER_OF_EXPERIMENTS));

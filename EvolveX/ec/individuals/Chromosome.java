@@ -86,8 +86,15 @@ public class Chromosome extends Representation implements Cloneable, Serializabl
 		   //begin count from 1, since 0 is used as depot
 		   for(int i=start;i<=size;i++)
 	       {  
-			   //Gene g = new Gene(i,p.getProperty(i+"").split("\\s{1,}"));
-			   Gene g = new Gene(i,p.getProperty(Constants.CO_ORDINATES+"."+i).split("\\s{1,}"));
+			   Gene g = null;
+			   try
+			   {
+			      g = new Gene(i,p.getProperty(Constants.CO_ORDINATES+"."+i).split("\\s{1,}"));
+			   }
+			   catch(NullPointerException e){
+				  g = new Gene(i,p.getProperty(""+i).split("\\s{1,}"));
+			   }
+			   
 	    	   chromosome.add(g); 
 	       }
 	   }

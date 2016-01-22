@@ -36,7 +36,7 @@ import util.random.RandomGenerator;
  */
 public class TournamentSelection implements SelectionOperation {
     
-    private int tournamentSize=0;
+    private int tournamentSize;
     private ArrayList<Integer> tournamentSelect                = new ArrayList<>();
     private ArrayList<ArrayList<Integer>> alpsTournamentSelect = new ArrayList<>();
     private final String selectionOperation     = "Tournament selection";
@@ -52,26 +52,6 @@ public class TournamentSelection implements SelectionOperation {
  	}
     
     
- 	/**
- 	 * 
- 	 * @return
- 	 * @deprecated
- 	 */
-    public int getTournamentSize()
-    {
-        return this.tournamentSize;
-    }
-    
-    /**
-     * 
-     * @param tSize
-     * @deprecated
-     */
-    public void setTournamentSize(int tSize)
-    {
-        this.tournamentSize = tSize;
-    }
-    
     /**
      *
      * @param populationSize
@@ -84,7 +64,7 @@ public class TournamentSelection implements SelectionOperation {
         int select; 
         this.tournamentSelect.clear();
         
-        for(int i=0;i<tournamentSize;i++)
+        for(int i=0;i<e.tournamentSize;i++)
         { //replace with a more efficient implementation
           int count = 0;
           do
@@ -138,15 +118,7 @@ public class TournamentSelection implements SelectionOperation {
         	//System.out.println("INDEX::"+ alpsLayers.index+ " currentLayerPopSize:::"+currentLayerPopSize+" lowerLayerPopSize:::"+lowerLayerPopSize);
         	while(this.tournamentSelect.size()<e.tournamentSize) //for(int i=0;i<tournamentSize;i++) 
             { 
-        		//RandomGenerator randGen = new RandomGenerator(); 
-                //MersenneTwisterFast mtf = new MersenneTwisterFast();
-                //mtf.setSeed(alpsLayers.layers.get(alpsLayers.index).getParameters().getSeed()); //set seed
-                //this gives actual current layer population size
-                
-                //System.out.println("TOTAL "+ currentLayerPopSize +" "+lowerLayerPopSize + " pop size#"+  populationSize); 
-                
-                /**
-                 * selection pressure for first half (current layer):
+                /* selection pressure for first half (current layer):
                  * if overall size is less than populationSize, it means first half is empty or second half (lower layer) is empty
                  */
         		if(e.random.nextDouble() <= alpsLayers.layers.get(alpsLayers.index).getParameters().getLayerSelectionPressure() &&

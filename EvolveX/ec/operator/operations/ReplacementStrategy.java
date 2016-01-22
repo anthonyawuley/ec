@@ -94,8 +94,9 @@ public interface ReplacementStrategy {
                                       StatisticsCollector stats,
                                       ALPSReplacement alpsReplacement,
      		                          final ArrayList<Population> current,
+     		                          ALPSLayers alpsLayers,
      		                          int generation,
-     		                          ALPSLayers alpsLayers
+     		                          int run
      		                          );
     
  

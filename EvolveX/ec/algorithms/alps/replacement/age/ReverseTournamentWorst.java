@@ -96,7 +96,7 @@ public class ReverseTournamentWorst  extends ALPSReplacement{
 		  }
 		  //remove all individuals older than current layer
 		  for(int id=0;id<deleteList.size();id++)
-			current.remove(deleteList.get(id));
+			 current.remove(deleteList.get(id));
 		  
 		  /*
 		  System.out.println("DeleteList "+ deleteList.size()+ " -- Current!! "+current.size()+

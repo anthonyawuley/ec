@@ -79,7 +79,7 @@ public class TSPStatistics extends BasicStatistics implements StatisticsCollecto
 	   	try 
 	   	{
 	   		//String header = " This content will append to the end of the file\n";
-	   		File file = getIndFile(run,p);
+	   		File file = getIndFile(run,p,"");
 	   		
 	   		//if file doesn't exists, then create it
 	   		if(!file.exists())

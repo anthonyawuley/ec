@@ -24,8 +24,10 @@ import individuals.fitnesspackage.PopulationFitness;
 import individuals.populations.Population;
 import island.IslandModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 
 import main.EC;
 import operator.InitialisationModule;
@@ -57,7 +59,6 @@ public class Evolve extends Instance implements EC{
     public int elitismSize;
     public double selectionPressure;
     public MersenneTwisterFast random;
-    @SuppressWarnings("unused")
     public IslandModel im = null;
     public long seed;
     
@@ -84,24 +85,61 @@ public class Evolve extends Instance implements EC{
     
     public Evolve(Properties p) throws InitializationException
     {
-    	/*
-         * SET SYSTEM PARAMETERS
+    	
+    	setup(p);
+        
+        
+        /*
+         * BEGIN Island
+         * start Server/Client processes
+         
+    	   if(generationsEvolved == 0)
+    	   {
+    		  im = new IslandModel(properties);
+    	   }
          */
+        
+        start(p);
+        
+    }
+    
+    
+ 
+    
+    /**
+     * 
+     * @param p
+     * @throws InitializationException
+     */
+    public void setup(Properties p) throws InitializationException
+    {
+    	/* */
     	number_of_experiments = Integer.parseInt(p.getProperty(Constants.NUMBER_OF_EXPERIMENTS));
+    	/* */
         populationSize        = Integer.parseInt(p.getProperty(Constants.POPULATION_SIZE));
+        /* */
         chromosomeLength      = Integer.parseInt(p.getProperty(Constants.INITIAL_CHROMOSOME_SIZE));
+        /* */
         crossoverRate         = Double.parseDouble(p.getProperty(Constants.CROSSOVER_PROBABILITY));
+        /* */
         mutationRate          = Double.parseDouble(p.getProperty(Constants.MUTATION_PROBABILITY));
+        /* */
         generations           = Integer.parseInt(p.getProperty(Constants.GENERATIONS));
+        /* */
         tournamentSize        = Integer.parseInt(p.getProperty(Constants.TOURNAMENT_SIZE));
+        /* */
         stopFlag              = Boolean.parseBoolean(p.getProperty(Constants.STOP_WHEN_SOLVED));
+        /* */
         elitismSize           = Integer.parseInt(p.getProperty(Constants.ELITE_SIZE));
+        /* */
         selectionPressure     = Double.parseDouble(p.getProperty(Constants.TOURNAMENT_SELECTION_PRESSURE));
-        seed                  = Long.parseLong(p.getProperty(Constants.SEED));           
-        
+        /* */
+        seed                  = Long.parseLong(p.getProperty(Constants.SEED,"0"));//default seed of 0           
+        /* */
         startNode             = Integer.parseInt(p.getProperty(Constants.START_NODE));
-        depotNode             = Integer.parseInt(p.getProperty(Constants.DEPOT_NODE));
-        
+        /* */
+        depotNode             = Integer.parseInt(p.getProperty(Constants.DEPOT_NODE,"0"));
+        /* */
         random                = new MersenneTwisterFast();
         random.setSeed(seed); //set seed
         properties                  = p;
@@ -115,70 +153,20 @@ public class Evolve extends Instance implements EC{
             throw new InitializationException(mutationRate, 1, 5);
         if (selectionPressure  < 0 || selectionPressure  > 1) 
             throw new InitializationException(selectionPressure, 0, 1);
-        
-        
-        //set other constraints that could run system into fail
-        
-       
-        /*
-         * force test pareto & sor
-       
-        ArrayList<String> ranks = new ArrayList<>();
-        ArrayList<Integer> ranksAlt = new ArrayList<>();
-        
-        ranks.add("9,500");
-        ranks.add("2,1000");
-        ranks.add("4,600");
-        ranks.add("8,400");
-        ranks.add("7,800");
-        ranks.add("7,800");
-        ranksAlt.add(21000);
-        ranksAlt.add(4600);
-        ranksAlt.add(9500);
-        ranksAlt.add(8400);
-        ranksAlt.add(7800);
-       
-        ranks.add("2,4");
-        ranks.add("2,10");
-        ranks.add("3,4");
-        ranks.add("4,3");
-        ranks.add("5,10"); 
-        ranksAlt.add(24);
-        ranksAlt.add(210);
-        ranksAlt.add(34);
-        ranksAlt.add(43);
-        ranksAlt.add(510);
-        
-        ParetoRanking prank = new ParetoRanking();
-        prank.paretoCalculations(ranks,ranks.size());
-        //SumOfRanks prank = new SumOfRanks();
-        //prank.sorCalculations(ranks,ranks.size());
-        
-        System.exit(0);
-        */
-        
-        
-        
-        /**
-         * BEGIN Island
-         * start Server/Client processes
-         
-    	if(generationsEvolved == 0)
-    	{
-    		im = new IslandModel(properties);
-    	}
-        */
-        
-        start();
-      
-        
+    	
     }
    
-    /*
+    
+    /**
      * begin evolutionary process, by initiation number of experiments (runs)
+     * @param p
+     * @throws InitializationException 
      */
-    public void start()
+    public void start(Properties p) throws InitializationException
     {
+    	setup(p);
+		
+    	
     	for(int i=0;i<number_of_experiments;i++)
         {
           System.out.println("\nInitializing population for Run # "+i +"\n");
@@ -335,6 +323,7 @@ public class Evolve extends Instance implements EC{
             if(generationsEvolved > 1)
             {
                generationalPopulation.set(generationsEvolved-2, new Population());
+               generationalPopulation.get(generationsEvolved-2).clear();
             }
             //System.out.println("#SIZE"+current.size());
             generationalPopulation.add(generationsEvolved,current);

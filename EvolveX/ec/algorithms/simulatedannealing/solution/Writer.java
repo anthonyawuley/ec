@@ -52,7 +52,7 @@ public class Writer{
    		
 	   	try 
 	   	{
-	   		File file = hs.getIndFile(run,p);
+	   		File file = hs.getIndFile(run,p,"");
 	   		//if file doesnt exists, then create it
 	   		if(!file.exists())
 	   		{

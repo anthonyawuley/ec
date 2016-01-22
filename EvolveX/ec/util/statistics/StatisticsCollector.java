@@ -58,6 +58,7 @@ public interface StatisticsCollector {
 	    		ArrayList<Integer> bestIndividuals,
 	    		final Layer layer,
 	    		final int generation, 
+	    		final int run,
 	    		PopulationFitness f);
 	
 	
