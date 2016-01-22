@@ -313,14 +313,14 @@ public class Generational implements ReplacementStrategy {
 			evolvingPopulation = alpsLayers.layers.get(alpsLayers.index)
 					.getEvolution().getCurrentPopulation();
 		} else // get population of current layer
-		{ /*
+		{ 
+		/*
 		 * System.out.println("\nAfter #"+alpsLayers.layers.get(alpsLayers.index-
 		 * 1).getId()+" :" +
 		 * alpsLayers.layers.get(alpsLayers.index-1).getEvolution
 		 * ().getCurrentPopulation().size()); for (int
 		 * q=0;q<alpsLayers.layers.get
-		 * (alpsLayers.index-1).getEvolution().getCurrentPopulation
-		 * ().size();q++) {
+		 * (alpsLayers.index-1).getEvolution().getCurrentPopulation().size();q++) {
 		 * System.out.print(" "+alpsLayers.layers.get(alpsLayers
 		 * .index-1).getEvolution().getCurrentPopulation().get(q).getAge()+" ");
 		 * } System.out.println("\n");

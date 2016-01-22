@@ -12,7 +12,7 @@ crossover-probability                 = 0.5
 mutation-probability                  = 0.5
 tournament-selection-pressure         = 0.9
 seed                                  = 0
-evaluations                           = 100000
+evaluations                           = 1000000
 
 # ALPS configuration
 alps-age-gap                          = 10
@@ -64,8 +64,8 @@ initialiser                          = operator.initialiser.Initialise
 gene-representation                  = individuals.representation.VRPTW
 
 # REPLACEMENT
-replacement-operation               = operator.operations.replacement.Generational
-#replacement-operation                = operator.operations.replacement.SteadyState
+#replacement-operation               = operator.operations.replacement.Generational
+replacement-operation                = operator.operations.replacement.SteadyState
 
 # CROSSOVER MODULE
 #crossover-operation                 = operator.crossover.CycleCrossover
