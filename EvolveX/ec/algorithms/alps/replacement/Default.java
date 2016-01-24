@@ -16,6 +16,7 @@
  *******************************************************************************/
 package algorithms.alps.replacement;
 
+import operator.operations.SelectionOperation;
 import individuals.populations.Population;
 import algorithms.alps.ALPSReplacement;
 import algorithms.alps.system.ALPSLayers;
@@ -39,7 +40,7 @@ public class Default  extends ALPSReplacement{
 
 	@Override
 	public Population performAgeLayerMovements(Evolve e, ALPSLayers alpsLayers,
-			Population current) {
+			Population current,SelectionOperation selectionOperation) {
 		// TODO Auto-generated method stub
 		return null;
 	}

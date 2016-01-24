@@ -3,7 +3,7 @@
 # Computer Science Department
 
 # GENERAL parameters
-number-of-experiments                 = 5
+number-of-experiments                 = 2
 #generations                           = 1000
 #population size per layer
 population-size                       = 50
@@ -64,8 +64,8 @@ initialiser                          = operator.initialiser.Initialise
 gene-representation                  = individuals.representation.VRPTW
 
 # REPLACEMENT
-#replacement-operation               = operator.operations.replacement.Generational
-replacement-operation                = operator.operations.replacement.SteadyState
+replacement-operation               = operator.operations.replacement.Generational
+#replacement-operation                = operator.operations.replacement.SteadyState
 
 # CROSSOVER MODULE
 #crossover-operation                 = operator.crossover.CycleCrossover

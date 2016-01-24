@@ -4,8 +4,8 @@
 
 # GENERAL parameters
 number-of-experiments                 = 2
-generations                           = 200
-population-size                       = 500
+generations                           = 1000
+population-size                       = 200
 stop-when-solved                      = true
 crossover-probability                 = 0.95
 mutation-probability                  = 0.05

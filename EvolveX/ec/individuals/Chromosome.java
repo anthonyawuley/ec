@@ -37,15 +37,13 @@ import util.random.MersenneTwisterFast;
 public class Chromosome extends Representation implements Cloneable, Serializable {
     
   
-    /**
-	 * 
-	 */
+    /** */
 	private static final long serialVersionUID = 1L;
 
 	//private ArrayList<Integer> chromosome = new ArrayList<>();
-	
+	/** */
 	private ArrayList<Gene>   chromosome = new ArrayList<>();
-    
+    /** */
     private int chromeSize;
     
     /**
@@ -99,16 +97,19 @@ public class Chromosome extends Representation implements Cloneable, Serializabl
 	       }
 	   }
     
-    
-	   public ArrayList<Integer> convertToInt()
-	   {
-		   ArrayList<Integer> toInt = new ArrayList<>();
+    /**
+     * 
+     * @return
+     */
+	 public ArrayList<Integer> convertToInt()
+	 {
+		 ArrayList<Integer> toInt = new ArrayList<>();
 		   
-		   for(int i=0;i<this.chromosome.size();i++)
-			   toInt.add(this.chromosome.get(i).getId());
+		 for(int i=0;i<this.chromosome.size();i++)
+			 toInt.add(this.chromosome.get(i).getId());
 		   
-		   return toInt;
-	   }
+		 return toInt;
+	 }
 	   
 
     /**
@@ -139,7 +140,7 @@ public class Chromosome extends Representation implements Cloneable, Serializabl
     		if(g.getId()==id)
     			return g;
     	
-    	return new Gene(-1);
+    	return new Gene(-1); //failed
     }
     
     /**
@@ -153,7 +154,7 @@ public class Chromosome extends Representation implements Cloneable, Serializabl
     		if(g.getId()==gene.getId())
     			return g;
     	
-    	return new Gene(-1);
+    	return new Gene(-1); //failed
     }
     
     /**
@@ -210,7 +211,10 @@ public class Chromosome extends Representation implements Cloneable, Serializabl
         return chromosome;
     }
     
-    
+    /**
+     * 
+     * @param length
+     */
     public void setChromosomeSize(int length)
     {
         this.chromeSize = length;
@@ -287,7 +291,9 @@ public class Chromosome extends Representation implements Cloneable, Serializabl
       return true;
     }
     
-    
+    /**
+     * 
+     */
     public  void clear()
     {
     	chromosome = new ArrayList<>();

@@ -89,6 +89,11 @@ public class Gene implements Cloneable, Serializable {
 		return alel;
 	}
 	
+	/**
+	 * 
+	 * @param a
+	 * @return
+	 */
 	public String [] doubleToString(double [] a)
 	{
 		String [] alel = new String[a.length];

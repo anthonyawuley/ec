@@ -37,10 +37,9 @@ import util.deepclone.cloning.Cloner;
  */
 public class Population implements PopulationInterface, Cloneable, Serializable {
 
-    /**
-	 * 
-	 */
+    /** */
 	private static final long serialVersionUID = 1L;
+	
 	private ArrayList<Individual> population = new ArrayList<>();
 	private ArrayList<Individual> bestIndividuals = new ArrayList<>();
     private int popSize;

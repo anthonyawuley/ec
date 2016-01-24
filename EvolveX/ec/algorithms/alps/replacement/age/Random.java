@@ -40,25 +40,23 @@ public class Random  extends ALPSReplacement {
 	
 	@Override
 	public Population performAgeLayerMovements(Evolve e, ALPSLayers alpsLayers,
-			Population current) {
+			Population nextGeneration,SelectionOperation selectionOperation) {
 		
 		Population higherPop  = new Population();
 		Population deleteList = new Population();
-		SelectionOperation selectionOperation = new TournamentSelection();
-		
 		
 		higherPop = (Population) alpsLayers.layers.get(alpsLayers.index+1).
 				getEvolution().getCurrentPopulation().clone();
 		
-		for(int i=0;i<current.size();i++)
+		for(int i=0;i<nextGeneration.size();i++)
 		{
-			if(current.get(i).getAge() >= alpsLayers.layers.get(alpsLayers.index).getMaxAge() )
+			if(nextGeneration.get(i).getAge() >= alpsLayers.layers.get(alpsLayers.index).getMaxAge() )
 			{   //fill higher layer with individuals that fall within its age limit
 				
 				if(higherPop.size() < alpsLayers.layers.get(alpsLayers.index+1).getParameters().getPopulationSize())
 				{
 					alpsLayers.layers.get(alpsLayers.index+1).getEvolution().
-					getCurrentPopulation().add(current.get(i));
+					getCurrentPopulation().add(nextGeneration.get(i));
 				}
 				else if(higherPop.size()>0) //once higher layer is filled, do selective replacement random based on new individuals that have higher age than in the individual in the  higher layer
 				{
@@ -74,21 +72,21 @@ public class Random  extends ALPSReplacement {
 								selectionOperation.getTournamentSelection().size()).get(0);
 				
 					alpsLayers.layers.get(alpsLayers.index+1).getEvolution().getCurrentPopulation().
-					   set(this.individualID,current.get(i));
+					   set(this.individualID,nextGeneration.get(i));
 				}
 				//delete individuals that are older than their age and cant replace others in higher layers
-				deleteList.add(current.get(i)); 
+				deleteList.add(nextGeneration.get(i)); 
 			}
 		}
 		//remove all individuals older than current layer
 		for(int id=0;id<deleteList.size();id++)
-			current.remove(deleteList.get(id));
+			nextGeneration.remove(deleteList.get(id));
 		
-		/*System.out.println(deleteList.size()+ " -- Current!! "+current.size()+
+		/*System.out.println(deleteList.size()+ " -- Current!! "+nextGeneration.size()+
 				" Next "+alpsLayers.layers.get(alpsLayers.index+1).getEvolution().
 				getCurrentPopulation().size()); //System.exit(0);*/
 		
-		return current;
+		return nextGeneration;
 	}
 
 }

@@ -62,7 +62,8 @@ public class SteadyState  implements ReplacementStrategy {
  		return this.replacmentType;
  	}
 	
-	/**
+	 /**
+	  * TODO not completed
 	  * GENERATE next generation
 	  * 
 	  * @param f - basic fitness
@@ -360,7 +361,7 @@ public class SteadyState  implements ReplacementStrategy {
                 				e.selectionPressure).get(0)); //select best individuals from tournament selection
                 c1.setGenes((ArrayList<Gene>) evolvingPopulation.
                 		get(tournamentIndividuals.get(0)).getChromosome().getGenes().clone()); //clone individuals
-                /*
+                /* 
                  * evaluation of parent
                  */
                 ages.add(evolvingPopulation.get(tournamentIndividuals.get(0)).getBirthEvaluations());
@@ -422,7 +423,8 @@ public class SteadyState  implements ReplacementStrategy {
 		
 		
        return alpsReplacment.performAgeLayerMovements( e,alpsLayers,
-    		                                           alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation());
+    		                                           alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation(),
+    		                                           selectionOperation);
 		
        //return alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation();
 		

@@ -41,70 +41,50 @@ public class ReverseTournamentNearest extends ALPSReplacement{
 
 	@Override
 	public Population performAgeLayerMovements(Evolve e, ALPSLayers alpsLayers,
-			Population current) {
+			Population nextGeneration,SelectionOperation selectionOperation) {
 		
 		Population higherPop  = new Population();
 		Population deleteList = new Population();
-		SelectionOperation selectionOperation = new TournamentSelection();
-		
 		
 		higherPop = (Population) alpsLayers.layers.get(alpsLayers.index+1).
 				getEvolution().getCurrentPopulation().clone();
 		
-		for(int i=0;i<current.size();i++)
+		for(int i=0;i<nextGeneration.size();i++)
 		{
-			if(current.get(i).getAge() >= alpsLayers.layers.get(alpsLayers.index).getMaxAge() )
+			if(nextGeneration.get(i).getAge() >= alpsLayers.layers.get(alpsLayers.index).getMaxAge() )
 			{ 
 				//fill higher layer with individuals that fall withing its age limit
 				if(higherPop.size() < alpsLayers.layers.get(alpsLayers.index+1).getParameters().getPopulationSize())
 				{
 					alpsLayers.layers.get(alpsLayers.index+1).getEvolution().
-					getCurrentPopulation().add(current.get(i));
+					getCurrentPopulation().add(nextGeneration.get(i));
 				}
 				else if(higherPop.size()>0) //once higher layer is filled, do selective replacement based on new individuals that have higher age than in the individual in the  higher layer
 				{
-					@SuppressWarnings("unused")
-					RandomGenerator randGen = new RandomGenerator(); 
-			        MersenneTwisterFast mtf = new MersenneTwisterFast();
-			        mtf.setSeed(alpsLayers.layers.get(alpsLayers.index).getParameters().getSeed()); //set seed
-			        
 			        //perform tournament selection on higher layer
 					selectionOperation.performTournamentSelection(e,alpsLayers);
 					
 					this.individualID = nearestTournamentIndividualFitness(
 				               higherPop,
 				               selectionOperation.getTournamentSelection(),
-				               current.get(i).getFitness().getDouble());
-					/*
-					if(mtf.nextDouble()<= alpsLayers.layers.get(alpsLayers.index).getParameters().getLayerSelectionPressure())
-					{ // n% worse replacement  : NB: index returned by nearestTournamentIndividual is a value in  getTournamentSelection()
-					   this.individualID = nearestTournamentIndividualFitness(
-									               higherPop,
-									               selectionOperation.getTournamentSelection(),
-									               current.get(i).getFitness().getDouble());
-					}
-					else
-					{ //(100-n)% random replacement
-						this.individualID = selectionOperation.performTournamentSelection(
-								selectionOperation.getTournamentSelection().size(),1).get(0);
-					}
-					*/
+				               nextGeneration.get(i).getFitness().getDouble());
+				
 					alpsLayers.layers.get(alpsLayers.index+1).getEvolution().getCurrentPopulation().
-					   set(this.individualID,current.get(i));
+					   set(this.individualID,nextGeneration.get(i));
 				}
 				//delete individuals that are older than their age and cant replace others in higher layers
-				deleteList.add(current.get(i)); 
+				deleteList.add(nextGeneration.get(i)); 
 			}
 		}
 		//remove all individuals older than current layer
 		for(int id=0;id<deleteList.size();id++)
-			current.remove(deleteList.get(id));
+			nextGeneration.remove(deleteList.get(id));
 		/*
-		System.out.println(deleteList.size()+ " -- Current!! "+current.size()+
+		System.out.println(deleteList.size()+ " -- Current!! "+nextGeneration.size()+
 				" Next "+alpsLayers.layers.get(alpsLayers.index+1).getEvolution().
 				getCurrentPopulation().size()); //System.exit(0);*/
 		
-		return current;
+		return nextGeneration;
 	}
 	
 

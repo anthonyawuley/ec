@@ -18,6 +18,7 @@ package algorithms.alps;
 
 import java.util.ArrayList;
 
+import operator.operations.SelectionOperation;
 import algorithms.alps.system.ALPSLayers;
 import algorithms.ga.Evolve;
 import individuals.Individual;
@@ -33,11 +34,14 @@ public abstract class ALPSReplacement {
 	
 	/**
 	 * 
+	 * @param e
 	 * @param alpsLayers
 	 * @param current
+	 * @param selectionOperation
 	 * @return
 	 */
-	public abstract Population performAgeLayerMovements(Evolve e, ALPSLayers alpsLayers, Population current);
+	public abstract Population performAgeLayerMovements(
+			Evolve e, ALPSLayers alpsLayers,Population current, SelectionOperation selectionOperation);
 	
 	
 	/**

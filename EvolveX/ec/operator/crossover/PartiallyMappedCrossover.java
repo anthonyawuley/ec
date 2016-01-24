@@ -20,10 +20,41 @@
  */
 package operator.crossover;
 
+import individuals.Chromosome;
+import individuals.Individual;
+import individuals.populations.Population;
+
+import java.util.ArrayList;
+
+import operator.CrossoverModule;
+
 /**
  *
  * @author anthony
  */
-public class PartiallyMappedCrossover {
+public class PartiallyMappedCrossover  extends CrossoverModule {
+
+	public PartiallyMappedCrossover(String type) {
+		super(type);
+		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public ArrayList<Individual> performCrossoverOperation(Population p,
+			Chromosome c1, Chromosome c2,
+			ArrayList<Integer> tournamentIndividuals, int numberOfChildrenToAdd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Individual> performCrossoverOperation(Population p,
+			Chromosome c1, Chromosome c2,
+			ArrayList<Integer> tournamentIndividuals,
+			int numberOfChildrenToAdd, ArrayList<Double> ages,
+			String replacementType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }

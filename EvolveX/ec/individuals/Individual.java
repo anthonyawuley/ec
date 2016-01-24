@@ -59,6 +59,7 @@ public class Individual implements IndividualInterface, Serializable  {
     //private int genControl=0;
     
     /**
+     * @deprecated
      * keep count of generation in which the individual was used as a parent;
      * this is used in ALPS
      * this counter is incremented by 1 when its used as a parent

@@ -118,7 +118,7 @@ tail_percentage                       = 0.5
  
  
 # EC
-main-class                           = main.Run
+main-class                           = algorithms.ga.Evolve
 
 
 # INITIALISATION - Specifies which module to use as an initialiser initial population. 

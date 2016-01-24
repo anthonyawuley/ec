@@ -77,8 +77,6 @@ public class Run extends Parameters{
         try 
         {
         	
-        	  
-        	//propertiesFilePath = arguments[1].toString().length()>1?arguments[1]:Constants.DEFAULT_PROPERTIES;
             for(int f=1;f<arguments.length;f++)
             {  
             	/* Start Evolve time */
@@ -115,7 +113,6 @@ public class Run extends Parameters{
         try {
 			new Run(args);
 		} catch (IOException | InterruptedException | ExecutionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
     }
