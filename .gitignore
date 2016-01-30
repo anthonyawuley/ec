@@ -1,0 +1,7 @@
+bin/
+io/params/a1-vrptw-solomon/
+io/params/alps-tsp/
+io/params/alps-vrptw-solomon/
+io/params/cvrp/
+io/params/ga-tsp/
+io/params/tabu-tsp/
