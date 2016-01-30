@@ -12,6 +12,7 @@
 number-of-experiments  = 15
 nodes                  = 280
 stat-out               = a280
+main-class             = EvolveX.ec.algorithms.ga.aco.RunAnt
 
 1 288 149
 2 288 129

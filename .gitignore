@@ -5,3 +5,6 @@ io/params/alps-vrptw-solomon/
 io/params/cvrp/
 io/params/ga-tsp/
 io/params/tabu-tsp/
+ant-tsp
+io/params/ant-tsp
+io/params/ant-tsp-
