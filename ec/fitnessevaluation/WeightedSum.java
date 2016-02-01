@@ -31,19 +31,20 @@ import ec.util.Constants;
 import ec.util.statistics.BasicStatistics;
 
 /**
- *
- * @author anthony
+ * Weighted sum fitness sums up all objectives and assigns multiples it by a factor
+ * 
+ * @author Anthony Awuley
  */
 public abstract class WeightedSum extends FitnessExtension{
     
-
+    /** */
     private ArrayList<Integer> bestFitnessIndividualsOfGeneration;
-    @SuppressWarnings("unused")
+    /** */
+	@SuppressWarnings("unused")
 	private ArrayList<Integer> bestFitnessIndividualsForStatistics;
+    /** */
     private double averageFitnessPerGeneration, bestFitnessOfGeneration;
 
-    //private ArrayList<Double> sortedFitness;
-    
     /**
      * Evaluate individuals in a population - population of a generation
      * @param pop 
@@ -63,19 +64,7 @@ public abstract class WeightedSum extends FitnessExtension{
        
        ArrayList<Double> sortedFitness = (ArrayList<Double>) this.getGenerationFitness().clone();
        Collections.sort(sortedFitness);
-      /*   
-       //select top individuals based on user set param
-       this.bestFitnessIndividualsOfGeneration = 
-    		   minimumFitness(this.generationFitness,
-    		                  sortedFitness,
-    		                  Integer.parseInt(this.getProperties().getProperty(Constants.ELITE_SIZE)));
-      System.out.println(sortedFitness);
-       //select top individuals based on user set param
-       this.bestFitnessIndividualsForStatistics = minimumFitness(
-    		   this.generationFitness,
-    		   sortedFitness,
-    		   Integer.parseInt(this.getProperties().getProperty(Constants.NUMBER_INDIVIDUALS_PRINT)));
-       */
+    
           
        /*
         * select top individuals based on user set param
@@ -92,25 +81,11 @@ public abstract class WeightedSum extends FitnessExtension{
     		                  sortedFitness,
     		                  selectBest);
        
-       //select top individuals based on user set param
-       /*
-       this.bestFitnessIndividualsForStatistics = minimumFitness(
-    		   this.generationFitness,
-    		   sortedFitness,
-    		   Integer.parseInt(p.getProperty(Constants.NUMBER_INDIVIDUALS_PRINT)));
-        */
-       //System.out.println(sortedFitness);
        
        //this.bestFitnessIndividualsOfGeneration = minimumFitness(this.generationFitness,sortedFitness.get(0));
        this.averageFitnessPerGeneration = this.getTotalFitness()/pop.size();
        this.bestFitnessOfGeneration     = sortedFitness.get(0);
-             
-       /* erro when elite-size = 0
-        * pop.setBestIndividual(pop.get(this.bestFitnessIndividualsOfGeneration.get(0)));
-        * System.out.println("i am the best"+pop.get(this.bestFitnessIndividualsForStatistics.get(0)).getChromosome());
-        */   
-        //pop.setBestIndividual(pop.get(this.bestFitnessIndividualsForStatistics.get(0)));
-       
+    
        //this could be deprecated
       
        pop.setBestIndividual(pop.get(this.bestFitnessIndividualsOfGeneration.get(0))); 
@@ -120,8 +95,6 @@ public abstract class WeightedSum extends FitnessExtension{
        this.setBestFitness(this.bestFitnessOfGeneration);
        this.setAverageFitness(this.averageFitnessPerGeneration);
        this.setStandardDeviationFitness(getStandardDeviationOfFitness(this.getGenerationFitness()));
-       
-       //System.out.println("#POPULATION SIZE##"+ sortedFitness.get(0));
        
        //print statistics
        stats.printStatsReport(

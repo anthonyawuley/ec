@@ -31,7 +31,7 @@ import ec.util.Point;
 
 /**
  *
- * @author anthony
+ * @author Anthony Awuley
  */
 public class TSP extends WS{
         
@@ -41,10 +41,6 @@ public class TSP extends WS{
     }
  
 	
-    /**
-     * @return 
-     * 
-     */
     @Override
     public ArrayList<Double> calcGenerationalFitness(Population pop,Properties p)
    	{
@@ -53,21 +49,12 @@ public class TSP extends WS{
    		 
    	       for( int i=0; i< pop.size(); i++)
    	       {
-   	          //this.setIndividual(pop.get(i));
-   	          //this.setDouble(sumDistance(this.getIndividual()));
-   	    	   
-   	          //specify weight from parameter file
-   	          //this.setDouble(sumDistanceTSP(this.getIndividual(),p));
-              //pop.get(i).setFitness(new BasicFitness());
-   	    	   
    	          pop.get(i).getFitness().setDouble(sumDistanceTSP(pop.get(i).getChromosome(),p));
 	          
    	          //this.generationFitness.add(i, this.getDouble());
    	          getGenerationFitness().add(i, pop.get(i).getFitness().getDouble());
 	          
-   	          //this.totalFitness += this.getDouble();
    	          sum += pop.get(i).getFitness().getDouble();
-   	          //System.out.println("Individual#"+i+" "+this.getDouble());
    	       }
    	    setTotalFitness(sum); //total fitness
    	    return getGenerationFitness();
@@ -135,7 +122,7 @@ public class TSP extends WS{
  	    	//System.out.print(c.getGenes().get(i).getId()+":");
  	    	
           } //System.out.println();
- 	     /** note that at the end of the above for-loop, p2 will have last coordinate in chromosome */
+ 	     /* note that at the end of the above for-loop, p2 will have last coordinate in chromosome */
  	   distance += p0.calculateEuclidianDistance(p2);
  	    
  	  return Double.parseDouble(df.format(distance));

@@ -27,7 +27,9 @@ import ec.util.DeepClone;
 import ec.individuals.fitnesspackage.Fitness;
 
 /**
- * @author anthony
+ * Defines basic properties of an individual in a population
+ * 
+ * @author Anthony Awuley
  */
 
 public class Individual implements IndividualInterface, Serializable  {
@@ -67,52 +69,7 @@ public class Individual implements IndividualInterface, Serializable  {
      */
     @Deprecated
 	public int generationRecord = 100000000;
-    
-    
-    /**
-     * @param length
-     * @return 
-     
-    public void createChromosome(Chromosome ch)
-    {
-       this.chromosome.clear();
-       
-       for(int i=0;i<ch.getChromosomeSize();i++)
-       {  //create chromosome using integer gene
-          this.chromosome.add(integerGene(1,ch.getChromosomeSize()*14));//*14 to increase the range
-       } 
-       //set chromosome in base class
-       ch.setChromosome(this.chromosome);
-    }
-    */
-    
-    /**
-     * @return Individual cloned
-     
-    public Individual clone() 
-    {
-        Individual ind = new Individual();
-        return ind;
-    }
-   
-    /**
-     * @throws CloneNotSupportedException 
-     * 
-    
-    public Individual clone() throws CloneNotSupportedException 
-    {
-        try 
-        {
-			return (Individual) super.clone();
-		} 
-        catch (CloneNotSupportedException e) 
-        {
-			e.printStackTrace();
-		}
-        
-		return new Individual();
-    }
-     */
+ 
    
     /**
      * 

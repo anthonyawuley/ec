@@ -43,20 +43,18 @@ import ec.util.statistics.BasicStatistics;
 import ec.util.statistics.StatisticsCollector;
 
 /**
- *
- * @author anthony
+ * SteadState replacement strategy.
+ * 
+ * @author  Anthony Awuley
  */
 public class SteadyState  implements ReplacementStrategy {
 	
     private final String replacmentType = "Steady state";
     private int populationCount;
     private double randomNumber;
-    private ArrayList<Double> ages = new ArrayList<>(); 
-    //private ArrayList<Double> parentEvalCount = new ArrayList<>(); 
+    private ArrayList<Double> ages = new ArrayList<>();  
     public int evaluationCounter = 0;
   
-
-    
  	@Override
 	public String toString() 
  	{
@@ -182,30 +180,10 @@ public class SteadyState  implements ReplacementStrategy {
          */
         if(alpsLayers.layers.get(alpsLayers.index).getIsBottomLayer()) //bottom layer - new individuals will be generated
     	{ 
-        	/*
-        	 System.out.println("\nCurrent #"+alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size()+"\n");
-        	 for (int q=0;q<alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size();q++)
-		     {
-		         System.out.print(" "+alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().get(q).getAge());
-		     }
-        	 System.out.println("\n");
-        	 */
         	 evolvingPopulation = alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation();
     	}
     	else //get population of current layer
-    	{   
-    		/*
-    		 System.out.println("\nCurrent #"+alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size()+
-    				            " : Next::" + alpsLayers.layers.get(alpsLayers.index+1).getEvolution().getCurrentPopulation().size());	 
-		     for (int q=0;q<alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size();q++)
-		     {
-		         System.out.print(" "+alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().get(q).getAge());
-		     }
-		     System.out.println("\nBEFOREEE!!!: "+alpsLayers.layers.get(alpsLayers.index-1).getEvolution().getCurrentPopulation().size());
-		     System.out.println("\nTOTAL: "+evolvingPopulation.size()); 
-		     System.out.println("\nAFTERRRR!!!: "+alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size());
-		     */
-    		
+    	{  
     		/*
     		 * TODO Memory usage with clone()
     		 */

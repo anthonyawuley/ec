@@ -34,8 +34,8 @@ import ec.util.random.RandomGenerator;
 import ec.util.statistics.BasicStatistics;
 
 /**
- *
- * @author anthony
+ * 
+ * @author Anthony Awuley
  */
 public  abstract class FitnessExtension extends PopulationFitness {
     
@@ -91,7 +91,6 @@ public  abstract class FitnessExtension extends PopulationFitness {
 	 * @return
 	 */
 	public abstract ArrayList<Double> calcGenerationalFitness(Population pop,Properties p);
-	
 	/**
 	 * 
 	 * @return
@@ -100,7 +99,6 @@ public  abstract class FitnessExtension extends PopulationFitness {
 	{
 		this.totalFitness = t;
 	}
-	
 	/**
 	 * 
 	 * @return
@@ -109,7 +107,6 @@ public  abstract class FitnessExtension extends PopulationFitness {
 	{
 		return this.totalFitness;
 	}
-	
 	/**
 	 * 
 	 * @param p
@@ -126,34 +123,36 @@ public  abstract class FitnessExtension extends PopulationFitness {
 	{
 		return this.prop;
 	}
-	
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public long getCurrentTime()
 	{
 		return System.currentTimeMillis();
 	}
-	
-	
+	/**
+	 * 
+	 * @param currentTime
+	 * @return
+	 */
 	public boolean isTooLongEvalTime(long currentTime)
 	{
 		return (System.currentTimeMillis()-currentTime) > 
 		Constants.MAXIMUM_EVALUATION_TIME;
 	}
-	
 	/**
 	 * 
 	 * @param ranks
 	 * @param popSize
 	 */
     public void paretoCalculations(ArrayList<String> ranks, int popSize){}
-    
     /**
      * 
      * @param ranks
      * @param popSize
      */
     public void sorCalculations(ArrayList<String> ranks, int popSize){}
-    
     /**
      * 
      * @param genFit
@@ -167,7 +166,6 @@ public  abstract class FitnessExtension extends PopulationFitness {
          
     	return sum/genFit.size();
     }
-    
     /**
      * 
      * @param genFit
@@ -182,7 +180,6 @@ public  abstract class FitnessExtension extends PopulationFitness {
          
     	return var/genFit.size();
     }
-    
     /**
      * 
      * @param genFit
@@ -192,9 +189,6 @@ public  abstract class FitnessExtension extends PopulationFitness {
     { 
     	return Math.sqrt(calculateVariance(genFit));
     }
-    
-    
-    
    /**
     * 
     * @param alpsLayers
@@ -245,9 +239,6 @@ public  abstract class FitnessExtension extends PopulationFitness {
         }
         return selected; 
     }
-    
-    
-    
     /**
      * 
      * @param tournamentIndividuals

@@ -23,10 +23,8 @@ import ec.algorithms.alps.system.ALPSLayers;
 import ec.algorithms.ga.Evolve;
 
 /**
- * 
- * @author anthony
- *
  * scans through higher layer and replaces any first encountered worse individual
+ * @author Anthony Awuley
  */
 public class Worst  extends ALPSReplacement{
 

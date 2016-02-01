@@ -25,7 +25,7 @@ import java.util.List;
 
 /**
  *
- * @author anthony
+ * @author  Anthony Awuley
  */
 public interface Operation {
     

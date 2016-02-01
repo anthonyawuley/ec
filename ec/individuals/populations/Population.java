@@ -31,19 +31,25 @@ import ec.algorithms.alps.system.ALPSLayers;
 import ec.util.DeepClone;
 
 /**
- *
- * @author anthony
+ * IMplements the Population Interface and defines all properties of a population
+ * 
+ * @author Anthony Awuley
  */
 public class Population implements PopulationInterface, Cloneable, Serializable {
 
     /** */
 	private static final long serialVersionUID = 1L;
-	
+	/** */
 	private ArrayList<Individual> population = new ArrayList<>();
+	/** */
 	private ArrayList<Individual> bestIndividuals = new ArrayList<>();
+	/** */
     private int popSize;
+    /** */
     ArrayList<Individual> individuals;
+    /** */
     private PopulationFitness f;
+    /** */
     private Individual bestIndividual;
     
     
@@ -54,55 +60,28 @@ public class Population implements PopulationInterface, Cloneable, Serializable 
     {
         individuals = new ArrayList<Individual>(0);
     }
-
+    /**
+     * 
+     * @param size
+     */
     public Population(int size) 
     {
         individuals = new ArrayList<Individual>(size);
     }
-    
-    
+    /**
+     * 
+     * @param pop
+     */
     public Population(ArrayList<Individual> pop) 
     {
         this.population = pop;
     }
-    
-    /**
-     * 
-      public Object clone() throws CloneNotSupportedException
-      {
-        return (Population) super.clone();
-      }
-    */
-    
-    /**
-     *  not working
-    
-    @Override
-    public Population clone()
-    {
-        try 
-        { 
-        	return  (Population) super.clone(); 
-        } 
-        catch (CloneNotSupportedException e) 
-        { 
-        	e.printStackTrace(); 
-        }
-		return null;
-    }
-     */
-    
     /**
      * 
      */
     @Override
 	public Population clone() 
     {
-    	
-    	//Cloner cloner=new Cloner();
-    	//XX clone = cloner.deepClone(someObjectOfTypeXX);
-    	//return (new Cloner()).deepClone(this);
-    	
     	return (Population) DeepClone.clone(this);
     }
    
@@ -135,7 +114,6 @@ public class Population implements PopulationInterface, Cloneable, Serializable 
     	for(int i=0;i<alpsLayers.layers.size();i++)
     		totalPop += alpsLayers.layers.get(i).getEvolution().getCurrentPopulation().size();
     	
-    	//System.out.println("total sizeiiiiii"+ totalPop);
     	for(Individual e: this.population)
     		e.setAge(1 + (currentEvaluationCount-e.getBirthEvaluations())/totalPop);
     	
@@ -157,7 +135,7 @@ public class Population implements PopulationInterface, Cloneable, Serializable 
        popSize = size;
     }
     /**
-     * Look through individual objects and select individual with best fitness
+     * select individual with best fitness
      * @return 
      */
     @Override

@@ -22,14 +22,19 @@ import java.util.Properties;
 import ec.fitnessevaluation.multiobjective.SumOfRanks;
 import ec.individuals.populations.Population;
 
+/**
+ * Sum of Ranks fitness calculation
+ * Ranks objectives of all individuals and calculates fitness based on their ranks
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class SOR extends WS{
 
 	  public SOR() 
 	  {
 		// TODO sum of runks
 	  }
-	
-    
     
        /**
         * activate later
@@ -48,8 +53,6 @@ public class SOR extends WS{
           return averageFitness/pop.size();
        }
 
-       
-    
        /**
         * 
         * @return

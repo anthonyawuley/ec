@@ -27,7 +27,7 @@ import ec.exceptions.InitializationException;
 
 /**
  *
- * @author anthony
+ * @author  Anthony Awuley
  */
 public interface ParameterInterface {
 
@@ -36,6 +36,11 @@ public interface ParameterInterface {
      * @param p object containing properties
      */
     public void setProperties(Properties p);
+    /**
+     * 
+     * @return property file
+     * @throws InitializationException
+     */
     public Properties setup() throws InitializationException;
     
     

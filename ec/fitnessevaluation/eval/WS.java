@@ -30,15 +30,18 @@ import ec.util.Constants;
 import ec.util.Point;
 import ec.util.random.RandomGenerator;
 
+/**
+ * Top level class for WeightedSum Fitness calculation
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class WS extends WeightedSum{
 
 	public WS() 
 	{
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-    
 	
     /**
      * prepare data(population) in format accepted for SOR processing e.g.
@@ -66,7 +69,12 @@ public class WS extends WeightedSum{
  	   
     }
     
-    
+    /**
+     * 
+     * @param pop
+     * @param p
+     * @return
+     */
     protected ArrayList<Integer> changePopFormatForMOPInt(Population pop,Properties p)
     {
  	   ArrayList<Integer> sorData = new ArrayList<>();
@@ -74,14 +82,13 @@ public class WS extends WeightedSum{
  	   for( int i=0; i< pop.size(); i++)
 	   {
  		  //sorData.add(this.sumDistanceVRP(pop.get(i),p)+","+this.sumCars(pop.get(i),p)+"");
- 		  sorData.add(Integer.parseInt(this.sumCars(pop.get(i).getChromosome(),p)+""+this.sumDistanceVRP(pop.get(i).getChromosome(),p)));
+ 		  sorData.add(Integer.parseInt(this.sumCars(pop.get(i).getChromosome(),p)+""+
+ 		  this.sumDistanceVRP(pop.get(i).getChromosome(),p)));
 	   }
  	   
 	  return sorData;
  	   
     }
-
-	
     /**
      * mock fitness - sum chromosomes
      * 
@@ -129,8 +136,6 @@ public class WS extends WeightedSum{
          return sum;
          
    }
-    
-    
    /**
     * 
     * @param individual chromosome
@@ -261,7 +266,11 @@ public class WS extends WeightedSum{
  	  
     }
     
-    
+    /**
+     * 
+     * @param integer chromosome
+     * @return
+     */
     @SuppressWarnings("unused")
 	private ArrayList<Integer> swapRandomIndex(ArrayList<Integer> c)
     {
@@ -274,7 +283,12 @@ public class WS extends WeightedSum{
     	return c;
     }
     
-    
+    /**
+     * 
+     * @param integer chromosome
+     * @param p properties
+     * @return
+     */
     @SuppressWarnings("unused")
 	private ArrayList<Integer> sortChromosomeByDistance(ArrayList<Integer> c,Properties p)
     {
@@ -413,9 +427,6 @@ public class WS extends WeightedSum{
 	    	}
           }
  	    
- 	    
- 	    
- 	    
  	    vrptw.add(0,(double) vCount);
  	    vrptw.add(1,totalDistance);
  	    //System.out.println("Cars" + vCount + " distance "+ totalDistance);
@@ -425,9 +436,8 @@ public class WS extends WeightedSum{
     
        
        /**
-        * 
+        * @param ch
         * @param p 
-     * @param individual.getChromosome()
         * @return
         */
        public double sumDistanceVRP(Chromosome ch, Properties p)
@@ -513,8 +523,6 @@ public class WS extends WeightedSum{
     	  
        }
        
-    
-       
        /**
         * 
         * @param individual
@@ -557,16 +565,12 @@ public class WS extends WeightedSum{
     	  return count;
        }
     
-       
-       
-       
        /**
         * 
         * @param pop
         * @return 
         * @deprecated
         */
-       @Deprecated
 	public double setAverageFitness(Population pop)
        {
           double averageFitness = 0;
@@ -583,7 +587,7 @@ public class WS extends WeightedSum{
         * 
         * @return
         */
-       @Override
+    @Override
 	public ArrayList<Double> calcGenerationalFitness(Population pop,Properties p)
       	{
     	      //define weight
@@ -614,15 +618,20 @@ public class WS extends WeightedSum{
       	    return this.getGenerationFitness();
       	}
 
-
+       /**
+        * Multiply fitness value by a factor for a two objective problem
+        * @param i
+        * @param alpha
+        * @param beta
+        * @param p
+        * @return
+        */
        public double weightedFitness(Individual i,double alpha, double beta,Properties p)
        {
-    	   
     	   ArrayList<Double> vrp = timeWindowEvaluations(i,p);
+    	   
     	   return (alpha*vrp.get(0) + beta*vrp.get(1));
-    	   
-    	   //return (alpha*sumCars(this.getIndividual(),this.getProperties()) + beta*sumDistanceVRP(this.getIndividual(),this.getProperties()));
-    	   
+    	   //return (alpha*sumCars(this.getIndividual(),this.getProperties()) + beta*sumDistanceVRP(this.getIndividual(),this.getProperties()));   
        }
     
     

@@ -26,8 +26,9 @@ import ec.algorithms.alps.system.ALPSLayers;
 import ec.algorithms.ga.Evolve;
 
 /**
- *
- * @author anthony
+ * template for selection operations
+ * 
+ * @author  Anthony Awuley
  */
 public interface SelectionOperation {
     

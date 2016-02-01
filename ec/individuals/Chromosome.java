@@ -31,7 +31,9 @@ import ec.util.DeepClone;
 import ec.util.random.MersenneTwisterFast;
 
 /**
- *
+ * A Chromosome is a vector entity (individual) that is composed of an array of
+ * Genes(Nodes). 
+ * 
  * @author anthony
  */
 public class Chromosome extends Representation implements Cloneable, Serializable {
@@ -39,17 +41,20 @@ public class Chromosome extends Representation implements Cloneable, Serializabl
   
     /** */
 	private static final long serialVersionUID = 1L;
-
-	//private ArrayList<Integer> chromosome = new ArrayList<>();
 	/** */
 	private ArrayList<Gene>   chromosome = new ArrayList<>();
     /** */
     private int chromeSize;
     
     /**
+     * createChromosome creats a chromosome that is assigned to an individual at initiliazation
+     * Every call creates one chromosome, the first call to this method creates a chromosome by 
+     * reading by using the parameter file and the Gene class, other subsequent calls shuffles
+     * the initial chromosome.
      * 
      * @param ch
      * @param p
+     * @param rng
      */
     @Override
 	public void createChromosome(Chromosome ch,Properties p, MersenneTwisterFast rng) 
@@ -100,29 +105,20 @@ public class Chromosome extends Representation implements Cloneable, Serializabl
     
     /**
      * 
-     * @return
+     * @return integer chromosome
+     * @deprecated
      */
 	 public ArrayList<Integer> convertToInt()
 	 {
 		 ArrayList<Integer> toInt = new ArrayList<>();
 		   
 		 for(int i=0;i<this.chromosome.size();i++)
-			 toInt.add(this.chromosome.get(i).getId());
+			  toInt.add(this.chromosome.get(i).getId());
 		   
 		 return toInt;
 	 }
 	   
 
-    /**
-     * -revert if new doesnt work
-     * @throws CloneNotSupportedException 
-     * 
-     
-    public Chromosome clone() throws CloneNotSupportedException
-    {
-        return (Chromosome) super.clone();
-    }
-    */
     
     @Override
 	public Chromosome clone()
@@ -178,21 +174,6 @@ public class Chromosome extends Representation implements Cloneable, Serializabl
     @Deprecated
 	public void createChromosome(Chromosome ch,Gene g,Properties prop)
     {
-       //this.chromosome.clear();
-       
-       //g.generateChromosome(ch,prop);
-       
-       /*
-       for(int i=0;i<ch.getChromosomeSize();i++)
-       {  //create chromosome using integer gene
-    	  Gene g = new Gene();
-          this.chromosome.add(g.integerGene(1,ch.getChromosomeSize()*14));//*14 to increase the range 
-          System.out.print(this.chromosome.get(i)+" ");    
-       } System.out.println();
-       //set chromosome in base class
-       ch.setChromosome(this.chromosome);
-       
-       */
     }
     
    

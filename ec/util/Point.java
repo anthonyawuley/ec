@@ -18,26 +18,43 @@ package ec.util;
 
 import java.io.Serializable;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class Point implements Serializable {
     
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/** */
 	private double x;
+	/** */
 	private double y;
-	
-	public Point(double xCord, double yCord) {
-		// TODO Auto-generated constructor stub
+	/**
+	 * 
+	 * @param xCord
+	 * @param yCord
+	 */
+	public Point(double xCord, double yCord) 
+	{
 		this.x = xCord;
 		this.y = yCord;
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public double getX()
 	{
 		return this.x;
 	}
-	
+	/**
+	 * 
+	 * @return
+	 */
 	public double getY()
 	{
 		return this.y;
@@ -48,13 +65,21 @@ public class Point implements Serializable {
 	{
 	        return (Point) super.clone();
     }
-	
-	
+	/**
+	 * 
+	 * @param p2
+	 * @return
+	 */
 	public double calculateEuclidianDistance(Point p2)
 	{
 		return Math.sqrt( Math.pow(this.x-p2.x,2) + Math.pow(this.y-p2.y,2) ); 
 	}
-	
+	/**
+	 * 
+	 * @param p1
+	 * @param p2
+	 * @return
+	 */
 	public double calculateEuclidianDistance(Point p1, Point p2)
 	{
 		return Math.sqrt( Math.pow(p1.x-p2.x,2) + Math.pow(p1.y-p2.y,2) ); 

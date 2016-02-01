@@ -27,7 +27,11 @@ import java.util.Properties;
 import ec.parameter.Parameters;
 import ec.util.Constants;
 
-
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 @SuppressWarnings("serial")
 public class Plot extends javax.swing.JFrame{
 
@@ -81,23 +85,12 @@ public class Plot extends javax.swing.JFrame{
 		drawRoute(chromosome,properties,g2);
 		 
 	}
-	
-	/*
-	public void convertToChromosome()
-	{
-		Chromosome chrom = new Chromosome();
-	
-		int [] ch = {56, 55, 25, 30, 80, 34, 51, 77, 78, 4, 69, 81, 13, 29, 27, 41, 59, 14, 96, 95, 7, 90, 54, 1, 28, 2, 52, 10, 82, 79, 35, 36, 72, 66, 67, 21, 33, 31, 71, 70, 53, 89, 32, 11, 91, 64, 65, 50, 37, 47, 48, 49, 20, 12, 63, 8, 83, 9, 46, 18, 85, 6, 84, 19, 61, 97, 100, 60, 98, 93, 38, 99, 94, 86, 62, 17, 87, 39, 45, 92, 101, 15, 43, 44, 16, 58, 88, 3, 42, 23, 75, 74, 22, 73, 76, 57, 24, 68, 40, 5, 26};
-		
-		for(int i=0;i< ch.length;i++)
-		{
-			chrom.add(ch[i]);
-		}
-		setChromosome(chrom);
-		
-	}
-	*/
-	
+	 /**
+	  * 
+	  * @param c
+	  * @param p
+	  * @param g2
+	  */
 	 private void drawRoute(Chromosome c,Properties p,Graphics2D g2)
      { 
 		 

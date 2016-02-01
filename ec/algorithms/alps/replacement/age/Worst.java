@@ -24,11 +24,10 @@ import ec.algorithms.ga.Evolve;
 
 /**
  * 
- * @author anthony
- * 
  * makes tournament selectiion, use a percentage selection for worse individual replacement
  * else a random individual is selected out of the tournament individulas to be replaced
- *
+ * 
+ * @author Anthony Awuley
  */
 public class Worst  extends ALPSReplacement{
 

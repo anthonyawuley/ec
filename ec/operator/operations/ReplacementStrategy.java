@@ -36,7 +36,7 @@ import ec.util.statistics.StatisticsCollector;
  *  This interface must be implemented by any replacement strategy. since the GA system fully supports ALPS, its
  *  It is expected that any such class must implement a method that supports replacement for ALPS as well as
  *  regular GA
- * @author anthony
+ * @author  Anthony Awuley
  */
 public interface ReplacementStrategy {
    
@@ -46,7 +46,8 @@ public interface ReplacementStrategy {
 	
 	
    /**
-    * GENERATE next generation
+    * produce next generation for canonical GA
+    * 
     * @param f - basic fitness
     * @param crx - crossover module
     * @param mtx - mutation module
@@ -69,11 +70,10 @@ public interface ReplacementStrategy {
     		                         int generation,
                                      int run
                                      );
-    
-  
 	
     /**
-     * GENERATE next generation
+     * produce next generation for ALPS GA
+     * 
      * @param f - basic fitness
      * @param crx - crossover module
      * @param mtx - mutation module

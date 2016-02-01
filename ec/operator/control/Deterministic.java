@@ -22,7 +22,7 @@ package ec.operator.control;
 
 /**
  *
- * @author anthony
+ * @author Anthony Awuley
  */
 public class Deterministic {
     

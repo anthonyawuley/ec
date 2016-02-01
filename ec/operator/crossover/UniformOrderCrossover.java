@@ -32,12 +32,11 @@ import java.util.ArrayList;
 
 /**
  *
- * @author anthony
+ * @author  Anthony Awuley
  */
 public class UniformOrderCrossover extends CrossoverModule {
-    
+    /** */
     private String crossoverMask;
-    private Population  offsprings;
     
     public UniformOrderCrossover()
     {
@@ -126,29 +125,6 @@ public class UniformOrderCrossover extends CrossoverModule {
           }
        }
         
-        
-        /*
-         * complete replacement of other bit positions without mask flag of "1"
-         * int j=0; j<mask.get(1).size()-1; j++
-         
-       
-          System.out.println("\nP1:" + tournamentIndividuals.get(0) + " P2:"+tournamentIndividuals.get(1)+" MASK:"+crossoverMask  );
-          //System.out.println(tournamentIndividuals);
-          for(int j=0; j<p.get(tournamentIndividuals.get(1)).getChromosome().size(); j++)
-          { 
-              System.out.print(c1.getChromosome().get(j)+" ");
-              //System.out.println("its a gradual process!" + crossoverMask + ":"+mask.size() );
-              //System.out.print(p.get(2).getChromosome().get(2)+" ");
-           
-          }System.out.println();
-          for(int j=0; j<p.get(tournamentIndividuals.get(1)).getChromosome().size(); j++)
-          {
-              System.out.print(c2.getChromosome().get(j)+" ");
-              //System.out.println("its a gradual process!" + crossoverMask + ":"+mask.size() );
-              //System.out.print(p.get(2).getChromosome().get(2)+" ");
-          } 
-         */
-   
         //set individual properties for chldren and add to new population
      
         id1.setChromosome(c1);
@@ -179,11 +155,6 @@ public class UniformOrderCrossover extends CrossoverModule {
       
     }
 
-    
-    
-    /**
-     * over loaded : alps
-     */
     @Override
     public ArrayList<Individual> performCrossoverOperation(
     		Population p,

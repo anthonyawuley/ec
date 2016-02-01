@@ -22,6 +22,12 @@ import java.util.Properties;
 import ec.fitnessevaluation.multiobjective.ParetoRanking;
 import ec.individuals.populations.Population;
 
+/**
+ * Pareto ranking
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class PR extends WS{
 
 	public PR() {
@@ -44,9 +50,6 @@ public class PR extends WS{
        
        return averageFitness/pop.size();
     }
-   
-
-
     /**
      * 
      * @return

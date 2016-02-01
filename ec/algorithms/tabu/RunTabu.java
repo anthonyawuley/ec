@@ -23,8 +23,18 @@ import ec.main.EC;
 import ec.algorithms.tabu.solution.Writer;
 import ec.util.Constants;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class RunTabu  implements EC {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/** */
 	int number_of_experiments;
 	
 	public RunTabu(){}

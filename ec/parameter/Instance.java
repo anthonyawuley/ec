@@ -34,6 +34,11 @@ import ec.operator.operations.replacement.AbstractSSReplacement;
 import ec.util.Constants;
 import ec.util.statistics.StatisticsCollector;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class Instance {
 
 	public Instance() 

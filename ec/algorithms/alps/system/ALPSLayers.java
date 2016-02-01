@@ -20,6 +20,11 @@ import java.util.ArrayList;
 
 import ec.algorithms.alps.layers.Layer;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class ALPSLayers {
 
 	public ArrayList<Layer> layers;

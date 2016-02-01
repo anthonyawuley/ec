@@ -24,6 +24,11 @@ import ec.algorithms.alps.layers.Layer;
 import ec.algorithms.alps.system.ALPSLayers;
 import ec.algorithms.alps.system.Engine;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class ALPSReplacementStrategy {
 
 	public Boolean victimFound = Boolean.FALSE;

@@ -30,10 +30,11 @@ import ec.operator.CrossoverModule;
 
 /**
  *
- * @author anthony
  * Main idea: preserve relative order that elements occur
  * e.g for the TSP, chooses a subsequence of a tour from one
  * parent and preserves the relative order of cities from the other parent.
+ * 
+ * @author  Anthony Awuley
  */
 public class OrderCrossover  extends CrossoverModule {
 

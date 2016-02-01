@@ -24,8 +24,9 @@ import java.util.ArrayList;
 
 
 /**
- *
- * @author anthony
+ * Template class for population fitness
+ * 
+ * @author Anthony Awuley
  */
 public interface PopFitnessInterface {
     
@@ -45,6 +46,7 @@ public interface PopFitnessInterface {
     public double getBestFitness();
     /**
      * Get Average Fitness of generation
+     * 
      * @return
      */
     public double getAverageFitness();
@@ -68,13 +70,5 @@ public interface PopFitnessInterface {
      * @param f
      */
     public void setStandardDeviationFitness(double f);
-    
-    /**
-     * Set the default value of fitness. This can be given to
-     * unevaluated individuals, such as newly created or invalids
-     */
-    //public void setDefault();
-    //GET DEFAULT??!!
    
-    
 }

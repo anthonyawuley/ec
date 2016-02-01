@@ -20,17 +20,31 @@ import ec.individuals.populations.Population;
 import ec.algorithms.alps.LayerInterface;
 import ec.algorithms.alps.system.EvolveALPS;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class Layer implements LayerInterface {
-
+    /** */
 	private int maxAgeLayer;
+	/** */
 	private boolean isBottomLayer = Boolean.FALSE;
+	/** */
 	private boolean isActive = Boolean.FALSE;
+	/** */
 	private InitializeParams params;
+	/** */
 	private EvolveALPS evolve;
+	/** */
 	private int generationalCount, generations;
+	/** */
 	private int layerId;
+	/** */
 	public int layerEvaluationCount   = 0;
+	/** */
 	public int layerCompleteGenerationCount = 0;
+	/** */
 	public boolean initializerFlag = true;
 	
 	public Layer() 
@@ -38,8 +52,6 @@ public class Layer implements LayerInterface {
 		
 	}
 	
-	
-
 	@Override
 	public boolean getIsActive() 
 	{

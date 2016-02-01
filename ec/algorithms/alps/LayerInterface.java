@@ -20,7 +20,12 @@ import ec.algorithms.alps.layers.InitializeParams;
 import ec.algorithms.alps.system.EvolveALPS;
 import ec.individuals.populations.Population;
 
-    public interface LayerInterface {
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
+public interface LayerInterface {
 
     /**
      * 	

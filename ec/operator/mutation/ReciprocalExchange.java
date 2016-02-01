@@ -32,14 +32,12 @@ import java.util.ArrayList;
 
 /**
  *
- * @author anthony
+ * @author  Anthony Awuley
  */
 public class ReciprocalExchange extends MutationModule {
-
+    /** */
     private int[] twoPointsOnChromosome = new int[2];
-    private Population offsprings;
-    
-    
+  
     public ReciprocalExchange()
     {
       super("Reciprocal Exchange");

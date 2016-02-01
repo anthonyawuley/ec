@@ -34,21 +34,23 @@ import ec.util.statistics.BasicStatistics;
 
 /**
  *
- * @author anthony
+ * @author Anthony Awuley
  */
 public class FitnessExperimental extends FitnessExtension{
-   
+    /** */
     private ArrayList<Integer> bestFitnessIndividualsOfGeneration;
+    /** */
     @SuppressWarnings("unused")
 	private ArrayList<Integer> bestFitnessIndividualsForStatistics;
+    /** */
     private double averageFitnessPerGeneration, bestFitnessOfGeneration;
-    
+    /** */
 	@SuppressWarnings("unused")
 	private long startTime;
+	/** */
 	@SuppressWarnings("unused")
     private long endTime;
-    //private ArrayList<Double> sortedFitness;
-    
+  
     /**
      * Evaluate individuals in a population - population of a generation
      * @param pop 
@@ -98,8 +100,6 @@ public class FitnessExperimental extends FitnessExtension{
        this.setAverageFitness(this.averageFitnessPerGeneration);
        this.setStandardDeviationFitness(getStandardDeviationOfFitness(this.getGenerationFitness()));
        
-       //System.out.println("#POPULATION SIZE##"+ sortedFitness.get(0));
-       
        //print statistics
        stats.printStatsReport(
     		   pop,
@@ -112,9 +112,6 @@ public class FitnessExperimental extends FitnessExtension{
     }
  
     
-    /**
-     * OVERLAODED
-     */
     @Override
 	@SuppressWarnings("unchecked")
 	public void calculateSimpleFitness(
@@ -158,8 +155,6 @@ public class FitnessExperimental extends FitnessExtension{
        this.setBestFitness(this.bestFitnessOfGeneration);
        this.setAverageFitness(this.averageFitnessPerGeneration);
        this.setStandardDeviationFitness(getStandardDeviationOfFitness(this.getGenerationFitness()));
-       
-       //System.out.println("#POPULATION SIZE##"+ sortedFitness.get(0));
        
        //print statistics if flag is enabled
        if(statsFlag)

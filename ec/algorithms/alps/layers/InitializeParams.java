@@ -20,27 +20,49 @@ import java.util.ArrayList;
 
 import ec.exceptions.InitializationException;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class InitializeParams{
-
+	/** */
 	public ArrayList<Integer> ageScheme = new ArrayList<>();
-
+	/** */
 	private int number_of_experiments;
+	/** */
 	private int max_age_in_layers;
+	/** */
 	private int age_gap;
+	/** */
     private int generationsEvolved;
+    /** */
     private int chromosomeLength;
+    /** */
     private int generations;
+    /** */
     private int populationSize;
+    /** */
     private double crossoverRate;
+    /** */
     private double mutationRate;
+    /** */
     private int    tournamentSize;
+    /** */
     private boolean stopFlag;
+    /** */
     private int     elitismSize;
+    /** */
     private double  selectionPressure;
+    /** */
     private long   seed;
+    /** */
 	private double layerSelectionPressure;
+	/** */
 	private double ssSelectionPressure;
+	/** */
 	private String replacementOperator;
+	/** */
 	private double evaluations;
 	
 

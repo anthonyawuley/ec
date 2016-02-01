@@ -28,7 +28,10 @@ import ec.individuals.representation.*;
 
 
 /**
- *
+ * Specifies valrius chromosome representations (e.g. int, char, double, long etc)
+ * Not usefull after introduction of a datastructure for a node (see Gene class)
+ * 
+ * @deprecated
  * @author anthony
  */
 public abstract class Representation{
@@ -37,7 +40,12 @@ public abstract class Representation{
 	 protected MersenneTwisterFast rng;
 	
 	 
-	 
+	 /**
+	  * 
+	  * @param ch
+	  * @param p
+	  * @param rng
+	  */
 	 public void createChromosome(Chromosome ch,Properties p, MersenneTwisterFast rng) 
 	 {}
 	 
@@ -80,17 +88,13 @@ public abstract class Representation{
     {
     	return VRPTW.geneRepresentation(min, max);
     }
-    
-    
-
-
-	  /**
-	   * ant and tabu
-	   * @param trim
-	   * @return
-	   */
-	  protected final String[] sweepNumbers(String trim) 
-	  {
+	/**
+     * ant and tabu
+	 * @param trim
+	 * @return
+	 */
+	 protected final String[] sweepNumbers(String trim) 
+	 {
 	    String[] arr = new String[3];
 	    int currentIndex = 0;
 	    

@@ -24,8 +24,9 @@ import java.io.Serializable;
 import ec.util.DeepClone;
 
 /**
- *
- * @author anthony
+ * The gene class is represents the node in a vector species. It is able to assume multiple properties
+ * of a node in a Genetic Algorithm. It is also the basic unit of a chromosome
+ * @author Anthony Awuley
  */
 public class Gene implements Cloneable, Serializable {
 
@@ -90,7 +91,7 @@ public class Gene implements Cloneable, Serializable {
 	}
 	
 	/**
-	 * 
+	 * Convert double node values to string
 	 * @param a
 	 * @return
 	 */
@@ -105,7 +106,8 @@ public class Gene implements Cloneable, Serializable {
 	
 	/**
 	 * 
-	 * @return
+	 * @return alleles in a node
+	 * this could be multiple properties read from the parameter file
 	 */
 	public double[] getAlleles()
 	{
@@ -114,7 +116,7 @@ public class Gene implements Cloneable, Serializable {
 
 	/**
 	 * 
-	 * @return
+	 * @return string alleles
 	 */
 	public String[] getStringAlleles()
 	{
@@ -123,7 +125,8 @@ public class Gene implements Cloneable, Serializable {
 
 	/**
 	 * 
-	 * @return
+	 * @return id of a gene
+	 * every gene has a unique id which is read from the parameter file
 	 */
 	public int getId()
 	{
@@ -177,7 +180,7 @@ public class Gene implements Cloneable, Serializable {
 	}
 	
 	
-	/** */
+	/** Deepclone a Gene */
 	@Override
 	public Gene clone()
 	{

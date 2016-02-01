@@ -24,7 +24,7 @@ import ec.individuals.populations.Population;
 
 /**
  *
- * @author anthony
+ * @author  Anthony Awuley
  */
 public class StoppingCondition {
     
@@ -52,24 +52,36 @@ public class StoppingCondition {
     {
        return currentCount==totalCount;
     }
-    
+    /**
+     * 
+     * @param flag
+     */
     public void setIdealIndividualFound(boolean flag)
     {
        this.idealIndividualFound = flag;
     }
     
-    
+    /**
+     * 
+     * @return
+     */
     public boolean getIdealIndividualFound()
     {
        return this.idealIndividualFound;
     }
-    
+    /**
+     * 
+     * @param flag
+     */
     public void setStopWhenSolved(boolean flag)
     {
        this.stopWhenSolved = flag;
     }
     
-    
+    /**
+     * 
+     * @return
+     */
     public boolean getStopWhenSolved()
     {
        return this.stopWhenSolved;

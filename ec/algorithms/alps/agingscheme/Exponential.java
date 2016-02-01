@@ -22,6 +22,11 @@ import ec.util.Constants;
 import ec.algorithms.alps.AgingScheme;
 import ec.algorithms.alps.layers.Layer;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class Exponential implements AgingScheme {
 
 	public Exponential() {

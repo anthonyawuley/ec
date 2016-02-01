@@ -26,11 +26,10 @@ import ec.algorithms.ga.Evolve;
 
 /**
  * 
- * @author anthony
- * 
  * makes tournament selectiion, use a percentage selection for worse individual replacement
  * else a random individual is selected out of the tournament individulas to be replaced
- *
+ * 
+ * @author  Anthony Awuley
  */
 public class ReverseTournamentWorst extends AbstractSSReplacement {
 
@@ -63,14 +62,8 @@ public class ReverseTournamentWorst extends AbstractSSReplacement {
 		{
 		   selectionOperation.performTournamentSelection(e, 
 				      alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize());
-		   
-			
+		    
 		    /*
-			 *  selectionOperation.performTournamentSelection(
-			 *		  currentPop.size(),
-			 *	      alpsLayers.layers.get(alpsLayers.index).getParameters().getTournamentSize());
-		     */  
-		    /**
 		     * first half of elements in array are individuals from current layer
 		     * keep padding list if the number of individuals in the current layer isn't
 		     * up to the required population size. this is true from layer 1
@@ -94,13 +87,7 @@ public class ReverseTournamentWorst extends AbstractSSReplacement {
 			}
 		  
 		}
-		
-		//System.out.println("--"+currentPop.size()+" ---"+alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size());
-		/*
-		 * System.out.println(deleteList.size()+ " -- Current!! "+currentPop.size()+
-		 *		" Next "+alpsLayers.layers.get(alpsLayers.index).getEvolution().
-		 *		getCurrentPopulation().size()); //System.exit(0);
-		 */
+	
 		return currentPop;
 	}
 		

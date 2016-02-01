@@ -28,12 +28,14 @@ import java.util.ArrayList;
 
 /**
  *
- * @author anthony
+ * @author  Anthony Awuley
  */
 public abstract class MutationModule extends Operator {
-    
+    /** */
     private String mutationType;
+    /** */
     private final String mutationOperation ="mutation operation";
+    /** */
     private double mutationRate;
     
     
@@ -70,24 +72,27 @@ public abstract class MutationModule extends Operator {
     }
    
     
-    /**
-     * 
-     * @param p
-     * @param c1
-     * @param parentId
-     * @return
-     */
+   /**
+    * perform mutation operation for canonical GA
+    * 
+    * @param p
+    * @param c1
+    * @param parentId
+    * @return
+    */
     public abstract ArrayList<Individual> performMutationOperation(
     		Population p, 
     		Chromosome c1,
     		int parentId);
     
     /**
+     * perform mutation operation for ALPS GA
      * 
      * @param p
      * @param c1
      * @param parentId
      * @param ages
+     * @param replacementType
      * @return
      */
     public abstract ArrayList<Individual> performMutationOperation(

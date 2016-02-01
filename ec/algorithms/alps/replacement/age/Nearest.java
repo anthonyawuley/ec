@@ -24,6 +24,11 @@ import ec.algorithms.alps.ALPSReplacement;
 import ec.algorithms.alps.system.ALPSLayers;
 import ec.algorithms.ga.Evolve;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class Nearest extends ALPSReplacement{
 
 	private int individualID;

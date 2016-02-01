@@ -26,9 +26,9 @@ import ec.algorithms.ga.Evolve;
 
 /**
  * 
- * @author anthony
- *
- * scans through higher layer and replaces any first encountered worse individual
+ * scans through higher layer and replaces worse individual
+ * 
+ * @author  Anthony Awuley
  */
 public class Worst  extends AbstractSSReplacement {
 
@@ -39,26 +39,16 @@ public class Worst  extends AbstractSSReplacement {
 		
 	}
 
-	
-	
 	@Override
 	public String toString()
 	{
 		return "Worst Individual Replacement";
 	}
 	
-	
-	
     @Override
 	public Population ssReplacements(Evolve e, ALPSLayers alpsLayers, Population currentPop, Population replacement) {
-		
-		//Population currentPop = null;
-		//Population deleteList = new Population();
+	
 		SelectionOperation selectionOperation = new TournamentSelection();
-		
-		//Do not clone
-		//currentPop = (Population) alpsLayers.layers.get(alpsLayers.index).
-		//		getEvolution().getCurrentPopulation();
 		
 		for(Individual ind: replacement.getAll()) //iterate through individuals to be replaced
 		{
@@ -72,14 +62,14 @@ public class Worst  extends AbstractSSReplacement {
 		   if(alpsLayers.layers.get(alpsLayers.index).getIsBottomLayer() &&  
 				   (alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size() //NOT WORKING ALWAYS EQUAL
 					< (alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize())) )
-			{   //System.out.println("Bottom Padding"+currentPop.size());
+			{   
 				currentPop.add(0,ind); //System.out.println("Population size()"+currentPop.size());
 			}
 		   else if( !alpsLayers.layers.get(alpsLayers.index).getIsBottomLayer() &&  (alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size() 
 					< (alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize())) 
 					//&& currentPop.size()<(2*alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize()) 
 					)
-			{   //System.out.println("Upper Padding"+alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size());
+			{   
 				currentPop.add(0,ind); //System.out.println("Population size()"+currentPop.size());
 			}
 			else
@@ -97,12 +87,7 @@ public class Worst  extends AbstractSSReplacement {
 		  
 		}
 		
-		//System.out.println("--"+currentPop.size()+" ---"+alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size());
-		/*
-		System.out.println(deleteList.size()+ " -- Current!! "+currentPop.size()+
-				" Next "+alpsLayers.layers.get(alpsLayers.index).getEvolution().
-				getCurrentPopulation().size()); //System.exit(0);
-		*/
+		
 		return currentPop;
 	}
 	

@@ -41,8 +41,9 @@ import ec.algorithms.alps.system.Engine;
 import ec.algorithms.ga.Evolve;
 
 /**
+ * Generational replacement strategy
  * 
- * @author anthony
+ * @author  Anthony Awuley
  */
 public class Generational implements ReplacementStrategy {
 
@@ -124,8 +125,7 @@ public class Generational implements ReplacementStrategy {
 		/*
 		 * old implementation assuming one best individual Individual
 		 * bestIndividualOfPreviousGeneration =
-		 * current.get(generation-1).get(((FitnessExtension)
-		 * f).getBestIndividualsOfGeneration().get(0));
+		 * current.get(generation-1).get(((FitnessExtension) f).getBestIndividualsOfGeneration().get(0));
 		 */
 		if (e.elitismSize > 0) // ignore elitism if steady state replacement is
 								// used
@@ -143,12 +143,11 @@ public class Generational implements ReplacementStrategy {
 			nextGeneration.addAll(bestIndividualsOfPreviousGeneration);
 		}
 
-		// System.out.println(crossoverRate+" mutation: "+mutationRate);
 		while (this.populationCount < current.get(generation - 1).size()) // best for nextGeneration.size()
 		{
 			this.randomNumber = e.random.nextDouble(); // crossover?
 			
-			/**
+			/*
 			 * Individuals that are created through variation, such as by
 			 * mutation or recombination, take the age value of their oldest
 			 * parent plus 1 since their genetic material comes from their
@@ -193,9 +192,7 @@ public class Generational implements ReplacementStrategy {
 				 * add based on current population size left
 				 * nextGeneration.addAll
 				 * (nextGeneration,crx.performCrossoverOperation
-				 * (current.get(generation -1), c1,
-				 * c2,tournamentIndividuals,(current.get(generation-1).size() -
-				 * this.populationCount)));
+				 * (current.get(generation -1), c1, c2,tournamentIndividuals,(current.get(generation-1).size() - this.populationCount)));
 				 */
 
 				nextGeneration.addAll(crx.performCrossoverOperation(current
@@ -307,10 +304,8 @@ public class Generational implements ReplacementStrategy {
 		this.populationCount = 0; // initialized from one because of addition of best individual
 
 
-		System.out.println("Layer #"
-				+ alpsLayers.layers.get(alpsLayers.index).getId()
-				+ " Layer Generation #"
-				+ alpsLayers.layers.get(alpsLayers.index).layerEvaluationCount
+		System.out.println("Layer #" + alpsLayers.layers.get(alpsLayers.index).getId()
+				+ " Layer Generation #" + alpsLayers.layers.get(alpsLayers.index).layerEvaluationCount
 				+ " Global Generation # " + Engine.completeGenerationalCount);
 		/* bottom layer - new individuals will be generated */
 		if (alpsLayers.layers.get(alpsLayers.index).getIsBottomLayer()) 
@@ -389,7 +384,7 @@ public class Generational implements ReplacementStrategy {
 			this.randomNumber = e.random.nextDouble();
 
 			// crossover?
-			/**
+			/*
 			 * Individuals that are created through variation, such as by
 			 * mutation or recombination, take the age value of their oldest
 			 * parent plus 1 since their genetic material comes from their

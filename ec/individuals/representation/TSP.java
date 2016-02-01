@@ -28,41 +28,11 @@ import ec.util.random.RandomGenerator;
 
 
 /**
- *
- * @author anthony
+ * TSP representation
+ * @author Anthony Awuley
  */
 public class TSP  extends Representation{
     
-	   //private ArrayList<Integer> defaultChromeContainer = new ArrayList<>();
-	
-      /*
-	   @Override
-	   public void generateChromosome(Chromosome ch,Properties prop) 
-	   {
-		  //limit repeated call to function, since its unnecessary
-		  if(this.chromosome.isEmpty())
-		  {
-			  setInitChrome(ch.getChromosomeSize());
-		  }
-		  //shuffle content of chromosome
-		  //Collections.shuffle(this.chromosome);
-		  
-		  this.rng = new MersenneTwisterFast(); 
-		  Collections.shuffle(this.chromosome, new Random(this.rng.nextLong()));
-		  
-	      ch.setChromosome(this.chromosome);
-	    }
-	
-	   public void setInitChrome(int chromeSize)
-	   {
-		   this.chromosome.clear();
-		   //begin count from 1, since 0 is used as depot
-		   for(int i=1;i<=chromeSize;i++)
-	       {  
-	    	  this.chromosome.add(i); 
-	       }
-	   }
-	  */
 	   /**
 	    * 
 	    * @param min
@@ -74,29 +44,27 @@ public class TSP  extends Representation{
 		    return RandomGenerator.getMultiThreadedRandNumber(min,max);
 		}
 
-		
+		/**
+		 * 
+		 */
 		public void sort() {
 			// TODO Auto-generated method stub
 		}
 
-	
+	    /**
+	     * 
+	     * @param immigrants
+	     */
 		public void addAll(ArrayList<Gene> immigrants) {
 			// TODO Auto-generated method stub
 		}
 
-		
+		/**
+		 * 
+		 */
 		public void clear() {
 			// TODO Auto-generated method stub
 		}
-		
-		 /**
-	     * @throws CloneNotSupportedException 
-	     * 
-	    
-	    public Gene clone() throws CloneNotSupportedException
-	    {
-	    	return (Gene) super.clone();
-	    }
-        */
+	
 	    
 }

@@ -24,6 +24,11 @@ import java.util.ArrayList;
 
 import ec.operator.CrossoverModule;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class BestCostRouteCrossover  extends CrossoverModule {
 
 

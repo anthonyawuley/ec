@@ -21,6 +21,11 @@ import java.util.ArrayList;
 import ec.algorithms.alps.AgingScheme;
 import ec.algorithms.alps.layers.Layer;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class Polynomial  implements AgingScheme {
 
 	
@@ -74,14 +79,7 @@ public class Polynomial  implements AgingScheme {
 			layers.add(layer);
 			//layers.set(i, layer);
 		}
-		/*
-		 * there is no age-limit to the last layer so as to be able to keep the 
-		 * best individuals from the most promising (longest running) search
-		 */
-		//layers.get(layers.size()-1).setMaxAgeLayer(Constants.ALPS_MAX_AGE_LAST_LAYER);
-		//layers.get(layers.size()-1).setGenerations(
-		//		Constants.ALPS_MAX_AGE_LAST_LAYER - layers.get(layers.size()-2).getMaxAge());
-		
+	
 		return layers;
 	}
 

@@ -27,8 +27,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
- *
- * @author anthony
+ * Defines basic propertis of an individual fitness
+ * 
+ * @author Anthony Awuley
  */
 public class BasicFitness implements Fitness, Serializable{
 
@@ -36,15 +37,25 @@ public class BasicFitness implements Fitness, Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID    = 1L;
+	/** */
 	public static final double DEFAULT_FITNESS    = 100000000000.0;
+	/** */
     private static double Min_Double              = 0.0;
+    /** */
     private static double Max_Double              = DEFAULT_FITNESS;
+    /** */
     private static int Min_Int                    = 0;
+    /** */
     private static int Max_Int                    = (int)DEFAULT_FITNESS;
+    /** */
     private static double Best_Fitness            = 0.0;
+    /** */
     private double value;
+    /** */
     protected ArrayList<Double> generationFitness = new ArrayList<>();
+    /** */
     private Individual individual;
+    /** */
     private ArrayList<Double> multiObjectiveFitnes= new ArrayList<>();
    
     
@@ -54,27 +65,6 @@ public class BasicFitness implements Fitness, Serializable{
     {
         this.value = 0;
     }
-
-    
-    /**
-     * 
-     * @param generation
-     * @return minimum fitness in generation
-     
-    public ArrayList<Integer> sortTournamentFitness(ArrayList<Double> generation,ArrayList<Integer> tournamentContainer, double min)
-    {
-       ArrayList<Integer> minimum = new ArrayList<>();
-       for(int i=0;i<generation.size();i++)
-       {
-           if( (generation.get(i) == min) && GenerateMask.isExistIndex(tournamentContainer,i+"") )
-           {
-              minimum.add(i);
-           }
-       }
-       return minimum;
-     }
-     */
-    
     /**
      * 
      * @param c
@@ -84,7 +74,6 @@ public class BasicFitness implements Fitness, Serializable{
     {
         return this.multiObjectiveFitnes;
     }
-
     /**
      * Creates new instance of BasicFitness - overloaded constructor
      * @param f fitness value
@@ -95,7 +84,6 @@ public class BasicFitness implements Fitness, Serializable{
         this.value = f;
         this.individual = i;
     }
-    
     /**
      * create individual with fitness properties -overload constructor
      * @param i 
@@ -104,61 +92,14 @@ public class BasicFitness implements Fitness, Serializable{
     {
         this.individual = i;
     }
-    
+    /**
+     * 
+     */
     @Override
     public double getBestFitness()
     {
       return BasicFitness.Best_Fitness;
     }
-    /**
-     * 
-     * @return
-     
-    @Override
-    public double getAverageFitness()
-    {
-      return BasicFitness.Average_Fitness;
-    }
-    */
-    /**
-     * 
-     * @return
-    @Override
-    public double getStandardDeviationFitness()
-    {
-      return BasicFitness.SD_Fitness;
-    }
-    */
-    /**
-     * 
-     * @param f 
-    
-    @Override
-    public void setStandardDeviationFitness(double f)
-    {
-      BasicFitness.SD_Fitness = f;
-    }
-     */
-    /**
-     * 
-     * @param f 
-     
-    @Override
-    public void setBestFitness(double f)
-    {
-      BasicFitness.Best_Fitness = f;
-    }
-    */
-    /**
-     * 
-     * @param f 
-    
-    @Override
-    public void setAverageFitness(double f)
-    {
-      BasicFitness.Average_Fitness = f;
-    }
-    */
     /**
      * 
      */

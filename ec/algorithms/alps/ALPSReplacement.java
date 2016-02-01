@@ -24,6 +24,11 @@ import ec.algorithms.ga.Evolve;
 import ec.individuals.Individual;
 import ec.individuals.populations.Population;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public abstract class ALPSReplacement {
 
 	/**

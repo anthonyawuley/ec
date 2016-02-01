@@ -29,8 +29,17 @@ import ec.util.Constants;
 import ec.algorithms.alps.layers.Layer;
 import ec.algorithms.alps.replacement.ALPSReplacementStrategy;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class Engine extends Instance implements EC {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/** */
 	private int ageGap;
 	/** */

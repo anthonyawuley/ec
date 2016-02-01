@@ -30,7 +30,7 @@ import ec.operator.CrossoverModule;
 
 /**
  *
- * @author anthony
+ * @author  Anthony Awuley
  */
 public class SinglePointCrossover  extends CrossoverModule {
 

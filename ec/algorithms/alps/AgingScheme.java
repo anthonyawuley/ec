@@ -20,6 +20,10 @@ import java.util.ArrayList;
 
 import ec.algorithms.alps.layers.Layer;
 
+/**
+ * 
+ * @author Anthony Awuley
+ */
 public interface AgingScheme {
 
 	public String toString(String str);

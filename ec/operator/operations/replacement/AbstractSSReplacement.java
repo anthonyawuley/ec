@@ -22,6 +22,12 @@ import ec.individuals.populations.Population;
 import ec.algorithms.alps.system.ALPSLayers;
 import ec.algorithms.ga.Evolve;
 
+/**
+ * Defines a template for steady state replacement
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public abstract class AbstractSSReplacement {
 
 	/**
@@ -98,9 +104,8 @@ public abstract class AbstractSSReplacement {
 			Math.abs(pop.get(tournament.get(id)).getFitness().getDouble() - fitness))
 			{   
 				nearest = id;
-			}//System.out.print(" "+pop.get(tournament.get(id)).getAge()+" ");
+			}
 		}
-		//System.out.println("\nThis is the nearest "+pop.get(tournament.get(nearest)).getAge()+" \n");
 		return tournament.get(nearest);
 	}
 	
@@ -122,9 +127,8 @@ public abstract class AbstractSSReplacement {
 			Math.abs(pop.get(id).getFitness().getDouble() - fitness))
 			{   
 				nearest = id;
-			}//System.out.print(" "+pop.get(id).getAge()+" ");
+			}
 		}
-		//System.out.println("\nThis is the nearest "+pop.get(nearest).getAge()+" \n");
 		return nearest;
 	}
 

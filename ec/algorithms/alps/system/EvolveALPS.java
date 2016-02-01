@@ -41,34 +41,25 @@ import ec.fitnessevaluation.FitnessExtension;
 
 /**
  *
- * @author anthony
+ * @author Anthony Awuley
  */
 public class EvolveALPS extends Evolve{
 
-	//private long seed;
-	//private int generationsEvolved;
-	//private int chromosomeLength;
-	//private int generations;
-	//private int populationSize;
-	//private double crossoverRate;
-	//private double mutationRate;
-	//private int tournamentSize;
-	//private boolean stopFlag;
-	//private Properties prop;
-	//private int number_of_experiments;
-	//private int elitismSize;
-	//private double selectionPressure;
+	/** */
 	private int ageGap, ageLayers;
+	/** */
 	private InitializeParams init;
+	/** */
 	private Population currentPopulation;
+	/** */
 	private double layerSelectionPressure;
+	/** */
 	private double evaluations;
+	/** */
 	private double alpsSSSelectionPressure;
+	/** */
 	private String replacementOperator;
 
-	//private IslandModel im = null;
-
-	
 
 	/**
 	 * 
@@ -134,19 +125,6 @@ public class EvolveALPS extends Evolve{
 	}
 
 
-	/*
-	 * begin evolutionary process, by initiation number of experiments (runs)
-
-    public void start()
-    {
-    	for(int i=0;i<this.number_of_experiments;i++)
-        {
-           System.out.println("\nInitializing population for Run # "+i +"\n");
-           generateInitialPopulation(i);
-        }
-    }
-	 */
-
 	/**
 	 * Returns the number of generations evolved so far in the last run.
 	 *
@@ -203,20 +181,7 @@ public class EvolveALPS extends Evolve{
 					alpsLayers.layers.get(0).getEvolution().getCurrentPopulation(),
 					new StoppingCondition(this.stopFlag),
 					alpsLayers,run);   
-			/*  
-			 *this.evolve(
-    				alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation(),
-        			new StoppingCondition(this.stopFlag),
-        			alpsLayers);  
-			 * this.evolve(
-        			init.generateInitialPopulation(
-        					getGeneRepresentation(this.prop),
-        					this.prop,
-        					this.populationSize,
-        					this.chromosomeLength),
-        			new StoppingCondition(this.stopFlag),
-        			layers.get(index));  
-			 */
+		
 		}
 		else
 		{

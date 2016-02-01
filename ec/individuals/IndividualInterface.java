@@ -26,8 +26,9 @@ import ec.individuals.fitnesspackage.Fitness;
    
 
 /**
- *
- * @author anthony
+ * This is a prototype class for an individual
+ * 
+ * @author Anthony Awuley
  */
 
 public interface IndividualInterface{
@@ -68,7 +69,7 @@ public interface IndividualInterface{
      * Get a String representation of the output(Phenotype)
      * @param map which output to get if there are multiple
      * @return string of output
-    public  */
+     */
     public String getPhenotypeString(int map);
     
     /**
@@ -107,12 +108,6 @@ public interface IndividualInterface{
      */
     public void setValid(boolean b);
 
-    /**
-     * Clone the individual
-     * @return a clone of the individual
-     */
-    //public IndividualInterface clone();
-    
     /**
      * Age is how long the individual has existed
      * @param age How long the individual has existed  
@@ -185,13 +180,13 @@ public interface IndividualInterface{
     public void setBirthEvaluations(double numberOfEvaluations);
 
     /**
-     * 
+     * SEt chromosome for an individual
      * @param c
      */
 	public void setChromosome(Chromosome c);
     /**
      * 
-     * @return
+     * @return get an indiviuals chromosome
      */
 	public Chromosome getChromosome();
     

@@ -23,8 +23,9 @@ package ec.individuals.fitnesspackage;
 import ec.individuals.Individual;
 
 /**
- *
- * @author anthony
+ * Template class for BasicFitness of an individual
+ * 
+ * @author Anthony Awuley
  */
 public interface Fitness {
     
@@ -44,32 +45,6 @@ public interface Fitness {
      * @return
      */
     public double getBestFitness();
-    /**
-     * Get Average Fitness of generation
-     * @return
-     public double getAverageFitness();
-    */
-    /**
-     * Get Standard deviation of generational fitness
-     * @return
-     public double getStandardDeviationFitness();
-    */
-    /**
-     * set Best Fitness value
-     * @param f
-     
-    public void setBestFitness(double f);
-    */
-    /**
-     * Set Average Fitness value
-     * @param f
-     public void setAverageFitness(double f);
-     */
-    /**
-     * Set standard deviation of generation
-     * @param f
-     public void setStandardDeviationFitness(double f);
-     */
     /**
      * 
      * @return
@@ -139,7 +114,6 @@ public interface Fitness {
      * unevaluated individuals, such as newly created or invalids
      */
     public void setDefault();
-    //GET DEFAULT??!!
    
     
 }

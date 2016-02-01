@@ -35,7 +35,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author anthony
+ * @author  Anthony Awuley
  */
 public class Inversion extends MutationModule {
     

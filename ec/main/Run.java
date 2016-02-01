@@ -28,8 +28,11 @@ import ec.exceptions.InitializationException;
 import ec.util.Constants;
 
 /**
- *
- * @author anthony
+ * Main method is in this class and is the highest class for evolution.
+ * Initializations of the EA class specified through main-class parameter in teh parameter
+ * file is done here and parameter file is also read and initialized
+ * 
+ * @author Anthony Awuley
  */
 public class Run extends Parameters{
 
@@ -48,10 +51,12 @@ public class Run extends Parameters{
     
     //private long startTime;
      
-    /** Creates a new instance of Run 
+    /** 
+     * Creates a new instance of Run 
      * @throws ExecutionException 
      * @throws InterruptedException 
-     * @throws IOException */
+     * @throws IOException 
+     */
     public Run(String[] arguments) throws IOException, InterruptedException, ExecutionException 
     {
     	/* Start Evolve time */
@@ -99,6 +104,7 @@ public class Run extends Parameters{
 		} 
         catch (InitializationException e) 
         {
+        	System.out.println("Failed to initialize...\nCheck main-class parameter in the parameter file");
 			e.printStackTrace();
 		}
         
@@ -106,6 +112,9 @@ public class Run extends Parameters{
     }
     
     /**
+     * Begin evolution and set up parameters specified in standard input
+     * multiple parameter files can be spefified in the argument list
+     * e.g. -file parameter-file-1.params parameter-file-2.params parameter-file-3.params ...
      * @param args the command line arguments
      */
     public static void main(String[] args) 

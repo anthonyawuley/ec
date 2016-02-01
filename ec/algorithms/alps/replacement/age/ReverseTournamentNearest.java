@@ -22,6 +22,11 @@ import ec.algorithms.alps.ALPSReplacement;
 import ec.algorithms.alps.system.ALPSLayers;
 import ec.algorithms.ga.Evolve;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class ReverseTournamentNearest extends ALPSReplacement{
 
 	private int individualID;

@@ -34,7 +34,7 @@ import ec.util.random.RandomGenerator;
 
 /**
  *
- * @author anthony
+ * @author Anthony Awuley
  * @deprecated
  */
 @Deprecated

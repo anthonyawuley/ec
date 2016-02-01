@@ -28,8 +28,9 @@ import ec.individuals.populations.Population;
 import java.util.ArrayList;
 
 /**
- *
- * @author anthony
+ * Basic crossover template for canonical and ALPS GA
+ * 
+ * @author  Anthony Awuley
  */
 public abstract class CrossoverModule extends Operator {
     
@@ -43,11 +44,14 @@ public abstract class CrossoverModule extends Operator {
     {
        this.crossoverType = type;
     }
-    
-   
     /**
+     * Performing crossover operation for canonical GA
      * @param p
-     * @return 
+     * @param c1
+     * @param c2
+     * @param tournamentIndividuals
+     * @param numberOfChildrenToAdd
+     * @return
      */
     public abstract ArrayList<Individual> performCrossoverOperation(
     		Population p, 
@@ -57,7 +61,8 @@ public abstract class CrossoverModule extends Operator {
     		int numberOfChildrenToAdd);
     
    /**
-    * OVERLOAD ALPS add age
+    * Performing crossover operation for ALPS evoluton
+    * 
     * @param p
     * @param c1
     * @param c2
@@ -112,23 +117,22 @@ public abstract class CrossoverModule extends Operator {
     {
       return this.childrenAdded;
     }
-
-    
     /**
      * 
-     * @param rate 
+     * @param rate
      */
     public void setCrossoverRate(double rate) 
     {
         this.crossoverRate = rate;
     }
-    
+    /**
+     * 
+     * @return
+     */
     public String getSpecificModuleType()
     {
        return this.crossoverType;
     }
-    
-        
     /**
      * 
      * @param child

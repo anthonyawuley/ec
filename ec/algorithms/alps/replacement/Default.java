@@ -22,10 +22,10 @@ import ec.algorithms.alps.ALPSReplacement;
 import ec.algorithms.alps.system.ALPSLayers;
 import ec.algorithms.ga.Evolve;
 /**
- * @author anthony
- *
  * no modifications done. All individuals are shipped to the next higher 
  * layer after evolution is exhausted in one layer
+ * 
+ *  @author Anthony Awuley
  */
 public class Default  extends ALPSReplacement{
 

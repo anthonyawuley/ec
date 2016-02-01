@@ -24,7 +24,7 @@ import ec.algorithms.Optimization;
 
 /**
  *
- * @author anthony
+ * @author Anthony Awuley
  */
 public class HillClimbing implements Optimization {
     

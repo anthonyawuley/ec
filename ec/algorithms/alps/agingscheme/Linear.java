@@ -22,7 +22,11 @@ import java.util.ArrayList;
 import ec.algorithms.alps.AgingScheme;
 import ec.algorithms.alps.layers.Layer;
 
-
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class Linear implements AgingScheme {
 
 	public Linear() 

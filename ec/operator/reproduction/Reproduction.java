@@ -20,10 +20,37 @@
  */
 package ec.operator.reproduction;
 
+import java.util.ArrayList;
+
+import ec.individuals.Chromosome;
+import ec.individuals.Individual;
+import ec.individuals.populations.Population;
+import ec.operator.CrossoverModule;
+
 /**
  *
- * @author anthony
+ * @author  Anthony Awuley
  */
-public class Reproduction {
+public class Reproduction{
+
+	public Reproduction(String type) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public ArrayList<Individual> performCrossoverOperation(Population p,
+			Chromosome c1, Chromosome c2,
+			ArrayList<Integer> tournamentIndividuals, int numberOfChildrenToAdd) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<Individual> performCrossoverOperation(Population p,
+			Chromosome c1, Chromosome c2,
+			ArrayList<Integer> tournamentIndividuals,
+			int numberOfChildrenToAdd, ArrayList<Double> ages,
+			String replacementType) {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }

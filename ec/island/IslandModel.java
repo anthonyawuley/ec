@@ -24,6 +24,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public final class IslandModel {
 	
 

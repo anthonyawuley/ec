@@ -25,11 +25,10 @@ package ec.util;
 /**
  * This class has all the constants.
  * The names for properties.
+ * @author Anthony Awuley
  */
 public final class Constants {
 
-    //Property file fields. Works as command line args as well
-   
 	public static final String ALGORITHM_SELECTOR = "algorithm-selector";
 	
    //BEGIN ALPS   
@@ -70,7 +69,6 @@ public final class Constants {
 	 */
 	public static final int ALPS_MAX_AGE_LAST_LAYER                       = 10000;
 	//END ALPS
-	
 	
 	
    //BEGIN Tabu

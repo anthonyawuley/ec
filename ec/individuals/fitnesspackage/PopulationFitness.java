@@ -27,19 +27,23 @@ import ec.util.random.GenerateMask;
 import java.util.ArrayList;
 
 /**
- *
- * @author anthony
+ * Defines basic properties and functions of PopulationFitness template
+ * 
+ * @author Anthony Awuley
  */
 public class PopulationFitness implements PopFitnessInterface{
 
-  
+    /** */
     private static double Best_Fitness         = 0.0;
+    /** */
     private static double Average_Fitness      = 0.0;
+    /** */
     private static double Standard_Deviation   = 0.0;
-    @SuppressWarnings("unused")
+    /** */
 	private double value;
+	/** */
     private ArrayList<Double> generationFitness = new ArrayList<>();
-    //private Individual individual;
+    /** */
     private static ArrayList<Double> multiObjectiveFitnes = new ArrayList<>();
    
     

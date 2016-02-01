@@ -32,7 +32,7 @@ import java.util.Properties;
 
 /**
  *
- * @author anthony
+ * @author Anthony Awuley
  */
 public class Parameters extends Instance implements ParameterInterface {
     
@@ -62,7 +62,6 @@ public class Parameters extends Instance implements ParameterInterface {
         try 
         {
             this.properties = new Properties();
-            //System.out.println(this.propertiesFilePath);System.exit(0);
             
             File f = new File("ec/"+Parameters.propertiesFilePath);
              
@@ -82,8 +81,6 @@ public class Parameters extends Instance implements ParameterInterface {
                
                 //begin initialisaiton of individuals
                 setOutput(); //default system output
-                //new Initialise(properties);
-                //System.out.println("\n.......EvoGA-v1.0.......\n");
             }
         } 
         catch (IOException e) 
@@ -105,7 +102,10 @@ public class Parameters extends Instance implements ParameterInterface {
         return properties;
         
     }
-
+    
+    /**
+     * 
+     */
     private void setOutput()
     {
     	 System.out.printf( "%-15s %10s %n", "Number of experiments:", 

@@ -32,11 +32,9 @@ import ec.util.random.MersenneTwisterFast;
 
 /**
  *
- * @author anthony
+ * @author  Anthony Awuley
  */
 public class Initialise implements InitialisationModule{
-    
-	private MersenneTwisterFast rng = new MersenneTwisterFast();
     
     public Initialise()
     {
@@ -118,7 +116,7 @@ public class Initialise implements InitialisationModule{
             individual.setLayerId(0);
             //NB: clone used to make each individual independent
             //ch.createChromosome(ch,gene,prop); //create individual
-            ch.createChromosome(ch,e.properties,rng); //create individual
+            ch.createChromosome(ch,e.properties,e.random); //create individual
             individual.setChromosome(ch);
             //set fitness object
             individual.setFitness(new BasicFitness()); //create fitness object
@@ -154,7 +152,7 @@ public class Initialise implements InitialisationModule{
             individual.setLayerId(0);
             //NB: clone used to make each individual independent
             //ch.createChromosome(ch,g,prop); //create individual
-            ch.createChromosome(ch,e.properties,rng); //create individual
+            ch.createChromosome(ch,e.properties,e.random); //create individual
             individual.setChromosome(ch);
             /* set default number of evaluations for SS ALPS
              * add individual to population
@@ -190,7 +188,7 @@ public class Initialise implements InitialisationModule{
             //set initial layer to zero(0)
             individual.setLayerId(0);
             //NB: clone used to make each individual independent
-            ch.createChromosome(ch,e.properties,rng); //create individual
+            ch.createChromosome(ch,e.properties,e.random); //create individual
             individual.setChromosome(ch);
             /* set default number of evaluations for SS ALPS
              * add individual to population

@@ -27,6 +27,12 @@ import ec.util.Constants;
 import ec.util.Point;
 import ec.util.random.RandomGenerator;
 
+/**
+ * Weighted sum fitness for a Capacitated Vehicle Routing problem 
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class CVRP extends WS{
 
 	public ArrayList<Integer> hybrid = new ArrayList<>();
@@ -36,8 +42,6 @@ public class CVRP extends WS{
 		// TODO Auto-generated constructor stub
 	}
 	
-	
-   
     
    /**
     * 

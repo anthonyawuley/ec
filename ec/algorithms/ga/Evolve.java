@@ -39,24 +39,43 @@ import ec.fitnessevaluation.FitnessExtension;
 
 /**
  *
- * @author anthony
+ * @author Anthony Awuley
  */
 public class Evolve extends Instance implements EC{
     
-    public int generationsEvolved;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/** */
+	public int generationsEvolved;
+	/** */
     public int chromosomeLength;
+    /** */
     public int generations;
+    /** */
     public int populationSize;
+    /** */
     public double crossoverRate;
+    /** */
     public double mutationRate;
+    /** */
     public int tournamentSize;
+    /** */
     public boolean stopFlag;
+    /** */
     public Properties properties;
+    /** */
     public int number_of_experiments;
+    /** */
     public int elitismSize;
+    /** */
     public double selectionPressure;
+    /** */
     public MersenneTwisterFast random;
+    /** */
     public IslandModel im = null;
+    /** */
     public long seed;
     
     /**
@@ -84,8 +103,6 @@ public class Evolve extends Instance implements EC{
     {
     	
     	setup(p);
-        
-        
         /*
          * BEGIN Island
          * start Server/Client processes
@@ -99,9 +116,6 @@ public class Evolve extends Instance implements EC{
         start(p);
         
     }
-    
-    
- 
     
     /**
      * 

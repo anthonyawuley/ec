@@ -20,16 +20,26 @@ import java.io.Serializable;
 
 import ec.individuals.populations.Population;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class Packet implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	/** */
 	private Population population;
+	/** */
 	private int destinationPort;
+	/** */
 	private int orginationPort;
+	/** */
 	private boolean sendFlag = Boolean.FALSE;
+	/** */
 	private boolean recieveFlag = Boolean.FALSE;
 	
 	public Packet() {

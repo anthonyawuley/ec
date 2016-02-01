@@ -30,7 +30,7 @@ import ec.operator.MutationModule;
 
 /**
  *
- * @author anthony
+ * @author  Anthony Awuley
  */
 public class Displacement extends MutationModule{
 

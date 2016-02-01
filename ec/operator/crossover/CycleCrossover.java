@@ -32,9 +32,18 @@ import java.util.ArrayList;
 
 /**
  *
- * @author anthony
  * Each element comes from one parent together with its position.
+ * 
  * e.g for TSP, each city (and its position) comes from one of the parents
+ * Example: Cycle crossover
+ * Step 1: identify cycle
+ * p1: 1 2 3 4 5 6 7 8 9
+ * p2: 9 3 7 8 2 6 5 1 4
+ * c1: 1 * * 4 * * * 8 9
+ * Step 2: Fill the remaining cities from the other parent
+ * c1: 1 3 7 4 2 6 5 8 9
+ * 
+ * @author Anthony Awuley
  */
 public class CycleCrossover extends CrossoverModule {
     
@@ -110,22 +119,7 @@ public class CycleCrossover extends CrossoverModule {
             } 
         }
         
-       /*
-          System.out.println("\nP1:" + tournamentIndividuals.get(0) + " P2:"+tournamentIndividuals.get(1)+" MASK:"+mask  );
-        
-          for(int j=0; j<p.get(tournamentIndividuals.get(1)).getChromosome().size(); j++)
-          {
-              System.out.print(c1.getGenes().get(j)+" ");
-           
-          }System.out.println();
-          for(int j=0; j<p.get(tournamentIndividuals.get(1)).getChromosome().size(); j++)
-          {
-              System.out.print(c2.getGenes().get(j)+" ");
-          }
-        */
-        
         //set individual properties for chldren and add to new population
-     
         id1.setChromosome(c1);
         id1.setFitness(new BasicFitness()); //set fitness object
         id2.setChromosome(c2);
@@ -152,11 +146,6 @@ public class CycleCrossover extends CrossoverModule {
       
     }
 
-    
-    
-    /**
-     * overloaded alps
-     */
     @Override
     public ArrayList<Individual> performCrossoverOperation(
     		Population p,

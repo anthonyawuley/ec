@@ -20,6 +20,12 @@ import ec.algorithms.ga.Evolve;
 import ec.individuals.Gene;
 import ec.individuals.populations.Population;
 
+/**
+ * Basic template for initilizing a population
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public interface InitialisationModule {
 
 	public String toString(int popSize);
@@ -63,7 +69,12 @@ public interface InitialisationModule {
 			Evolve e,
 			Gene g,
 			double evaluations);
-
+    /**
+     * 
+     * @param e
+     * @param evaluations
+     * @return
+     */
 	Population generateInitialPopulation(Evolve e, double evaluations);
 	
 }

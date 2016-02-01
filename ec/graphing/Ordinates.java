@@ -30,6 +30,11 @@ import ec.algorithms.alps.layers.Layer;
 import ec.util.Constants;
 import ec.util.Point;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class Ordinates{
 
 	String append = "";

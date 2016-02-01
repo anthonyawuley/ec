@@ -28,7 +28,7 @@ import ec.operator.InitialisationModule;
 
 /**
  *
- * @author anthony
+ * @author  Anthony Awuley
  */
 public class Grow implements InitialisationModule {
 
