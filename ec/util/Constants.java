@@ -221,7 +221,7 @@ public final class Constants {
      * Output files are appended a timestamp and *.stats
      * If output is set to false no output is written
      */
-    public static final String OUTPUT                                    = "output";
+    public static final String OUTPUT                                    = "io/outputs/";
     /**
      * Number of iterations of algorithm
      */

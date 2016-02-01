@@ -114,7 +114,7 @@ public class BasicStatistics implements StatisticsCollector{
     		File file = getStatsFile(run,p,"");
     		
     		//if file doesnt exists, then create it
-    		if(!file.exists()) 
+    		if(!file.exists() || run==0) 
     			file.createNewFile();
     		
     		
@@ -161,7 +161,7 @@ public class BasicStatistics implements StatisticsCollector{
     		File file = getStatsFile(run,p,"layer_"+layer.getId()+"_");
     		
     		//if file doesnt exists, then create it
-    		if(!file.exists()) 
+    		if(!file.exists() || run==0) 
     			file.createNewFile();
     		
     		
@@ -193,7 +193,13 @@ public class BasicStatistics implements StatisticsCollector{
    				Constants.DEFAULT_STATS_EXTENSION);
     }
     
-    
+    /**
+     * 
+     * @param run
+     * @param p
+     * @param offset
+     * @return
+     */
     public File getIndFile(int run,Properties p, String offset)
     {
     	return new File(Constants.DEFAULT_PARAM_ROOT+
@@ -202,7 +208,15 @@ public class BasicStatistics implements StatisticsCollector{
    				Constants.DEFAULT_STATS_EXTENSION);
     }
     
-    
+    /**
+     * 
+     * @param pop
+     * @param p
+     * @param run
+     * @param gen
+     * @param bestIndividuals
+     * @param numberOfIndividualsToPrint
+     */
     public void writeIndividuals(
          Population pop,
    		 Properties p,
@@ -223,10 +237,9 @@ public class BasicStatistics implements StatisticsCollector{
    		File file = getIndFile(run,p,"");
    		
    		//if file doesnt exists, then create it
-   		if(!file.exists())
-   		{
+   		if(!file.exists() || run==0)
    			file.createNewFile();
-   		}
+   		
 
    		//true = append file
    		fw = new FileWriter(file ,true);
@@ -254,7 +267,16 @@ public class BasicStatistics implements StatisticsCollector{
    }
 
     
-    
+    /**
+     * 
+     * @param pop
+     * @param p
+     * @param layer
+     * @param run
+     * @param gen
+     * @param bestIndividuals
+     * @param numberOfIndividualsToPrint
+     */
     public void writeIndividuals(
              Population pop,
       		 Properties p,
@@ -276,10 +298,8 @@ public class BasicStatistics implements StatisticsCollector{
       		File file = getIndFile(run,p,"layer_"+layer.getId()+"_");
       		
       		//if file doesnt exists, then create it
-      		if(!file.exists())
-      		{
+      		if(!file.exists() || run==0)
       			file.createNewFile();
-      		}
 
       		//true = append file
       		fw = new FileWriter(file ,true);

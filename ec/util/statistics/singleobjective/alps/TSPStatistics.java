@@ -85,10 +85,9 @@ public class TSPStatistics extends BasicStatistics implements StatisticsCollecto
 	   		
 	   		
 	   		//if file doesn't exists, then create it
-	   		if(!file.exists())
-	   		{
+	   		if(!file.exists()  || run==0)
 	   			file.createNewFile();
-	   		}
+	   		
 
 	   		//true = append file
 	   		fw = new FileWriter(file ,true);
@@ -180,7 +179,7 @@ public class TSPStatistics extends BasicStatistics implements StatisticsCollecto
     		File file = getStatsFile(run,p,"layer_"+layer.getId()+"_");
     		
     		//if file doesnt exists, then create it
-    		if(!file.exists()) 
+    		if(!file.exists()  || run==0) 
     			file.createNewFile();
     		
     		

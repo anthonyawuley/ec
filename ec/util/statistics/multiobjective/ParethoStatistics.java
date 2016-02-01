@@ -86,10 +86,9 @@ public class ParethoStatistics extends BasicStatistics implements StatisticsColl
 	   		File file = getIndFile(run,p,"");
 	   		
 	   		//if file doesnt exists, then create it
-	   		if(!file.exists())
-	   		{
+	   		if(!file.exists()  || run==0)
 	   			file.createNewFile();
-	   		}
+	   		
 
 	   		//true = append file
 	   		fw = new FileWriter(file ,true);

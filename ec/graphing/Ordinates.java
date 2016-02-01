@@ -183,9 +183,9 @@ public class Ordinates{
 			                    Constants.DEFAULT_STATS_EXTENSION+".csv");
 
 			// if file doesnt exists, then create it
-			if (!file.exists()) {
+			if (!file.exists() || run==0) 
 				file.createNewFile();
-			}
+			
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 			
 			/*
@@ -307,9 +307,9 @@ public class Ordinates{
 			                    Constants.DEFAULT_STATS_EXTENSION+".csv");
  
 			// if file doesnt exists, then create it
-			if (!file.exists()) {
+			if (!file.exists() || run==0) 
 				file.createNewFile();
-			}
+			
  
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
 			
@@ -408,7 +408,7 @@ public class Ordinates{
 			                     Constants.DEFAULT_STATS_EXTENSION+".csv");
  
 			// if file doesnt exists, then create it
-			if (!file.exists()) 
+			if (!file.exists()  || run==0) 
 				file.createNewFile();
 			
  
@@ -491,7 +491,7 @@ public class Ordinates{
 			                    p.getProperty(Constants.STATS_FILE)+"_"+append+generation+
 			                    Constants.DEFAULT_STATS_EXTENSION+".csv");
 			// if file doesnt exists, then create it
-			if (!file.exists()) 
+			if (!file.exists()  || run==0) 
 				file.createNewFile();
 			
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
@@ -521,7 +521,7 @@ public class Ordinates{
 			                    Constants.DEFAULT_STATS_EXTENSION+".csv");
  
 			// if file doesnt exists, then create it
-			if (!file.exists())
+			if (!file.exists()  || run==0)
 				file.createNewFile();
  
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));
@@ -585,7 +585,7 @@ public class Ordinates{
 			                    p.getProperty(Constants.STATS_FILE)+"_"+append+generation+
 			                    Constants.DEFAULT_STATS_EXTENSION+".csv");
 			// if file doesnt exists, then create it
-			if (!file.exists()) 
+			if (!file.exists()  || run==0) 
 				file.createNewFile();
 			
 			BufferedWriter bw = new BufferedWriter(new FileWriter(file.getAbsoluteFile()));

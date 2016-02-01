@@ -54,7 +54,6 @@ public class Parameters extends Instance implements ParameterInterface {
      * @param args arguments
      */
     @Override
-	@SuppressWarnings({"static-access"})
 	public Properties setup() throws InitializationException 
     {
         ClassLoader loader;
@@ -63,7 +62,7 @@ public class Parameters extends Instance implements ParameterInterface {
         {
             this.properties = new Properties();
             
-            File f = new File("ec/"+Parameters.propertiesFilePath);
+            File f = new File(Parameters.propertiesFilePath);
              
             if (!f.exists()) 
             {   //try classloading
@@ -135,7 +134,7 @@ public class Parameters extends Instance implements ParameterInterface {
               +          "| Evolutionary computation\n"
               +          "| By Anthony Awuley\n"
               +          "| Mail: aa12qw@brocku.ca\n"
-              +          "| Date: February 01, 2014-2015"
+              +          "| Date: February 01, 2014-2016"
               +          "\n");
       
     }

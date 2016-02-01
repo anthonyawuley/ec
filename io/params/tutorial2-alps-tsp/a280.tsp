@@ -17,30 +17,30 @@ evaluations                           = 1000000
 # ALPS configuration
 alps-age-gap                          = 10
 alps-number-of-layers                 = 5
-alps-aging-scheme                    = algorithms.alps.agingscheme.Polynomial
-#alps-aging-scheme                     = algorithms.alps.agingscheme.Linear
+alps-aging-scheme                    = ec.algorithms.alps.agingscheme.Polynomial
+#alps-aging-scheme                     = ec.algorithms.alps.agingscheme.Linear
 alps-selection-pressure               = 0.8
 alps-ss-selection-pressure            = 1.0
 
-#alps-replacement-strategy            = algorithms.alps.replacement.age.Worst
-#alps-replacement-strategy            = algorithms.alps.replacement.age.Nearest
-alps-replacement-strategy             = algorithms.alps.replacement.age.ReverseTournamentWorst
+#alps-replacement-strategy            = ec.algorithms.alps.replacement.age.Worst
+#alps-replacement-strategy            = ec.algorithms.alps.replacement.age.Nearest
+alps-replacement-strategy             = ec.algorithms.alps.replacement.age.ReverseTournamentWorst
 
 
-#steady-state-replacement             = operator.operations.replacement.steadystate.ReverseTournamentWorst
-steady-state-replacement              = operator.operations.replacement.steadystate.Worst
+#steady-state-replacement             = ec.operator.operations.replacement.steadystate.ReverseTournamentWorst
+steady-state-replacement              = ec.operator.operations.replacement.steadystate.Worst
 
 
 # How many times the genotype is allowed to wrap
 max-repairs                           = 1
 
 # SELECTION
-selection-operation                   = operator.operations.selection.TournamentSelection
+selection-operation                   = ec.operator.operations.selection.TournamentSelection
 tournament-size                       = 7
  
 # REPRODUCTION operators
 # Probability of crossover. State if the point of crossover is fixed on both chromosomes (The size will always be the same) or not
-mutation_operation                    = operator.operations.IntFlipMutation
+mutation_operation                    = ec.operator.operations.IntFlipMutation
 elite-size                            = 3
  
  
@@ -49,38 +49,38 @@ elite-size                            = 3
 initial-chromosome-size                = 280
   
 #FITNESS function - Fitness function requires the full package name
-#fitness-function                      = fitnessevaluation.singleObjective.WeightedSum
-#fitness-function                      = fitnessevaluation.simplefitness.FitnessExperimental
-#fitness-function                      = fitnessevaluation.vrptw.WS
-#fitness-function                      = fitnessevaluation.vrptw.SOR
-#fitness-function                      = fitnessevaluation.vrptw.PR
-fitness-function                       = fitnessevaluation.eval.TSP
+#fitness-function                      = ec.fitnessevaluation.singleObjective.WeightedSum
+#fitness-function                      = ec.fitnessevaluation.simplefitness.FitnessExperimental
+#fitness-function                      = ec.fitnessevaluation.vrptw.WS
+#fitness-function                      = ec.fitnessevaluation.vrptw.SOR
+#fitness-function                      = ec.fitnessevaluation.vrptw.PR
+fitness-function                       = ec.fitnessevaluation.eval.TSP
  
 # EC
-main-class                           = algorithms.alps.system.Engine
+main-class                           = ec.algorithms.alps.system.Engine
 
 # INITIALISATION - Specifies which module to use as an initialiser initial population. 
-initialiser                          = operator.initialiser.Initialise
-gene-representation                  = individuals.representation.VRPTW
+initialiser                          = ec.operator.initialiser.Initialise
+gene-representation                  = ec.individuals.representation.VRPTW
 
 # REPLACEMENT
-replacement-operation               = operator.operations.replacement.Generational
-#replacement-operation                = operator.operations.replacement.SteadyState
+replacement-operation                = ec.operator.operations.replacement.Generational
+#replacement-operation                = ec.operator.operations.replacement.SteadyState
 
 # CROSSOVER MODULE
-#crossover-operation                 = operator.crossover.CycleCrossover
-crossover-operation                  = operator.crossover.UniformOrderCrossover
+#crossover-operation                 = ec.operator.crossover.CycleCrossover
+crossover-operation                  = ec.operator.crossover.UniformOrderCrossover
 
 # MUTATION MODULE
-mutation-operation                   = operator.mutation.Inversion
+mutation-operation                   = ec.operator.mutation.Inversion
  
 
 # Specification of output statistics files
 number-of-individuals                = 1
-#stats-operation                     = util.statistics.mop.ParethoStatistics
-#stats-operation                     = util.statistics.mop.SumOfRankStatistics
-#stats-operation                     = util.statistics.BasicStatistics
-stats-operation                      = util.statistics.singleobjective.alps.TSPStatistics
+#stats-operation                     = ec.util.statistics.mop.ParethoStatistics
+#stats-operation                     = ec.util.statistics.mop.SumOfRankStatistics
+#stats-operation                     = ec.util.statistics.BasicStatistics
+stats-operation                      = ec.util.statistics.singleobjective.alps.TSPStatistics
 
 nodes                                = 280
 start-node                           = 1

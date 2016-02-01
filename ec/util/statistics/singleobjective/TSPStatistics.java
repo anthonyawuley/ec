@@ -82,10 +82,9 @@ public class TSPStatistics extends BasicStatistics implements StatisticsCollecto
 	   		File file = getIndFile(run,p,"");
 	   		
 	   		//if file doesn't exists, then create it
-	   		if(!file.exists())
-	   		{
+	   		if(!file.exists()  || run==0)
 	   			file.createNewFile();
-	   		}
+	   		
 
 	   		//true = append file
 	   		fw = new FileWriter(file ,true);
