@@ -45,6 +45,8 @@ public class Layer implements LayerInterface {
 	/** */
 	public int layerCompleteGenerationCount = 0;
 	/** */
+	public int layerCompleteEvaluationCount = 0;
+	/** */
 	public boolean initializerFlag = true;
 	
 	public Layer() 

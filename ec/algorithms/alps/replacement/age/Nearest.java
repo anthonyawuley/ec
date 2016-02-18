@@ -65,11 +65,7 @@ public class Nearest extends ALPSReplacement{
 				}
 				else if(higherPop.size()>0) //once higher layer is filled, do selective replacement based on new individuals that have higher age than in the individual in the  higher layer
 				{
-					@SuppressWarnings("unused")
-					RandomGenerator randGen = new RandomGenerator(); 
-			        MersenneTwisterFast mtf = new MersenneTwisterFast();
-			        mtf.setSeed(alpsLayers.layers.get(alpsLayers.index).getParameters().getSeed()); //set seed
-			        
+					
 			        this.individualID = nearestPopulationIndividualFitness( //select worst individual in population
 									               higherPop,
 									               nextGeneration.get(i).getFitness().getDouble());
@@ -85,9 +81,6 @@ public class Nearest extends ALPSReplacement{
 		for(int id=0;id<deleteList.size();id++)
 			nextGeneration.remove(deleteList.get(id));
 		
-		/*System.out.println(deleteList.size()+ " -- Current!! "+nextGeneration.size()+
-				" Next "+alpsLayers.layers.get(alpsLayers.index+1).getEvolution().getCurrentPopulation().size()); //System.exit(0);
-		*/
 		return nextGeneration;
 	}
 	

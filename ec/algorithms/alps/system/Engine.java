@@ -171,12 +171,17 @@ public class Engine extends Instance implements EC {
 	public void layeredEvolutionALPS(ArrayList<Layer> layers,int run) {
 		ALPSLayers alps = new ALPSLayers(layers, 0);
 		/* keep running till stopped */
-		/* Engine.completeGenerationalCount<=layers.get(0).getParameters().getEvaluations ()*/
-		while (Engine.completeEvaluationCount <= Engine.evaluations)
+		/* Engine.completeGenerationalCount<=layers.get(0).getParameters().getEvaluations ()
+		 * Engine.completeEvaluationCount <= Engine.evaluations*/
+		while (layers.get(Engine.numberOfLayers-1).layerCompleteEvaluationCount <= Engine.evaluations)
 		{
+			
+			layers.get(Engine.numberOfLayers-1).layerCompleteEvaluationCount = Engine.completeEvaluationCount;
+			
 			sequentialLayerSelection(alps, layers,run);
 
 			Engine.completeGenerationalCount++;
+			
 			// Engine.completeEvaluationCount +=
 			// layers.get(0).getParameters().getPopulationSize(); //all layers
 			// have the same default population size
@@ -186,6 +191,10 @@ public class Engine extends Instance implements EC {
 
 	/**
 	 * sequentially loop through all layers
+	 * 
+	 * @param alps
+	 * @param layers
+	 * @param run
 	 */
 	public void sequentialLayerSelection(ALPSLayers alps,
 			ArrayList<Layer> layers,int run) {

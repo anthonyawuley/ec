@@ -50,6 +50,8 @@ public abstract class Representation{
 	 public void createChromosome(Chromosome ch,Properties p, MersenneTwisterFast rng) 
 	 {}
 	 
+	 public void createChromosome(Evolve e, Chromosome ch,Properties p) 
+	 {}
 	 
 	/**
      * 

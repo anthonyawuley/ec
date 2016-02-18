@@ -70,11 +70,6 @@ public class ReverseTournamentWorst  extends ALPSReplacement{
 				}
 				else if(higherPop.size() > 0) //once higher layer is filled, do selective replacement based on new individuals that have higher age than in the individual in the  higher layer
 				{
-					@SuppressWarnings("unused")
-					RandomGenerator randGen = new RandomGenerator(); 
-			        MersenneTwisterFast mtf = new MersenneTwisterFast();
-			        mtf.setSeed(alpsLayers.layers.get(alpsLayers.index).getParameters().getSeed()); //set seed
-			        
 			        //perform tournament selection on higher layer
 					selectionOperation.performTournamentSelection(e,alpsLayers);
 			        

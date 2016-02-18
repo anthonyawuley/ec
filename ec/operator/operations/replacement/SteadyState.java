@@ -349,8 +349,7 @@ public class SteadyState extends Operations  implements ReplacementStrategy {
                 * nextGeneration.addAll(nextGeneration,mtx.performMutationOperation(current.get(generation -1), c1,tournamentIndividuals.get(0)));
                 */
                 mtx.performMutationOperation(
-                		e,
-                		evolvingPopulation,c1.clone(),tournamentIndividuals.get(0),ages);
+                		e,evolvingPopulation,c1.clone(),tournamentIndividuals.get(0),ages);
                 
                 this.evaluationCounter += mtx.getOffsprings().size();
                 this.populationCount++;   //increment population

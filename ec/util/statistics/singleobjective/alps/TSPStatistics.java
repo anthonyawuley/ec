@@ -34,11 +34,14 @@ import ec.util.Constants;
 import ec.util.statistics.BasicStatistics;
 import ec.util.statistics.StatisticsCollector;
 
+/**
+ * 
+ * @author Anthony Awuley
+ *
+ */
 public class TSPStatistics extends BasicStatistics implements StatisticsCollector{
 
-	public TSPStatistics() {
-		// TODO Auto-generated constructor stub
-	}
+	public TSPStatistics() {}
 	
 	
 	/**
@@ -69,37 +72,25 @@ public class TSPStatistics extends BasicStatistics implements StatisticsCollecto
    		//create population of best individuals for stats
    		Population statpop = new Population();
    		for(int i=0;i<numberOfIndividualsToPrint;i++)
-   		{
    			statpop.add(pop.get(bestIndividuals.get(i)));
-   			//System.out.println("#hahahaha"+pop.get(bestIndividuals.get(i)).getChromosome().get(279));
-   		}
-	   	
    		
-   		//ArrayList<Double> genFit = tsp.calcGenerationalFitness(statpop,p);
    		tsp.calcGenerationalFitness(statpop,p);
         
 	   	try 
 	   	{
 	   		//String header = " This content will append to the end of the file\n";
 	   		File file = getIndFile(run,p,"layer_"+layer.getId()+"_");
-	   		
-	   		
 	   		//if file doesn't exists, then create it
 	   		if(!file.exists()  || run==0)
 	   			file.createNewFile();
-	   		
-
 	   		//true = append file
 	   		fw = new FileWriter(file ,true);
 	   		bw = new BufferedWriter(fw);
 	   		
-	   		//for(int i=0;i<bestIndividuals.size();i++)
+	   		/* chrom 1  distance  chrom 2 distance .....*/
 	   		for(int i=0;i<numberOfIndividualsToPrint;i++)
-	   		{
-	   		  /* chrom 1  distance  chrom 2 distance .....*/
 	   		  individualsChromosome += i+"\t" + statpop.get(i).getFitness().getDouble() +"\t";
-	   		  //individualsChromosome += i+"\t" + genFit.get(i) +"\t";
-	   		}
+	   		
 	   		//append generation #
 	   	    bw.write(evals + "\t" + individualsChromosome +"\n");
 	   		bw.close();
@@ -133,23 +124,17 @@ public class TSPStatistics extends BasicStatistics implements StatisticsCollecto
 	       int numberOfIndividualsToPrint = Integer.parseInt(p.getProperty(Constants.NUMBER_INDIVIDUALS_PRINT));
 	       
 	       //when in last layer print stat file
+	       /*
+    	    * report type indicates if tsp or vrp will be printed
+    	    * set value in Constants file
+    	    */
 	       if(layer.getId() == (Engine.numberOfLayers-1) && 
-	    		   (Engine.completeEvaluationCount+layer.getParameters().getPopulationSize()*(Engine.numberOfLayers-1))>Engine.evaluations )
-	       {
-	    	   /*
-	    	    * report type indicates if tsp or vrp will be printed
-	    	    * set value in Constants file
-	    	    */
-	    	   
+	    		   Engine.completeEvaluationCount>=Engine.evaluations )
 	          new Ordinates(pop,bestIndividuals,numberOfIndividualsToPrint,p, 
 	        		  layer, run,generation,",",Constants.REPORT_TYPE);
-	          //new Ordinates(pop.get(bestIndividuals.get(0)),p, run, generation,",");
-	          //new Plot(pop.get(bestIndividuals.get(0)),p);
-	       }
 	       
-	       generateStatFile(p, layer, run,Engine.completeEvaluationCount, f.getBestFitness(), 
+	       generateStatFile(p, layer, run,Engine.completeEvaluationCount, f.getBestFitness(),
 	    		   f.getAverageFitness(), f.getStandardDeviationFitness());
-	       //System.out.println(pop.get(bestIndividuals.get(1)).getChromosome());
 	       
 	       writeIndividuals(pop,p, layer,run, Engine.completeEvaluationCount,bestIndividuals,numberOfIndividualsToPrint);
 	       

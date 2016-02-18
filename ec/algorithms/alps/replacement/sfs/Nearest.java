@@ -69,11 +69,7 @@ public class Nearest extends ALPSReplacement{
 				}
 				else if(higherPop.size()>0) //once higher layer is filled, do selective replacement based on new individuals that have higher age than in the individual in the  higher layer
 				{
-					@SuppressWarnings("unused")
-					RandomGenerator randGen = new RandomGenerator(); 
-			        MersenneTwisterFast mtf = new MersenneTwisterFast();
-			        mtf.setSeed(alpsLayers.layers.get(alpsLayers.index).getParameters().getSeed()); //set seed
-			        
+					
 			        this.individualID = nearestPopulationIndividual( //select worst individual in population
 									               higherPop,
 									               nextGeneration.get(i).getAge());
