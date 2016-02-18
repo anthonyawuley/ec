@@ -20,6 +20,7 @@
  */
 package ec.operator;
 
+import ec.algorithms.ga.Evolve;
 import ec.individuals.Chromosome;
 import ec.individuals.Gene;
 import ec.individuals.Individual;
@@ -54,6 +55,7 @@ public abstract class CrossoverModule extends Operator {
      * @return
      */
     public abstract ArrayList<Individual> performCrossoverOperation(
+    		Evolve e,
     		Population p, 
     		Chromosome c1, 
     		Chromosome c2,
@@ -73,13 +75,13 @@ public abstract class CrossoverModule extends Operator {
     * @return
     */
     public abstract ArrayList<Individual> performCrossoverOperation(
+    		Evolve e,
     		Population p, 
     		Chromosome c1, 
     		Chromosome c2,
     		ArrayList<Integer> tournamentIndividuals, 
     		int numberOfChildrenToAdd,
-    		ArrayList<Double> ages,
-    		String replacementType);
+    		ArrayList<Double> ages);
     
     /**
      * Returns the crossover policy.

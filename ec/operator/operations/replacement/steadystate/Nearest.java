@@ -44,11 +44,7 @@ public class Nearest extends AbstractSSReplacement{
 	}
 
 	@Override
-	public Population ssReplacements(Evolve e, ALPSLayers alpsLayers, Population currentPop, Population replacement) {
-			
-			//Population currentPop = null;
-			//Population deleteList = new Population();
-			SelectionOperation selectionOperation = new TournamentSelection();
+	public Population ssReplacements(Evolve e, SelectionOperation so, ALPSLayers alpsLayers, Population currentPop, Population replacement) {
 			
 			//Do not clone
 			//currentPop = (Population) alpsLayers.layers.get(alpsLayers.index).
@@ -57,7 +53,7 @@ public class Nearest extends AbstractSSReplacement{
 		
 			for(Individual ind: replacement.getAll()) //iterate through individuals to be replaced
 			{
-			   selectionOperation.performTournamentSelection(e,
+			   so.performTournamentSelection(e,
 					      alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize());
 			   
 				 /*

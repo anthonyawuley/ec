@@ -20,6 +20,7 @@
  */
 package ec.operator.mutation;
 
+import ec.algorithms.ga.Evolve;
 import ec.individuals.Chromosome;
 import ec.individuals.Individual;
 import ec.individuals.populations.Population;
@@ -40,15 +41,17 @@ public class Scramble extends MutationModule {
 	}
 
 	@Override
-	public ArrayList<Individual> performMutationOperation(Population p,
+	public ArrayList<Individual> performMutationOperation(
+			Evolve e,Population p,
 			Chromosome c1, int parentId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<Individual> performMutationOperation(Population p,
-			Chromosome c1, int parentId, ArrayList<Double> ages,String replacementType) {
+	public ArrayList<Individual> performMutationOperation(
+			Evolve e,Population p,
+			Chromosome c1, int parentId, ArrayList<Double> ages) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import ec.util.random.MersenneTwisterFast;
+import ec.algorithms.ga.Evolve;
 import ec.individuals.representation.*;
 
 
@@ -58,9 +59,9 @@ public abstract class Representation{
      * @deprecated
      */
     @Deprecated
-	public int integerGene (int min, int max)
+	public int integerGene (Evolve e,int min, int max)
     {
-    	return IntRep.geneRepresentation(min, max);
+    	return IntRep.geneRepresentation(e,min, max);
     }
     
     /**
@@ -71,9 +72,9 @@ public abstract class Representation{
      * @deprecated
      */
     @Deprecated
-	public int characterGene (int min, int max)
+	public int characterGene (Evolve e,int min, int max)
     {
-    	return CharRep.geneRepresentation(min, max);
+    	return CharRep.geneRepresentation(e,min, max);
     }
     
     /**
@@ -84,9 +85,9 @@ public abstract class Representation{
      * @deprecated
      */
     @Deprecated
-	public int vrptwGene (int min, int max)
+	public int vrptwGene (Evolve e,int min, int max)
     {
-    	return VRPTW.geneRepresentation(min, max);
+    	return VRPTW.geneRepresentation(e,min, max);
     }
 	/**
      * ant and tabu

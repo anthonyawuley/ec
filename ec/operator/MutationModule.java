@@ -20,6 +20,7 @@
  */
 package ec.operator;
 
+import ec.algorithms.ga.Evolve;
 import ec.individuals.Chromosome;
 import ec.individuals.Individual;
 import ec.individuals.populations.Population;
@@ -81,6 +82,7 @@ public abstract class MutationModule extends Operator {
     * @return
     */
     public abstract ArrayList<Individual> performMutationOperation(
+    		Evolve e,
     		Population p, 
     		Chromosome c1,
     		int parentId);
@@ -96,11 +98,11 @@ public abstract class MutationModule extends Operator {
      * @return
      */
     public abstract ArrayList<Individual> performMutationOperation(
+    		Evolve e,
     		Population p, 
     		Chromosome c1,
     		int parentId,
-    		ArrayList<Double> ages,
-    		String replacementType);
+    		ArrayList<Double> ages);
     
     public String getSpecificModuleType()
     {

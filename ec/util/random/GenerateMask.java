@@ -20,6 +20,7 @@
  */
 package ec.util.random;
 
+import ec.algorithms.ga.Evolve;
 import ec.individuals.Gene;
 
 import java.util.ArrayList;
@@ -39,12 +40,12 @@ public class GenerateMask extends RandomGenerator{
      * RANDOMLY GENERATE MASK: to be used in crossover
      * @param length 
      */
-    private static String generateMask()
+    private static String generateMask(Evolve e)
     {
          mask = "";
          for(int i=0;i<maskLength;i++)
          {
-            mask += getRandomNumberBetween(0,1);
+            mask += getRandomNumberBetween(e,0,1);
          }
          return mask;
     }
@@ -166,10 +167,10 @@ public class GenerateMask extends RandomGenerator{
      * @param length
      * @return 
      */
-    public static String getMask(int length)
+    public static String getMask(Evolve e,int length)
     {
        maskLength = length;
-       return generateMask();
+       return generateMask(e);
     }
     
 }

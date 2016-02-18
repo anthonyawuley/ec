@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.Properties;
 import java.util.Random;
 
+import ec.algorithms.ga.Evolve;
 import ec.individuals.Chromosome;
 import ec.individuals.Gene;
 import ec.individuals.Representation;
@@ -46,9 +47,9 @@ public class IntRep  extends Representation{
 	    * @param max
 		* @return
 		*/
-		public static int geneRepresentation(int min, int max)
+		public static int geneRepresentation(Evolve e,int min, int max)
 		{
-		    return RandomGenerator.getMultiThreadedRandNumber(min,max);
+		    return RandomGenerator.getMultiThreadedRandNumber(e,min,max);
 		}
 
 		

@@ -46,13 +46,12 @@ public class Worst  extends AbstractSSReplacement {
 	}
 	
     @Override
-	public Population ssReplacements(Evolve e, ALPSLayers alpsLayers, Population currentPop, Population replacement) {
+	public Population ssReplacements(Evolve e,SelectionOperation so, ALPSLayers alpsLayers, Population currentPop, Population replacement) {
 	
-		SelectionOperation selectionOperation = new TournamentSelection();
 		
 		for(Individual ind: replacement.getAll()) //iterate through individuals to be replaced
 		{
-		   selectionOperation.performTournamentSelection(e,
+		   so.performTournamentSelection(e,
 				      alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize());
 		    /*
 		     * first half of elements in array are individuals from current layer

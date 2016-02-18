@@ -20,6 +20,7 @@
  */
 package ec.operator;
 
+import ec.algorithms.ga.Evolve;
 import ec.individuals.Chromosome;
 import ec.individuals.Gene;
 import ec.individuals.Individual;
@@ -65,12 +66,12 @@ public abstract class Operator {
 	 * @param popSize
 	 * @return 
 	 */
-	public static int[] selectTwoPointsRandomly(int chromSize)
+	public static int[] selectTwoPointsRandomly(Evolve e,int chromSize)
 	{
-		twoRandomPoints[0] = RandomGenerator.getMultiThreadedRandNumber(0,chromSize);
+		twoRandomPoints[0] = RandomGenerator.getMultiThreadedRandNumber(e,0,chromSize);
 		do
 		{
-			twoRandomPoints[1] = RandomGenerator.getMultiThreadedRandNumber(0,chromSize);
+			twoRandomPoints[1] = RandomGenerator.getMultiThreadedRandNumber(e,0,chromSize);
 		}while(twoRandomPoints[0]==twoRandomPoints[1]);
 
 		return twoRandomPoints;

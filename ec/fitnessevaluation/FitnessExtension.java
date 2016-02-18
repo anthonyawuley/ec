@@ -29,6 +29,7 @@ import java.util.Properties;
 
 import ec.algorithms.alps.layers.Layer;
 import ec.algorithms.alps.system.ALPSLayers;
+import ec.algorithms.ga.Evolve;
 import ec.util.Constants;
 import ec.util.random.RandomGenerator;
 import ec.util.statistics.BasicStatistics;
@@ -198,6 +199,7 @@ public  abstract class FitnessExtension extends PopulationFitness {
     * @return
     */
     public ArrayList<Integer> selectIndividualsBasedOnFitness(
+    		Evolve e,
     		ALPSLayers alpsLayers,ArrayList<Integer> tournamentIndividuals,
     		double selectionPressure, boolean isUpperLayer)
     {
@@ -212,8 +214,7 @@ public  abstract class FitnessExtension extends PopulationFitness {
         			                  getCurrentPopulation().getFitness().getGenerationFitness();
         
         
-        RandomGenerator randGen = new RandomGenerator(); 
-        double rand = randGen.nextDouble();
+        double rand = e.random.nextDouble();
         
         if(rand<=selectionPressure)
         {
@@ -230,12 +231,12 @@ public  abstract class FitnessExtension extends PopulationFitness {
         else
         {  
      	   Collections.shuffle(tournamentIndividuals); //shuffle
-     	   int firstIndividualId = RandomGenerator.getRandomFromArray(tournamentIndividuals); //select individual randomly
+     	   int firstIndividualId = RandomGenerator.getRandomFromArray(e,tournamentIndividuals); //select individual randomly
      	   selected.add(firstIndividualId); //add individual to selected
      	   
      	   tournamentIndividuals.remove((Object)firstIndividualId); //remove selected individual from array
            Collections.shuffle(tournamentIndividuals); //shuffle remaining array
-           selected.add(RandomGenerator.getRandomFromArray(tournamentIndividuals)); //add second individual
+           selected.add(RandomGenerator.getRandomFromArray(e,tournamentIndividuals)); //add second individual
         }
         return selected; 
     }
@@ -247,13 +248,13 @@ public  abstract class FitnessExtension extends PopulationFitness {
      * @return 
      */
     public ArrayList<Integer> selectIndividualsBasedOnFitness(
+    		Evolve e,
     		ArrayList<Integer> tournamentIndividuals,double selectionPressure)
     {
        ArrayList<Integer> selected = new ArrayList<>();
        ArrayList<Double>  sorted = new ArrayList<>();
        
-       RandomGenerator randGen = new RandomGenerator(); 
-       double rand = randGen.nextDouble();
+       double rand = e.random.nextDouble();
        
        if(rand<=selectionPressure) //selection based on fitness
        {
@@ -275,7 +276,7 @@ public  abstract class FitnessExtension extends PopulationFitness {
        else //random selection
        {  
     	   Collections.shuffle(tournamentIndividuals); //shuffle
-    	   int firstIndividualId = RandomGenerator.getRandomFromArray(tournamentIndividuals); //select individual randomly
+    	   int firstIndividualId = RandomGenerator.getRandomFromArray(e,tournamentIndividuals); //select individual randomly
     	   selected.add(firstIndividualId); //add individual to selected
     	   
     	   tournamentIndividuals.remove((Object)firstIndividualId); //remove selected individual from array
@@ -283,7 +284,7 @@ public  abstract class FitnessExtension extends PopulationFitness {
     	   if(tournamentIndividuals.size()>0)
     	   {
              Collections.shuffle(tournamentIndividuals); //shuffle remaining array
-             selected.add(RandomGenerator.getRandomFromArray(tournamentIndividuals)); //add second individual
+             selected.add(RandomGenerator.getRandomFromArray(e,tournamentIndividuals)); //add second individual
     	     //tournamentIndividuals.re
     	   }
        }

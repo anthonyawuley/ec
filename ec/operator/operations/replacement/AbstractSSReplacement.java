@@ -19,6 +19,8 @@ package ec.operator.operations.replacement;
 import java.util.ArrayList;
 
 import ec.individuals.populations.Population;
+import ec.operator.operations.SelectionOperation;
+import ec.operator.operations.replacement.steadystate.ReverseTournamentWorst;
 import ec.algorithms.alps.system.ALPSLayers;
 import ec.algorithms.ga.Evolve;
 
@@ -44,8 +46,27 @@ public abstract class AbstractSSReplacement {
 	 * @param current
 	 * @return population with selected replacement individuals
 	 */
-	public abstract Population ssReplacements(Evolve e,
+	public abstract Population ssReplacements(
+			Evolve e, SelectionOperation so,
 			ALPSLayers alpsLayers,Population currentPop, Population replacement);
+	
+	
+	
+	/**
+	 * Performs elitism by replacing best individuals using reverse tournament selection
+	 * @param e
+	 * @param so
+	 * @param alpsLayers
+	 * @param currentPop
+	 * @param replacement
+	 * @return
+	 */
+	public Population elitism(Evolve e, SelectionOperation so,
+			ALPSLayers alpsLayers,Population currentPop, Population replacement)
+	{
+		return (new ReverseTournamentWorst()).
+				ssReplacements(e, so, alpsLayers, currentPop, replacement);
+	}
 	
 	
 	/**

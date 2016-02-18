@@ -46,11 +46,8 @@ public class Random  extends AbstractSSReplacement {
 	
 	
    @Override
-   public Population ssReplacements(Evolve e, ALPSLayers alpsLayers, Population currentPop, Population replacement) {
+   public Population ssReplacements(Evolve e,SelectionOperation so, ALPSLayers alpsLayers, Population currentPop, Population replacement) {
 		
-		//Population currentPop = null;
-		//Population deleteList = new Population();
-		SelectionOperation selectionOperation = new TournamentSelection();
 		
 		//Do not clone
 		//currentPop = (Population) alpsLayers.layers.get(alpsLayers.index).
@@ -58,7 +55,7 @@ public class Random  extends AbstractSSReplacement {
 		
 		for(Individual ind: replacement.getAll()) //iterate through individuals to be replaced
 		{
-		   selectionOperation.performTournamentSelection(e,
+		   so.performTournamentSelection(e,
 				      alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize());
 		   
 			
@@ -87,10 +84,10 @@ public class Random  extends AbstractSSReplacement {
 			else
 			{  
 		        //perform tournament selection on higher layer
-				selectionOperation.performTournamentSelection(e,alpsLayers);
+				so.performTournamentSelection(e,alpsLayers);
 		        
-				this.individualID = selectionOperation.performTournamentSelection(e, //select one individual at random
-							selectionOperation.getTournamentSelection().size()).get(0);
+				this.individualID = so.performTournamentSelection(e, //select one individual at random
+							so.getTournamentSelection().size()).get(0);
 			
 				//System.out.println("Replace "+currentPop.get(this.individualID).getFitness().getDouble() +" with: "+ind.getFitness().getDouble());
 				 currentPop.set(this.individualID, ind); 

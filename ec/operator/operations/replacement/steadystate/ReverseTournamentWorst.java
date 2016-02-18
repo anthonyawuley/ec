@@ -47,12 +47,7 @@ public class ReverseTournamentWorst extends AbstractSSReplacement {
 	
 	
 	@Override
-	public Population ssReplacements(Evolve e, ALPSLayers alpsLayers, Population currentPop, Population replacement) {
-		
-		//Population currentPop = null;
-		//Population deleteList = new Population();
-		
-		SelectionOperation selectionOperation = new TournamentSelection();
+	public Population ssReplacements(Evolve e,SelectionOperation so, ALPSLayers alpsLayers, Population currentPop, Population replacement) {
 		
 		//Do not clone
 		//currentPop = (Population) alpsLayers.layers.get(alpsLayers.index).
@@ -60,7 +55,7 @@ public class ReverseTournamentWorst extends AbstractSSReplacement {
 		
 		for(Individual ind: replacement.getAll()) //iterate through individuals to be replaced
 		{
-		   selectionOperation.performTournamentSelection(e, 
+		   so.performTournamentSelection(e, 
 				      alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize());
 		    
 		    /*
@@ -70,19 +65,17 @@ public class ReverseTournamentWorst extends AbstractSSReplacement {
 		     */
 		   if(alpsLayers.layers.get(alpsLayers.index).getIsBottomLayer() &&  (alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size() //NOT WORKING ALWAYS EQUAL
 					< (alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize())) )
-			{   //System.out.println("Bottom Padding"+currentPop.size());
-				currentPop.add(0,ind); //System.out.println("Population size()"+currentPop.size());
+			{  
+				currentPop.add(0,ind); 
 			}
 		   else if( !alpsLayers.layers.get(alpsLayers.index).getIsBottomLayer() &&  (alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().size() 
-					< (alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize())) 
-					//&& currentPop.size()<(2*alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize()) 
-					)
-			{   //System.out.println("Upper Padding"+currentPop.size());
-				currentPop.add(0,ind); //System.out.println("Population size()"+currentPop.size());
+					< (alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize())))
+			{  
+				currentPop.add(0,ind); 
 			}
 			else
 			{   
-				this.individualID = worseTournamentIndividual(currentPop,selectionOperation.getTournamentSelection());
+				this.individualID = worseTournamentIndividual(currentPop,so.getTournamentSelection());
 				currentPop.set(this.individualID, ind); 
 			}
 		  

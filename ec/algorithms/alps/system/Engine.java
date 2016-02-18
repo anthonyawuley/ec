@@ -193,33 +193,26 @@ public class Engine extends Instance implements EC {
 		for (int j = layers.size() - 1; j >= 0; j--) {
 			alps.index = j; // only modify the index
 
-			if (layers.get(j).getIsBottomLayer()) // set initializer flag to
-													// true when bottom layer is
-													// called
+			if (layers.get(j).getIsBottomLayer()) // set initializer flag to true when bottom layer is called
 			{
 				if ((layers.get(j).layerEvaluationCount == 0)
-						|| (layers.get(j).getEvolution().getCurrentPopulation()
-								.size() > 0) || layers.get(j).initializerFlag)
+						|| (layers.get(j).getEvolution().getCurrentPopulation().size() > 0) || layers.get(j).initializerFlag)
 					layers.get(j).getEvolution().start(alps,run); // good
 
-				if ((Engine.completeGenerationalCount
-						% layers.get(0).getMaxAge() == 0)) {
+				if ((Engine.completeGenerationalCount % layers.get(0).getMaxAge() == 0)) 
+				{
 					layers.get(j).initializerFlag = true;
 					layers.get(j).layerEvaluationCount = 0;
 				}
-			} else if ((layers.get(j).getEvolution().getCurrentPopulation()
-					.size() > 0)
-					&& // remove if problematic
-					Engine.completeGenerationalCount > layers.get(j - 1)
-							.getMaxAge()) {
+			} else if ((layers.get(j).getEvolution().getCurrentPopulation().size() > 0) && // remove if problematic
+					Engine.completeGenerationalCount > layers.get(j - 1).getMaxAge()) {
 				/*
 				 * Generational worked without this condition - was put here
 				 * because of SteadyState -- remove if problematic
 				 */
 				layers.get(j).getEvolution().start(alps,run); // good
 
-				if ((layers.get(j).layerEvaluationCount % layers.get(j)
-						.getGenerations()) == 0)
+				if ((layers.get(j).layerEvaluationCount % layers.get(j).getGenerations()) == 0)
 					layers.get(j).layerEvaluationCount = 0;
 			}
 		}

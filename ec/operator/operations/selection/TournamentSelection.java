@@ -69,7 +69,7 @@ public class TournamentSelection implements SelectionOperation {
           int count = 0;
           do
           {
-             select = RandomGenerator.getRandomNumberBetween(0,popSize-1); //replace value with pop size
+             select = RandomGenerator.getRandomNumberBetween(e,0,popSize-1); //replace value with pop size
              count++;
              if(count>loopCap)
             	 break;
@@ -96,9 +96,7 @@ public class TournamentSelection implements SelectionOperation {
        
         this.alpsTournamentSelect.clear();
        
-        if(alpsLayers.layers.get(alpsLayers.index).getIsBottomLayer()
-        		//|| alpsLayers.layers.get(alpsLayers.index).getId()==1
-        		)
+        if(alpsLayers.layers.get(alpsLayers.index).getIsBottomLayer())
         {   
         	this.tournamentSelect.clear();
         	this.tournamentSelect = 
@@ -127,7 +125,7 @@ public class TournamentSelection implements SelectionOperation {
         			  do
         	          {  //select random number from first half 0 - n/2
         	             //select = RandomGenerator.getRandomNumberBetween(0,(int) Math.floor(populationSize/2)-1); //replace value with pop size
-        	             select = RandomGenerator.getRandomNumberBetween(0,currentLayerPopSize-1); //replace value with pop size
+        	             select = RandomGenerator.getRandomNumberBetween(e,0,currentLayerPopSize-1); //replace value with pop size
         	             count++;
         	             if(count>loopCap)
         	            	break;
@@ -141,7 +139,7 @@ public class TournamentSelection implements SelectionOperation {
         			  do
         	          {  //select random number from second half n/2 - n
         	             //select = RandomGenerator.getRandomNumberBetween((int) Math.ceil(populationSize/2),populationSize-1); //replace value with pop size
-        	             select = RandomGenerator.getRandomNumberBetween(currentLayerPopSize,(lowerLayerPopSize+currentLayerPopSize)-1); //replace value with pop size
+        	             select = RandomGenerator.getRandomNumberBetween(e,currentLayerPopSize,(lowerLayerPopSize+currentLayerPopSize)-1); //replace value with pop size
         	             count++;
         	             if(count>loopCap)
         	            	break;
@@ -177,7 +175,7 @@ public class TournamentSelection implements SelectionOperation {
        {  
     	   do
 	        { 
-	          select = RandomGenerator.getRandomNumberBetween(min,max); //replace value with pop size
+	          select = RandomGenerator.getRandomNumberBetween(e,min,max); //replace value with pop size
 	        }
 	        while(GenerateMask.isExistIndex(this.tournamentSelect, select+""));
 	        this.tournamentSelect.add(select);

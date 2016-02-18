@@ -16,6 +16,7 @@
  *******************************************************************************/
 package ec.fitnessevaluation.eval;
 
+import ec.algorithms.ga.Evolve;
 import ec.fitnessevaluation.WeightedSum;
 import ec.individuals.Chromosome;
 import ec.individuals.Individual;
@@ -272,10 +273,10 @@ public class WS extends WeightedSum{
      * @return
      */
     @SuppressWarnings("unused")
-	private ArrayList<Integer> swapRandomIndex(ArrayList<Integer> c)
+	private ArrayList<Integer> swapRandomIndex(Evolve e,ArrayList<Integer> c)
     {
     	int val0 = c.get(0);
-    	int index = RandomGenerator.getRandomNumberBetween(1,c.size()-1);
+    	int index = RandomGenerator.getRandomNumberBetween(e,1,c.size()-1);
     	
     	c.set(0,c.get(index));
     	c.set(index, val0);

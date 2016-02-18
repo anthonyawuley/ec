@@ -21,6 +21,8 @@
 package ec.individuals.representation;
 
 import java.util.ArrayList;
+
+import ec.algorithms.ga.Evolve;
 import ec.individuals.Gene;
 import ec.individuals.Representation;
 import ec.util.random.RandomGenerator;
@@ -39,9 +41,9 @@ public class TSP  extends Representation{
 	    * @param max
 		* @return
 		*/
-		public static int geneRepresentation(int min, int max)
+		public static int geneRepresentation(Evolve e,int min, int max)
 		{
-		    return RandomGenerator.getMultiThreadedRandNumber(min,max);
+		    return RandomGenerator.getMultiThreadedRandNumber(e,min,max);
 		}
 
 		/**

@@ -23,6 +23,7 @@
  */
 package ec.operator.mutation;
 
+import ec.algorithms.ga.Evolve;
 import ec.individuals.Chromosome;
 import ec.individuals.Gene;
 import ec.individuals.Individual;
@@ -52,14 +53,15 @@ public class Inversion extends MutationModule {
      */
     @Override
 	@SuppressWarnings("unchecked")
-	public ArrayList<Individual> performMutationOperation(Population p, Chromosome c1,int parentId)
+	public ArrayList<Individual> performMutationOperation(
+			Evolve e,Population p, Chromosome c1,int parentId)
     {
       Individual id1 = new Individual();
       ArrayList<Individual> child = new ArrayList<>();
       int count=0;
       int min, max; //hold smallest of the bit positions to invert
         
-      twoPointsOnChromosome = Operator.selectTwoPointsRandomly(p.get(0).getChromosome().getGenes().size()); //replace value with pop size
+      twoPointsOnChromosome = Operator.selectTwoPointsRandomly(e,p.get(0).getChromosome().getGenes().size()); //replace value with pop size
        
       min = twoPointsOnChromosome[0]<twoPointsOnChromosome[1]?twoPointsOnChromosome[0]:twoPointsOnChromosome[1];
       max = twoPointsOnChromosome[0]>twoPointsOnChromosome[1]?twoPointsOnChromosome[0]:twoPointsOnChromosome[1];
@@ -91,18 +93,18 @@ public class Inversion extends MutationModule {
     @Override
 	@SuppressWarnings("unchecked")
 	public ArrayList<Individual> performMutationOperation(
+			Evolve e,
 			Population p, 
 			Chromosome c1,
 			int parentId, 
-			ArrayList<Double> ages,
-			String replacementType)
+			ArrayList<Double> ages)
     {
       Individual id1 = new Individual();
       ArrayList<Individual> child = new ArrayList<>();
       int count=0;
       int min, max; //hold smallest of the bit positions to invert
         
-      twoPointsOnChromosome = Operator.selectTwoPointsRandomly(p.get(0).getChromosome().getGenes().size()); //replace value with pop size
+      twoPointsOnChromosome = Operator.selectTwoPointsRandomly(e,p.get(0).getChromosome().getGenes().size()); //replace value with pop size
        
       min = twoPointsOnChromosome[0]<twoPointsOnChromosome[1]?twoPointsOnChromosome[0]:twoPointsOnChromosome[1];
       max = twoPointsOnChromosome[0]>twoPointsOnChromosome[1]?twoPointsOnChromosome[0]:twoPointsOnChromosome[1];
@@ -122,9 +124,8 @@ public class Inversion extends MutationModule {
     	  id1.setChromosome(c1);
     	  id1.setFitness(new BasicFitness()); //set fitness object
     	  
-    	  if(replacementType.equals("SteadyState")) //asssign parent with lowest evluation value
+    	    //asssign parent with lowest evluation value
             id1.setBirthEvaluations(ages.get(0));
-          else if(replacementType.equals("Generational"))
           	id1.setAge(ages.get(0)); //add age
     	  
           child.add(id1);

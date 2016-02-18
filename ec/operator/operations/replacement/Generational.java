@@ -28,12 +28,15 @@ import ec.individuals.fitnesspackage.PopulationFitness;
 import ec.individuals.populations.Population;
 import ec.operator.CrossoverModule;
 import ec.operator.MutationModule;
+import ec.operator.operations.Operations;
 import ec.operator.operations.ReplacementStrategy;
 import ec.operator.operations.SelectionOperation;
 import ec.util.statistics.BasicStatistics;
 import ec.util.statistics.StatisticsCollector;
 
 import java.util.ArrayList;
+
+import com.sun.org.apache.xpath.internal.operations.Operation;
 
 import ec.algorithms.alps.ALPSReplacement;
 import ec.algorithms.alps.system.ALPSLayers;
@@ -45,8 +48,13 @@ import ec.algorithms.ga.Evolve;
  * 
  * @author  Anthony Awuley
  */
-public class Generational implements ReplacementStrategy {
+public class Generational extends Operations implements ReplacementStrategy {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private int populationCount;
 	private double randomNumber;
 	private final String replacmentType = "Generational";
@@ -115,8 +123,7 @@ public class Generational implements ReplacementStrategy {
 		ArrayList<Integer> tournamentIndividuals = new ArrayList<>();
 
 		ArrayList<Individual> bestIndividualsOfPreviousGeneration = new ArrayList<>();
-		this.populationCount = 0; // initialized from one because of addition of
-									// best individual
+		this.populationCount = 0; // initialized from one because of addition of  best individual
 
 		
 		((FitnessExtension) f).calculateSimpleFitness(
@@ -127,13 +134,11 @@ public class Generational implements ReplacementStrategy {
 		 * bestIndividualOfPreviousGeneration =
 		 * current.get(generation-1).get(((FitnessExtension) f).getBestIndividualsOfGeneration().get(0));
 		 */
-		if (e.elitismSize > 0) // ignore elitism if steady state replacement is
-								// used
+		if (e.elitismSize > 0) // ignore elitism if steady state replacement is  used
 		{ // create elite individuals to be added to next generation
 			for (int i = 0; i < e.elitismSize; i++) {
-				bestIndividualsOfPreviousGeneration.add(current.get(
-						generation - 1).get(
-						((FitnessExtension) f).getBestIndividualsOfGeneration().get(i)));
+				bestIndividualsOfPreviousGeneration.add(current.get(generation - 1).get(
+						((FitnessExtension) f).getBestIndividualsOfGeneration().get(i)).clone());
 				this.populationCount++; // increment population count
 			}
 			/*
@@ -167,14 +172,14 @@ public class Generational implements ReplacementStrategy {
 				selectionOperation.performTournamentSelection(e,current.get(generation - 1).size());
 				
 				tournamentIndividuals.add(((FitnessExtension) f)
-						.selectIndividualsBasedOnFitness(
+						.selectIndividualsBasedOnFitness(e,
 								selectionOperation.getTournamentSelection(),
 								e.selectionPressure).get(0)); // select best 2 individuals
 
 				selectionOperation.performTournamentSelection(e,
 						current.get(generation - 1).size());
 				tournamentIndividuals.add(((FitnessExtension) f)
-						.selectIndividualsBasedOnFitness(
+						.selectIndividualsBasedOnFitness(e,
 								selectionOperation.getTournamentSelection(),
 								e.selectionPressure).get(0)); // select best 2  individuals
 				
@@ -195,7 +200,7 @@ public class Generational implements ReplacementStrategy {
 				 * (current.get(generation -1), c1, c2,tournamentIndividuals,(current.get(generation-1).size() - this.populationCount)));
 				 */
 
-				nextGeneration.addAll(crx.performCrossoverOperation(current
+				nextGeneration.addAll(crx.performCrossoverOperation(e,current
 						.get(generation - 1), c1.clone(), c2.clone(),
 						tournamentIndividuals, (current.get(generation - 1)
 								.size() - this.populationCount)));
@@ -214,7 +219,7 @@ public class Generational implements ReplacementStrategy {
 				
 				/* select two best tournament individuals select best individuals from tournament selection*/
 				tournamentIndividuals.add(((FitnessExtension) f)
-						.selectIndividualsBasedOnFitness(
+						.selectIndividualsBasedOnFitness(e,
 								selectionOperation.getTournamentSelection(),
 								e.selectionPressure).get(0));
 
@@ -229,6 +234,7 @@ public class Generational implements ReplacementStrategy {
 				 * c1,tournamentIndividuals.get(0)));
 				 */
 				nextGeneration.addAll(mtx.performMutationOperation(
+						e,
 						current.get(generation - 1), c1.clone(),
 						tournamentIndividuals.get(0)));
 				this.populationCount++; // increment population
@@ -303,6 +309,9 @@ public class Generational implements ReplacementStrategy {
 		ArrayList<Individual> bestIndividualsOfPreviousGeneration = new ArrayList<>();
 		this.populationCount = 0; // initialized from one because of addition of best individual
 
+		/* unset parent flag on all individuals in current layer */
+		alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation().unsetParent();
+		
 
 		System.out.println("Layer #" + alpsLayers.layers.get(alpsLayers.index).getId()
 				+ " Layer Generation #" + alpsLayers.layers.get(alpsLayers.index).layerEvaluationCount
@@ -314,14 +323,6 @@ public class Generational implements ReplacementStrategy {
 					.getEvolution().getCurrentPopulation();
 		} else // get population of current layer
 		{ 
-		/*
-		 * System.out.println("\nAfter #"+
-		 * alpsLayers.layers.get(alpsLayers.index-
-		 * 1).getId()+" :" + alpsLayers.layers.get(alpsLayers.index-1).getEvolution().getCurrentPopulation().size()); 
-		 * for (int q=0;q<alpsLayers.layers.get(alpsLayers.index-1).getEvolution().getCurrentPopulation().size();q++) {
-		 *     System.out.print(" "+alpsLayers.layers.get(alpsLayers.index-1).getEvolution().getCurrentPopulation().get(q).getAge()+" ");
-		 * } System.out.println("\n");
-		 */
 			/*
 			 * TODO Memory leak
 			      evolvingPopulation = (Population) alpsLayers.layers
@@ -346,15 +347,18 @@ public class Generational implements ReplacementStrategy {
 				(BasicStatistics) stats,
 				e.properties, 
 				true);
-
-		/* ELITISM */
-		if (e.elitismSize > 0 /* && !layer.getIsBottomLayer() */) { // create elite individuals to be added to next generation
+     
+		/* ELITISM
+		// create elite individuals to be added to next generation
+		if (e.elitismSize > 0) { 
+			
 			for (int i = 0; i < e.elitismSize; i++) {
 				try 
 				{
-					bestIndividualsOfPreviousGeneration.add(evolvingPopulation
-							.get(((FitnessExtension) f)
-									.getBestIndividualsOfGeneration().get(i)));
+					bestIndividualsOfPreviousGeneration.add(
+							alpsLayers.layers.get(alpsLayers.index).getEvolution().
+							getCurrentPopulation().get(((FitnessExtension) f)
+									.getBestIndividualsOfGeneration().get(i)).clone());
 					// increment age of best individuals by 1
 					bestIndividualsOfPreviousGeneration.get(i)
 							.setAge(bestIndividualsOfPreviousGeneration.get(i)
@@ -368,17 +372,24 @@ public class Generational implements ReplacementStrategy {
 					continue;
 				}
 			}
-			/*
-			 * add best individual of previous generation
-			 * nextGeneration.add(bestIndividualOfPreviousGeneration);
-			 */
+			// add best individual of previous generation
+			// nextGeneration.add(bestIndividualOfPreviousGeneration);
 			nextGeneration.addAll(bestIndividualsOfPreviousGeneration);
 		}
+		*/
 		
+		/* 
+		 * ELITISM 
+		 * add best individual of previous generation
+		 * nextGeneration.add(bestIndividualOfPreviousGeneration);
+		 */
+		bestIndividualsOfPreviousGeneration = performElitism(
+				e, alpsLayers.layers.get(alpsLayers.index).getEvolution().getCurrentPopulation(),f).getAll();
+		nextGeneration.addAll(bestIndividualsOfPreviousGeneration);
+		this.populationCount += bestIndividualsOfPreviousGeneration.size();
 		
 		/* current.get(generation-1).size()best for nextGeneration.size() */
-		while (this.populationCount < alpsLayers.layers.get(alpsLayers.index)
-				.getParameters().getPopulationSize() )
+		while (this.populationCount < alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize() )
 		{
 			// this.randomNumber = randGen.nextDouble();
 			this.randomNumber = e.random.nextDouble();
@@ -407,14 +418,14 @@ public class Generational implements ReplacementStrategy {
 				selectionOperation.performTournamentSelection(e, alpsLayers);
 				
 				tournamentIndividuals.add(((FitnessExtension) f)
-						.selectIndividualsBasedOnFitness(
+						.selectIndividualsBasedOnFitness(e,
 								selectionOperation.getTournamentSelection(),
 								e.selectionPressure).get(0));
 				
 				// second tournament: select best individual
 				selectionOperation.performTournamentSelection(e, alpsLayers);
 				tournamentIndividuals.add(((FitnessExtension) f)
-						.selectIndividualsBasedOnFitness(
+						.selectIndividualsBasedOnFitness(e,
 								selectionOperation.getTournamentSelection(),
 								e.selectionPressure).get(0));
 
@@ -462,13 +473,13 @@ public class Generational implements ReplacementStrategy {
 				 */
 				nextGeneration
 						.addAll(crx.performCrossoverOperation(
+								e,
 								evolvingPopulation,
 								c1.clone(),
 								c2.clone(),
 								tournamentIndividuals,
 								(alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize() - this.populationCount),
-								ages, 
-								alpsLayers.layers.get(alpsLayers.index).getParameters().getReplacementOperator()));
+								ages));
 				
 				this.populationCount += crx.getOffsprings().size(); // increment population by number of children added
 			}
@@ -484,7 +495,7 @@ public class Generational implements ReplacementStrategy {
 				// select two best tournament individuals
 				/* select best individuals from tournament selection */
 				tournamentIndividuals.add(((FitnessExtension) f)
-						.selectIndividualsBasedOnFitness(selectionOperation.getTournamentSelection(),
+						.selectIndividualsBasedOnFitness(e,selectionOperation.getTournamentSelection(),
 								e.selectionPressure).get(0)); 
 				
 				c1.setGenes((ArrayList<Gene>) evolvingPopulation.get(tournamentIndividuals.get(0)).getChromosome()
@@ -510,11 +521,11 @@ public class Generational implements ReplacementStrategy {
 				 * c1,tournamentIndividuals.get(0)));
 				 */
 				nextGeneration.addAll(mtx.performMutationOperation(
+						e,
 						evolvingPopulation, 
 						c1.clone(),
 						tournamentIndividuals.get(0), 
-						ages, 
-						alpsLayers.layers.get(alpsLayers.index).getParameters().getReplacementOperator()));
+						ages));
 
 				this.populationCount++; // increment population
 			}
@@ -526,7 +537,7 @@ public class Generational implements ReplacementStrategy {
 		 * alpsLayers.layers.get(alpsLayers.index).getEvolution().setCurrentPopulation
 		 * (evolvingPopulation);
 		 */
-
+        
 		return alpsReplacment.performAgeLayerMovements(e, alpsLayers,
 				nextGeneration,selectionOperation);
 

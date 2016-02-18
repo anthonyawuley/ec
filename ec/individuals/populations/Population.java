@@ -181,6 +181,14 @@ public class Population implements PopulationInterface, Cloneable, Serializable 
         while (indIt.hasNext()) 
             pop.add(indIt.next());
     }
+    
+    /**
+     * unset parent flag of all individuals in the population
+     */
+    public void unsetParent(){
+    	for(Individual i: this.population)
+    		i.parentFlag = Boolean.FALSE;
+    }
     /**
      * 
      */

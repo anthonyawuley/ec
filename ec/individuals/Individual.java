@@ -45,7 +45,7 @@ public class Individual implements IndividualInterface, Serializable  {
     /** */
     private boolean validId;
     /** */
-    private double age;
+    private double age = 0;
     /** */
     private int layer;
     /** */

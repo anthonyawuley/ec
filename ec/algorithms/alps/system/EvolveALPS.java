@@ -45,6 +45,10 @@ import ec.fitnessevaluation.FitnessExtension;
  */
 public class EvolveALPS extends Evolve{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/** */
 	private int ageGap, ageLayers;
 	/** */

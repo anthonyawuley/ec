@@ -45,19 +45,16 @@ public class ReverseTournamentNearest extends AbstractSSReplacement  {
 
 
 	@Override
-	public Population ssReplacements(Evolve e, ALPSLayers alpsLayers, Population currentPop, Population replacement) {
+	public Population ssReplacements(Evolve e, SelectionOperation so,ALPSLayers alpsLayers, Population currentPop, Population replacement) {
 		
-		//Population currentPop = null;
-		//Population deleteList = new Population();
-		SelectionOperation selectionOperation = new TournamentSelection();
-		
+	
 		//Do not clone
 		//currentPop = (Population) alpsLayers.layers.get(alpsLayers.index).
 		//		getEvolution().getCurrentPopulation();
 		
 		for(Individual ind: replacement.getAll()) //iterate through individuals to be replaced
 		{
-		   selectionOperation.performTournamentSelection(e,
+		   so.performTournamentSelection(e,
 				      alpsLayers.layers.get(alpsLayers.index).getParameters().getPopulationSize());
 		   
 			
@@ -86,7 +83,7 @@ public class ReverseTournamentNearest extends AbstractSSReplacement  {
 			else
 			{   
 				this.individualID = nearestTournamentIndividual(
-						currentPop,selectionOperation.getTournamentSelection(),ind.getFitness().getDouble());
+						currentPop,so.getTournamentSelection(),ind.getFitness().getDouble());
 				//System.out.println("Replace "+currentPop.get(this.individualID).getFitness().getDouble() +" with: "+ind.getFitness().getDouble());
 				 currentPop.set(this.individualID, ind); 
 			}

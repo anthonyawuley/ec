@@ -20,6 +20,7 @@
  */
 package ec.operator.crossover;
 
+import ec.algorithms.ga.Evolve;
 import ec.individuals.Chromosome;
 import ec.individuals.Individual;
 import ec.individuals.populations.Population;
@@ -44,7 +45,8 @@ public class OrderCrossover  extends CrossoverModule {
 	}
 
 	@Override
-	public ArrayList<Individual> performCrossoverOperation(Population p,
+	public ArrayList<Individual> performCrossoverOperation(
+			Evolve e,Population p,
 			Chromosome c1, Chromosome c2,
 			ArrayList<Integer> tournamentIndividuals, int numberOfChildrenToAdd) {
 		// TODO Auto-generated method stub
@@ -52,11 +54,11 @@ public class OrderCrossover  extends CrossoverModule {
 	}
 
 	@Override
-	public ArrayList<Individual> performCrossoverOperation(Population p,
+	public ArrayList<Individual> performCrossoverOperation(
+			Evolve e,Population p,
 			Chromosome c1, Chromosome c2,
 			ArrayList<Integer> tournamentIndividuals,
-			int numberOfChildrenToAdd, ArrayList<Double> ages,
-			String replacementType) {
+			int numberOfChildrenToAdd, ArrayList<Double> ages) {
 		// TODO Auto-generated method stub
 		return null;
 	}

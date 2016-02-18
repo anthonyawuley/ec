@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
+import ec.algorithms.ga.Evolve;
+
 /**
  *
  * @author anthony
@@ -31,23 +33,28 @@ import java.util.concurrent.ThreadLocalRandom;
 public class RandomGenerator {
     
     /**
-     * @param x
-     * @param y
-     * @return random number based on multi-threaded environment
+     * Returns a pseudorandom, uniformly distributed value between the
+     * given least value (inclusive) and bound (exclusive).
+     * 
+     * @param least
+     * @param bound
+     * @return random number
      */
-    public static int getMultiThreadedRandNumber(int x, int y)
+    public static int getMultiThreadedRandNumber(Evolve e,int least, int bound)
     {
-       return ThreadLocalRandom.current().nextInt(x,y);
+    	return e.random.nextInt(bound-least) + least;
+       //return ThreadLocalRandom.current().nextInt(least,bound);
     }
     
    /**
-    *  
+    * 
+    * @param e
     * @param array
     * @return
     */
-    public static int getRandomFromArray(ArrayList<Integer> array) 
+    public static int getRandomFromArray(Evolve e,ArrayList<Integer> array) 
     {
-        int rnd = new Random().nextInt(array.size());
+        int rnd = e.random.nextInt(array.size());
         return array.get(rnd);
     }
     
@@ -56,16 +63,12 @@ public class RandomGenerator {
      * @param max
      * @return random number
      */
-    public static int getRandomNumberBetween(int min, int max) 
+    public static int getRandomNumberBetween(Evolve e,int min, int max) 
     {
-        Random rnd = new Random();
-        return rnd.nextInt((max + 1) - min) + min;
+        return e.random.nextInt((max + 1) - min) + min;
     }
 
-    public double nextDouble() {
-        return new Random().nextDouble();
-    }
-    
+
     
     
 }

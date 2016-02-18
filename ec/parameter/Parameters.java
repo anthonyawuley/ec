@@ -63,7 +63,7 @@ public class Parameters extends Instance implements ParameterInterface {
             this.properties = new Properties();
             
             File f = new File(Parameters.propertiesFilePath);
-             
+            
             if (!f.exists()) 
             {   //try classloading
                 loader = ClassLoader.getSystemClassLoader();
