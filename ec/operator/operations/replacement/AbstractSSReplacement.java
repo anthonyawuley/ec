@@ -54,11 +54,11 @@ public abstract class AbstractSSReplacement {
 	
 	/**
 	 * Performs elitism by replacing best individuals using reverse tournament selection
-	 * @param e
-	 * @param so
-	 * @param alpsLayers
-	 * @param currentPop
-	 * @param replacement
+	 * @param Evolve e
+	 * @param SelectionOperation so
+	 * @param ALPSLayers alpsLayers
+	 * @param Population currentPop
+	 * @param Population replacement
 	 * @return
 	 */
 	public Population elitism(Evolve e, SelectionOperation so,
@@ -78,12 +78,9 @@ public abstract class AbstractSSReplacement {
 	{
 		int worse = 0;
 		for(int id=1;id<firstHalf;id++)
-		{
 			if(pop.get(worse).getFitness().getDouble() < pop.get(id).getFitness().getDouble() )
-			{   
 				worse = id;
-			}
-		}
+		
 		return worse;
 	}
 	
@@ -97,13 +94,10 @@ public abstract class AbstractSSReplacement {
 	{
 		int worse = 0;
 		for(int id=1;id<tournament.size();id++)
-		{
 			if(pop.get(tournament.get(worse)).getFitness().getDouble() < 
 					pop.get(tournament.get(id)).getFitness().getDouble())
-			{   
 				worse = id;
-			}
-		}
+		
 		return tournament.get(worse);
 	}
 	
@@ -118,15 +112,12 @@ public abstract class AbstractSSReplacement {
 	protected int nearestTournamentIndividual(Population pop, ArrayList<Integer> tournament,double fitness)
 	{
 		int nearest = 0;
-		//System.out.println("\nBegin:::\n" + age);
+		
 		for(int id=1;id<tournament.size();id++)
-		{
 			if(Math.abs(pop.get(tournament.get(nearest)).getFitness().getDouble() - fitness) > 
 			Math.abs(pop.get(tournament.get(id)).getFitness().getDouble() - fitness))
-			{   
 				nearest = id;
-			}
-		}
+		
 		return tournament.get(nearest);
 	}
 	
@@ -141,15 +132,11 @@ public abstract class AbstractSSReplacement {
 	protected int nearestPopulationIndividual(Population pop,double fitness)
 	{
 		int nearest = 0;
-		//System.out.println("\nBegin:::\n" + age);
 		for(int id=1;id<pop.size();id++)
-		{
 			if(Math.abs(pop.get(nearest).getFitness().getDouble() - fitness) > 
 			Math.abs(pop.get(id).getFitness().getDouble() - fitness))
-			{   
 				nearest = id;
-			}
-		}
+			
 		return nearest;
 	}
 
