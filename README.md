@@ -159,15 +159,12 @@ ____
 
 ## SAMPLE OUTPUT
 
-ALPS using Generational Replacement
-<img src="http://greyintel.org/resources/img/works/alps/alps-gen.png" height="212" width="462" alt="ALPS using Generational Replacement" />
+ALPS using Generational Replacement using 10 layers
+<img src="http://greyintel.org/resources/img/works/alps/alps-gen copy.png" height="423" width="719" alt="ALPS using Generational Replacement" />
 
 ================
 
-ALPS  Steady State Replacement
-<img src="http://greyintel.org/resources/img/works/alps/alps-ss.png" height="212" width="462" alt="ALPS  Steady State Replacement" />
+ALPS  Steady State Replacement using 10 layers
+<img src="http://greyintel.org/resources/img/works/alps/alps-ss2 copy.png" height="423" width="719" alt="ALPS  Steady State Replacement" />
 
 ================
-
-
-
