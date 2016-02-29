@@ -82,7 +82,6 @@ fitness-function                        = ec.fitnessevaluation.eval.TSP
 * #TYPE : TSP
 * #DIMENSION: 280
 * #EDGE WEIGHT TYPE : EUC 2D
-
 * 1 288 149
 * 2 288 129
 * 3 270 133
