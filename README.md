@@ -57,12 +57,12 @@ fitness-function                        = ec.fitnessevaluation.eval.TSP
 
 #### CROSSOVER MODULE
 * crossover-operation                  = ec.operator.crossover.CycleCrossover
-**or**
+* #or
 * crossover-operation                  = ec.operator.crossover.UniformOrderCrossover
 
 #### MUTATION MODULE
 * mutation-operation                   = ec.operator.mutation.Inversion **well tested**
-**or**
+* #or
 * mutation-operation                   = ec.operator.mutation.ReciprocalExchange
 
 ### Specification of output statistics files
@@ -72,16 +72,16 @@ fitness-function                        = ec.fitnessevaluation.eval.TSP
 ### Nodes Information
 * nodes                                = 280
 * start-node                           = 1
-**statistics prefix**
+* #statistics prefix
 * stat-out                             = a280
 
 
 ### Data File
-**NAME : a280**
-**COMMENT : drilling problem (Ludwig)**
-**TYPE : TSP**
-**DIMENSION: 280**
-**EDGE_WEIGHT_TYPE : EUC_2D**
+* #NAME : a280
+* #COMMENT : drilling problem (Ludwig)
+* #TYPE : TSP
+* #DIMENSION: 280
+* #EDGE WEIGHT TYPE : EUC 2D
 
 * 1 288 149
 * 2 288 129
@@ -91,7 +91,7 @@ fitness-function                        = ec.fitnessevaluation.eval.TSP
 * 6 246 157
 * 7 236 169
 * 8 228 169
-* 
+* - - - 
 * 280 280 133
 
 ____
@@ -104,7 +104,7 @@ This are additional parameters that will be needed for setting up ALPS
 ### GENERAL parameters [Use number of generations or number of evaluations]
 * generations                           = 1000
 * evaluations                           = 1000000
-**population size per layer**
+* #population size per layer
 * population-size                       = 50
 
 ### ALPS configuration
@@ -113,22 +113,22 @@ This are additional parameters that will be needed for setting up ALPS
 * alps-selection-pressure               = 0.8
 * alps-ss-selection-pressure            = 1.0
 * alps-aging-scheme                    = ec.algorithms.alps.agingscheme.Polynomial
-**or**
+* #or
 * alps-aging-scheme                    = ec.algorithms.alps.agingscheme.exponential
-**or**
+* #or
 * alps-aging-scheme                     = ec.algorithms.alps.agingscheme.Linear
-**or**
+* #or
 * alps-aging-scheme                    = ec.algorithms.alps.agingscheme.Fibonacci
 
 ### LAYER Replacement Strategy
 * alps-replacement-strategy            = ec.algorithms.alps.replacement.age.Worst
-**or**
+* #or
 * alps-replacement-strategy            = ec.algorithms.alps.replacement.age.Nearest
-**or**
+* #or
 * alps-replacement-strategy             = ec.algorithms.alps.replacement.age.ReverseTournamentWorst
-**or**
+* #or
 * alps-replacement-strategy             = ec.algorithms.alps.replacement.age.ReverseTournamentNearest **prefered**
-**or**
+* #or
 * alps-replacement-strategy             = ec.algorithms.alps.replacement.age.Random
 
 
@@ -140,19 +140,19 @@ initial-chromosome-size                = 280
 
 ### REPLACEMENT Strategy
 * replacement-operation                = ec.operator.operations.replacement.Generational
-**or**
+* #or
 * replacement-operation                = ec.operator.operations.replacement.SteadyState
 
 When using Steady State Replacement, additional paraemters such as these will be needed
 
 * steady-state-replacement             = ec.operator.operations.replacement.steadystate.ReverseTournamentWorst **prefered**
-**or**
+* #or
 * steady-state-replacement              = ec.operator.operations.replacement.steadystate.Worst
-**or**
+* #or
 * steady-state-replacement              = ec.operator.operations.replacement.steadystate.Nearest
-**or**
+* #or
 * steady-state-replacement              = ec.operator.operations.replacement.steadystate.ReverseTournamentNearest
-**or**
+* #or
 * steady-state-replacement              = ec.operator.operations.replacement.steadystate.Random
  
 
