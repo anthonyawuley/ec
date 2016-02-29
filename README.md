@@ -157,4 +157,17 @@ When using Steady State Replacement, additional paraemters such as these will be
 
 ____
 
+## SAMPLE OUTPUT
+
+ALPS using Generational Replacement
+<img src="http://greyintel.org/resources/img/works/alps/alps-gen.png" height="212" width="462" alt="ALPS using Generational Replacement" />
+
+================
+
+ALPS  Steady State Replacement
+<img src="http://greyintel.org/resources/img/works/alps/alps-ss.png" height="212" width="462" alt="ALPS  Steady State Replacement" />
+
+================
+
+
 
