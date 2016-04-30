@@ -16,7 +16,7 @@ A brief introduction is given to setting up **1** and **2**.
 
 ## Setting up GA TSP
 
-#### GENERAL parameters
+**GENERAL parameters**
 * number-of-experiments                 = 2
 * generations                           = 1000
 * population-size                       = 200
@@ -27,11 +27,11 @@ A brief introduction is given to setting up **1** and **2**.
 * seed                                  = 20
 * stop-when-solved                      = true
 
-#### SELECTION Operator
+**SELECTION Operator**
 * selection-operation                   = ec.operator.operations.selection.TournamentSelection
 * tournament-size                       = 3
  
-#### REPRODUCTION operators
+**REPRODUCTION operators**
 
 Probability of crossover. State if the point of crossover is fixed on both chromosomes (The size will always be the same) or not
 
@@ -42,41 +42,41 @@ Probability of crossover. State if the point of crossover is fixed on both chrom
 The chromosomes are fixed length structures and doesnt change to mutation and crossover. The initialiser will random create integer strings in this case of length specified
 * initial-chromosome-size                = 280
   
-#### FITNESS function - Fitness function requires the full package name
+**FITNESS function - Fitness function requires the full package name**
 fitness-function                        = ec.fitnessevaluation.eval.TSP
  
-### EC Main class. This directs the system to the main evolving class. In this case the GA evolution
+**EC Main class. This directs the system to the main evolving class. In this case the GA evolution**
 * main-class                           = ec.algorithms.ga.Evolve
 
-#### INITIALISATION - Specifies which module to use as an initialiser initial population. 
+**INITIALISATION - Specifies which module to use as an initialiser initial population.** 
 * initialiser                          = ec.operator.initialiser.Initialise
 * gene-representation                  = ec.individuals.representation.VRPTW **deprecated**
 
-#### REPLACEMENT
+**REPLACEMENT**
 * replacement-operation                = ec.operator.operations.replacement.Generational
 
-#### CROSSOVER MODULE
+**CROSSOVER MODULE**
 * crossover-operation                  = ec.operator.crossover.CycleCrossover
 * #or
 * crossover-operation                  = ec.operator.crossover.UniformOrderCrossover
 
-#### MUTATION MODULE
+**MUTATION MODULE**
 * mutation-operation                   = ec.operator.mutation.Inversion **well tested**
 * #or
 * mutation-operation                   = ec.operator.mutation.ReciprocalExchange
 
-### Specification of output statistics files
+**Specification of output statistics files**
 * number-of-individuals                = 2
 * stats-operation                      = ec.util.statistics.singleobjective.TSPStatistics
 
-### Nodes Information
+**Nodes Information**
 * nodes                                = 280
 * start-node                           = 1
 * #statistics prefix
 * stat-out                             = a280
 
 
-### Data File
+**Data File**
 * #NAME : a280
 * #COMMENT : drilling problem (Ludwig)
 * #TYPE : TSP
@@ -96,17 +96,17 @@ fitness-function                        = ec.fitnessevaluation.eval.TSP
 ____
 
 
-## Start here for ALPS GA
+**Start here for ALPS GA**
 
 This are additional parameters that will be needed for setting up ALPS
 
-### GENERAL parameters [Use number of generations or number of evaluations]
+**GENERAL parameters [Use number of generations or number of evaluations]**
 * generations                           = 1000
 * evaluations                           = 1000000
 * #population size per layer
 * population-size                       = 50
 
-### ALPS configuration
+**ALPS configuration**
 * alps-age-gap                          = 10
 * alps-number-of-layers                 = 5
 * alps-selection-pressure               = 0.8
@@ -119,7 +119,7 @@ This are additional parameters that will be needed for setting up ALPS
 * #or
 * alps-aging-scheme                    = ec.algorithms.alps.agingscheme.Fibonacci
 
-### LAYER Replacement Strategy
+**LAYER Replacement Strategy**
 * alps-replacement-strategy            = ec.algorithms.alps.replacement.age.Worst
 * #or
 * alps-replacement-strategy            = ec.algorithms.alps.replacement.age.Nearest
@@ -134,10 +134,10 @@ This are additional parameters that will be needed for setting up ALPS
 The chromosomes are fixed length structures and doesnt change to mutation and crossover. The initialiser will random create integer strings in this case of length specified
 initial-chromosome-size                = 280
   
-### EC Main Class
+**EC Main Class**
 * main-class                           = ec.algorithms.alps.system.Engine
 
-### REPLACEMENT Strategy
+**REPLACEMENT Strategy**
 * replacement-operation                = ec.operator.operations.replacement.Generational
 * #or
 * replacement-operation                = ec.operator.operations.replacement.SteadyState
