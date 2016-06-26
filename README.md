@@ -12,161 +12,35 @@ Three tutorials have been set up and can be found in the directories
 2. io/params/tutorial1-ant-tsp/ 
 3. io/params/tutorial1-alps-tsp/ 
 
-A brief introduction is given to setting up **1** and **2**.
+A brief introduction is given to setting up **1** and **3**.
 
-## Setting up GA TSP
-
-**GENERAL parameters**
-* number-of-experiments                 = 2
-* generations                           = 1000
-* population-size                       = 200
-* stop-when-solved                      = true
-* crossover-probability                 = 0.95
-* mutation-probability                  = 0.05
-* tournament-selection-pressure         = 0.9
-* seed                                  = 20
-* stop-when-solved                      = true
-
-**SELECTION Operator**
-* selection-operation                   = ec.operator.operations.selection.TournamentSelection
-* tournament-size                       = 3
- 
-**REPRODUCTION operators**
-
-Probability of crossover. State if the point of crossover is fixed on both chromosomes (The size will always be the same) or not
-
-* mutation_operation                    = ec.operator.operations.IntFlipMutation
-* elite-size                            = 2
- 
- 
-The chromosomes are fixed length structures and doesnt change to mutation and crossover. The initialiser will random create integer strings in this case of length specified
-* initial-chromosome-size                = 280
-  
-**FITNESS function - Fitness function requires the full package name**
-fitness-function                        = ec.fitnessevaluation.eval.TSP
- 
-**EC Main class. This directs the system to the main evolving class. In this case the GA evolution**
-* main-class                           = ec.algorithms.ga.Evolve
-
-**INITIALISATION - Specifies which module to use as an initialiser initial population.** 
-* initialiser                          = ec.operator.initialiser.Initialise
-* gene-representation                  = ec.individuals.representation.VRPTW **deprecated**
-
-**REPLACEMENT**
-* replacement-operation                = ec.operator.operations.replacement.Generational
-
-**CROSSOVER MODULE**
-* crossover-operation                  = ec.operator.crossover.CycleCrossover
-* #or
-* crossover-operation                  = ec.operator.crossover.UniformOrderCrossover
-
-**MUTATION MODULE**
-* mutation-operation                   = ec.operator.mutation.Inversion **well tested**
-* #or
-* mutation-operation                   = ec.operator.mutation.ReciprocalExchange
-
-**Specification of output statistics files**
-* number-of-individuals                = 2
-* stats-operation                      = ec.util.statistics.singleobjective.TSPStatistics
-
-**Nodes Information**
-* nodes                                = 280
-* start-node                           = 1
-* #statistics prefix
-* stat-out                             = a280
-
-
-**Data File**
-* #NAME : a280
-* #COMMENT : drilling problem (Ludwig)
-* #TYPE : TSP
-* #DIMENSION: 280
-* #EDGE WEIGHT TYPE : EUC 2D
-* 1 288 149
-* 2 288 129
-* 3 270 133
-* 4 256 141
-* 5 256 157
-* 6 246 157
-* 7 236 169
-* 8 228 169
-* - - - 
-* 280 280 133
+### Setting up GA
+[Setting up GA](https://github.com/aawuley/evolutionary-computation/wiki/Setting-Up-GA)
 
 ____
 
 
-**Start here for ALPS GA**
+### Start here for ALPS GA
+[Start here for ALPS GA](https://github.com/aawuley/evolutionary-computation/wiki/ALPS-Configuration)
 
-This are additional parameters that will be needed for setting up ALPS
-
-**GENERAL parameters [Use number of generations or number of evaluations]**
-* generations                           = 1000
-* evaluations                           = 1000000
-* #population size per layer
-* population-size                       = 50
-
-**ALPS configuration**
-* alps-age-gap                          = 10
-* alps-number-of-layers                 = 5
-* alps-selection-pressure               = 0.8
-* alps-ss-selection-pressure            = 1.0
-* alps-aging-scheme                    = ec.algorithms.alps.agingscheme.Polynomial
-* #or
-* alps-aging-scheme                    = ec.algorithms.alps.agingscheme.exponential
-* #or
-* alps-aging-scheme                     = ec.algorithms.alps.agingscheme.Linear
-* #or
-* alps-aging-scheme                    = ec.algorithms.alps.agingscheme.Fibonacci
-
-**LAYER Replacement Strategy**
-* alps-replacement-strategy            = ec.algorithms.alps.replacement.age.Worst
-* #or
-* alps-replacement-strategy            = ec.algorithms.alps.replacement.age.Nearest
-* #or
-* alps-replacement-strategy             = ec.algorithms.alps.replacement.age.ReverseTournamentWorst
-* #or
-* alps-replacement-strategy             = ec.algorithms.alps.replacement.age.ReverseTournamentNearest **prefered**
-* #or
-* alps-replacement-strategy             = ec.algorithms.alps.replacement.age.Random
+____
 
 
-The chromosomes are fixed length structures and doesnt change to mutation and crossover. The initialiser will random create integer strings in this case of length specified
-initial-chromosome-size                = 280
-  
-**EC Main Class**
-* main-class                           = ec.algorithms.alps.system.Engine
-
-**REPLACEMENT Strategy**
-* replacement-operation                = ec.operator.operations.replacement.Generational
-* #or
-* replacement-operation                = ec.operator.operations.replacement.SteadyState
-
-When using Steady State Replacement, additional paraemters such as these will be needed
-
-* steady-state-replacement             = ec.operator.operations.replacement.steadystate.ReverseTournamentWorst **prefered**
-* #or
-* steady-state-replacement              = ec.operator.operations.replacement.steadystate.Worst
-* #or
-* steady-state-replacement              = ec.operator.operations.replacement.steadystate.Nearest
-* #or
-* steady-state-replacement              = ec.operator.operations.replacement.steadystate.ReverseTournamentNearest
-* #or
-* steady-state-replacement              = ec.operator.operations.replacement.steadystate.Random
- 
+### Sample GA output
+[Sample GA output](https://github.com/aawuley/evolutionary-computation/wiki/Sample-GA-Output)
 
 ____
 
 
 
-| Result        | Description   | 
+### Sample ALPS Output
+[Sample GA output](https://github.com/aawuley/evolutionary-computation/wiki/Sample-ALPS-Output)
+
+____
+
+
+|               |               | 
 | ------------- |:-------------:|
-| <img src="http://greyintel.org/resources/img/works/aco-ali535.png" align="left" alt="TSP Using GA" />     | TSP Using GA  |
-|               |               |
-| <img src="http://greyintel.org/resources/img/works/aco-lin318.png" align="left" alt="TSP Using ACO" />      | TSP Using ACO |
-|               |               |
-| <img src="http://greyintel.org/resources/img/works/aco-ts225.png" align="left" alt="TSP Using ACO" /> | TSP Using ACO  |
-|               |               |
 | <img src="http://greyintel.org/resources/img/works/alps/alps-gen.png" align="left" alt="ALPS using Generational Replacement" /> | ALPS using Generational Replacement using 10 layers      |
 |               |               |
 
