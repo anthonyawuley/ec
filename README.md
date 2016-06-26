@@ -37,11 +37,3 @@ ____
 [Sample GA output](https://github.com/aawuley/evolutionary-computation/wiki/Sample-ALPS-Output)
 
 ____
-
-
-|               |               | 
-| ------------- |:-------------:|
-| <img src="http://greyintel.org/resources/img/works/alps/alps-gen.png" align="left" alt="ALPS using Generational Replacement" /> | ALPS using Generational Replacement using 10 layers      |
-|               |               |
-
-
