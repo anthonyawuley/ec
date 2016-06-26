@@ -4,7 +4,7 @@ The system contains a number of evolutionary algorithms developed in Java. This 
 
 ____
 
-## Start here for GA
+### Start here for GA
 The parameter files are located in the directory  io/params/ and the main class is in ec.main.Run.
 Three tutorials have been set up and can be found in the directories
 
