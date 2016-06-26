@@ -157,14 +157,17 @@ When using Steady State Replacement, additional paraemters such as these will be
 
 ____
 
-## SAMPLE OUTPUT
 
-ALPS using Generational Replacement using 10 layers
-<img src="http://greyintel.org/resources/img/works/alps/alps-gen copy.png" height="423" width="719" alt="ALPS using Generational Replacement" />
 
-================
+| Result        | Description   | 
+| ------------- |:-------------:|
+| <img src="http://greyintel.org/resources/img/works/aco-ali535.png" align="left" alt="TSP Using GA" />     | TSP Using GA  |
+|               |               |
+| <img src="http://greyintel.org/resources/img/works/aco-lin318.png" align="left" alt="TSP Using ACO" />      | TSP Using ACO |
+|               |               |
+| <img src="http://greyintel.org/resources/img/works/aco-ts225.png" align="left" alt="TSP Using ACO" /> | TSP Using ACO  |
+|               |               |
+| <img src="http://greyintel.org/resources/img/works/alps/alps-gen.png" align="left" alt="ALPS using Generational Replacement" /> | ALPS using Generational Replacement using 10 layers      |
+|               |               |
 
-ALPS  Steady State Replacement using 10 layers
-<img src="http://greyintel.org/resources/img/works/alps/alps-ss2 copy.png" height="423" width="719" alt="ALPS  Steady State Replacement" />
 
-================
