@@ -34,6 +34,6 @@ ____
 
 
 ### Sample ALPS Output
-[Sample GA output](https://github.com/aawuley/evolutionary-computation/wiki/Sample-ALPS-Output)
+[Sample ALPS Output](https://github.com/aawuley/evolutionary-computation/wiki/Sample-ALPS-Output)
 
 ____
