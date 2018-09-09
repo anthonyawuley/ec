@@ -1,5 +1,8 @@
 Welcome Evolutionary Computation in Java!
 ================
+
+[![Join the chat at https://gitter.im/Evolutionary-Computation/Lobby](https://badges.gitter.im/Evolutionary-Computation/Lobby.svg)](https://gitter.im/Evolutionary-Computation/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 The system contains a number of evolutionary algorithms developed in Java. This includes Genetic Algorithms, Ant Colony Optimization, Simulated Annealing, Tabu Search and Age Layered Population Structure.
 
 ____
